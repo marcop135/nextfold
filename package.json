@@ -1,0 +1,33 @@
+{
+  "name": "nextfold",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Next.js App Router + Sanity marketing section library",
+  "scripts": {
+    "dev": "next dev --port 3100",
+    "build": "next build",
+    "start": "next start --port 3100",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sanity/vision": "^6.23.0",
+    "next": "^16.4.6",
+    "next-sanity": "^13.5.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sanity": "^6.23.0",
+    "styled-components": "^6.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.1.9",
+    "eslint": "^10.15.0",
+    "eslint-config-next": "^16.4.6",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": "^22.13.0 || >=24"
+  }
+}
