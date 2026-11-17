@@ -1,0 +1,73 @@
+import Link from "next/link";
+import type { CallToActionSection, FeatureGridSection, HeroSection, Link as LinkValue, Section } from "@/sanity/types";
+
+function SectionLink({ link, className }: { link: LinkValue; className: string }) {
+  return link.href.startsWith("/") ? (
+    <Link className={className} href={link.href}>
+      {link.label}
+    </Link>
+  ) : (
+    <a className={className} href={link.href}>
+      {link.label}
+    </a>
+  );
+}
+
+function Hero({ section, isFirst }: { section: HeroSection; isFirst: boolean }) {
+  const Heading = isFirst ? "h1" : "h2";
+  return (
+    <section className="section hero" aria-labelledby={`${section._key}-title`}>
+      <div className="wrap">
+        {section.eyebrow ? <p className="eyebrow">{section.eyebrow}</p> : null}
+        <Heading id={`${section._key}-title`}>{section.heading}</Heading>
+        {section.body ? <p className="lead">{section.body}</p> : null}
+        {section.cta ? <SectionLink className="button" link={section.cta} /> : null}
+      </div>
+    </section>
+  );
+}
+
+function FeatureGrid({ section }: { section: FeatureGridSection }) {
+  return (
+    <section className="section" aria-labelledby={`${section._key}-title`}>
+      <div className="wrap">
+        <h2 id={`${section._key}-title`}>{section.heading}</h2>
+        <ul className="feature-grid">
+          {section.items?.map((item) => (
+            <li key={item._key}>
+              <h3>{item.title}</h3>
+              {item.body ? <p>{item.body}</p> : null}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function CallToAction({ section }: { section: CallToActionSection }) {
+  return (
+    <section className="section cta" aria-labelledby={`${section._key}-title`}>
+      <div className="wrap cta__inner">
+        <h2 id={`${section._key}-title`}>{section.heading}</h2>
+        {section.body ? <p>{section.body}</p> : null}
+        <SectionLink className="button" link={section.link} />
+      </div>
+    </section>
+  );
+}
+
+export function SectionRenderer({ sections }: { sections: Section[] }) {
+  return sections.map((section, index) => {
+    switch (section._type) {
+      case "hero":
+        return <Hero key={section._key} section={section} isFirst={index === 0} />;
+      case "featureGrid":
+        return <FeatureGrid key={section._key} section={section} />;
+      case "callToAction":
+        return <CallToAction key={section._key} section={section} />;
+      default:
+        return null;
+    }
+  });
+}
