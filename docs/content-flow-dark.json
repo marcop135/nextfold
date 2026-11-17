@@ -1,0 +1,13 @@
+{
+  "themeVariables": {
+    "fontSize": "14px",
+    "darkMode": true,
+    "primaryColor": "#131315",
+    "primaryTextColor": "#FFFFFF",
+    "primaryBorderColor": "#5A5A60",
+    "lineColor": "#F03E2F",
+    "textColor": "#FFFFFF",
+    "edgeLabelBackground": "#0B0B0C",
+    "background": "#0B0B0C"
+  }
+}
