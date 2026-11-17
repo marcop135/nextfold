@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-17
+
 ### Added
 
 - Add a Next.js site built from hero, feature grid, and call to action sections, with Sanity Studio at `/studio`.
