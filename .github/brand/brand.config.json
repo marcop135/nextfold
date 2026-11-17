@@ -1,0 +1,18 @@
+{
+  "outputs": [
+    {
+      "source": "readme-light.svg",
+      "output": "social.png",
+      "width": 1280,
+      "height": 640,
+      "maxBytes": 1000000
+    },
+    {
+      "source": "og.svg",
+      "output": "../../public/og.jpg",
+      "width": 1200,
+      "height": 630,
+      "maxBytes": 300000
+    }
+  ]
+}
