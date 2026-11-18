@@ -76,7 +76,7 @@ function CodeSample({ section }: { section: CodeSampleSection }) {
     <section className="section" aria-labelledby={`${section._key}-title`}>
       <div className="wrap">
         <h2 id={`${section._key}-title`}>{section.heading}</h2>
-        {section.body ? <p className="lead">{section.body}</p> : null}
+        {section.body ? <p className="lead section-lead">{section.body}</p> : null}
         <figure className="code-sample">
           <figcaption>{section.filename}</figcaption>
           <pre tabIndex={0} aria-label={section.filename}>
