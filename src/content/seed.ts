@@ -2,15 +2,15 @@ import type { CallToActionSection, FeatureGridSection, HeroSection, Page } from 
 
 const asData = (section: object) => JSON.stringify(section, null, 2);
 
-const anatomyHero: HeroSection = {
+const insideHero: HeroSection = {
   _type: "hero",
   _key: "hero",
-  eyebrow: "Anatomy",
+  eyebrow: "Inside",
   heading: "One page, taken apart",
   body: "Each section on this page is followed by the data it was rendered from. Both come from the same object, so they always match.",
 };
 
-const anatomyGrid: FeatureGridSection = {
+const insideGrid: FeatureGridSection = {
   _type: "featureGrid",
   _key: "limits",
   heading: "What a feature grid holds",
@@ -21,7 +21,7 @@ const anatomyGrid: FeatureGridSection = {
   ],
 };
 
-const anatomyCta: CallToActionSection = {
+const insideCta: CallToActionSection = {
   _type: "callToAction",
   _key: "next",
   heading: "Where these limits come from",
@@ -56,7 +56,7 @@ export const seedPages: Page[] = [
         eyebrow: "Next.js + Sanity",
         heading: "Marketing pages built from typed sections",
         body: "Editors build each page in Sanity Studio from a short list of sections. Developers define those sections in code, so pages can change every day and still match the design.",
-        cta: { label: "Take a page apart", href: "/anatomy" },
+        cta: { label: "Take a page apart", href: "/inside-a-page" },
       },
       {
         _type: "featureGrid",
@@ -86,29 +86,29 @@ export const seedPages: Page[] = [
       },
       {
         _type: "callToAction",
-        _key: "anatomy",
+        _key: "inside",
         heading: "See where each section comes from",
         body: "The next page shows its sections next to the data stored for them.",
-        link: { label: "Open the anatomy", href: "/anatomy" },
+        link: { label: "Look inside a page", href: "/inside-a-page" },
       },
     ],
   },
   {
-    title: "Anatomy of a page: sections and their Sanity data",
-    slug: "anatomy",
+    title: "Inside a page: sections and their Sanity data",
+    slug: "inside-a-page",
     description:
       "Each section on this page next to the JSON stored for it in Sanity: a hero, a feature grid, and a call to action.",
     sections: [
-      anatomyHero,
+      insideHero,
       {
         _type: "codeSample",
         _key: "hero-data",
         heading: "The hero above, as data",
         filename: "page.sections[0]",
         language: "json",
-        code: asData(anatomyHero),
+        code: asData(insideHero),
       },
-      anatomyGrid,
+      insideGrid,
       {
         _type: "codeSample",
         _key: "limits-data",
@@ -116,7 +116,7 @@ export const seedPages: Page[] = [
         body: "Every item carries a _key, so editors can reorder items without losing track of them.",
         filename: "page.sections[2]",
         language: "json",
-        code: asData(anatomyGrid),
+        code: asData(insideGrid),
       },
       {
         _type: "codeSample",
@@ -125,9 +125,9 @@ export const seedPages: Page[] = [
         body: "A link is its own object type, shared by heroes and calls to action.",
         filename: "page.sections[5]",
         language: "json",
-        code: asData(anatomyCta),
+        code: asData(insideCta),
       },
-      anatomyCta,
+      insideCta,
     ],
   },
   {
