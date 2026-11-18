@@ -16,11 +16,22 @@
 
 A [Next.js](https://nextjs.org/) App Router and [Sanity](https://www.sanity.io/) demo. Editors build marketing pages from typed sections in Sanity Studio, embedded in the app. Developers own the schema, the GROQ queries, and the React components.
 
+## Explore the demo
+
+Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
+
+| Page | What it shows |
+| --- | --- |
+| [Home](https://nextfold.marcopontili.com/) | What editors and developers each own |
+| [Anatomy of a page](https://nextfold.marcopontili.com/anatomy) | Each section next to the Sanity data it came from |
+| [Guardrails](https://nextfold.marcopontili.com/guardrails) | The schema rules that keep pages on brand |
+| [For agents](https://nextfold.marcopontili.com/for-agents) | Markdown versions, `llms.txt`, sitemap |
+
 ## How content flows
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/content-flow-dark.svg" />
-  <img src="docs/content-flow-light.svg" alt="Schema types define the Studio; editors publish to the Sanity dataset; a GROQ fetch, or the bundled seed pages, feeds React Server Components that render each section" width="420" />
+  <img src="docs/content-flow-light.svg" alt="Five steps: define section types in code, edit a page in Studio, publish to the Sanity dataset, fetch it with GROQ through the CDN (or a bundled seed page), render one component per section as HTML and Markdown" width="420" />
 </picture>
 
 [Architecture](docs/architecture.md) follows a request through the code.
@@ -38,7 +49,7 @@ A [Next.js](https://nextjs.org/) App Router and [Sanity](https://www.sanity.io/)
 
 ## Quick start
 
-Requires Node.js 22.13 or later.
+Requires Node.js 22.13+.
 
 ```bash
 npm install
@@ -46,11 +57,7 @@ cp .env.example .env
 npm run dev
 ```
 
-Open http://localhost:3100.
-
-The site runs without a Sanity account. Until you set `NEXT_PUBLIC_SANITY_PROJECT_ID` in `.env`, every page comes from the sample content in [`src/content/seed.ts`](src/content/seed.ts), and the line under each page reads `Content source: seed`.
-
-To load pages from your own Sanity project and use the Studio, follow [Sanity setup](docs/sanity-setup.md).
+Open http://localhost:3100. Without `NEXT_PUBLIC_SANITY_PROJECT_ID`, the bundled seed pages render; [Sanity setup](docs/sanity-setup.md) connects your own project.
 
 ## Environment
 
@@ -86,8 +93,11 @@ To load pages from your own Sanity project and use the Studio, follow [Sanity se
 
 | Layer | Tools |
 | --- | --- |
-| Framework | Next.js 16 App Router, React 19, TypeScript 5, plain CSS |
-| Content | Sanity Studio 6 embedded at `/studio`, `next-sanity`, GROQ |
+| Framework | Next.js 16 App Router, React 19, TypeScript 5 |
+| Styling | Plain CSS with cascade layers, custom properties, and `light-dark()`; Inter through `next/font` |
+| Content | Sanity Studio 6 embedded at `/studio`, `next-sanity`, GROQ over the Sanity CDN |
+| Hosting | Vercel, production built from `main` |
+| DNS | Cloudflare, `nextfold` CNAME, DNS only |
 | Analytics | Self-hosted Matomo, cookieless |
 | Quality | ESLint, TypeScript |
 
