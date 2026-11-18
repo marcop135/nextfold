@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Brand: Replace the README and Open Graph images with Geist artwork ([#4](https://github.com/marcop135/nextfold/issues/4)).
+- Brand: Replace the README and Open Graph images with Geist artwork ([#9](https://github.com/marcop135/nextfold/pull/9)) ([#4](https://github.com/marcop135/nextfold/issues/4)).
 
 ## [0.1.0] - 2026-11-17
 
