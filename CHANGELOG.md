@@ -9,7 +9,7 @@
 ### Changed
 
 - Brand: Replace the README and Open Graph images with Geist artwork ([#9](https://github.com/marcop135/nextfold/pull/9)) ([#4](https://github.com/marcop135/nextfold/issues/4)).
-- README: Add demo links and a numbered, animated content flow; regroup the tech stack and follow Next Story's order ([#5](https://github.com/marcop135/nextfold/issues/5)).
+- README: Add demo links and a numbered, animated content flow; regroup the tech stack and follow Next Story's order ([#10](https://github.com/marcop135/nextfold/pull/10)) ([#5](https://github.com/marcop135/nextfold/issues/5)).
 
 ## [0.1.0] - 2026-11-17
 
