@@ -14,7 +14,7 @@
 
 ### Changed
 
-- Site: Rename Anatomy to Inside a page at /inside-a-page, with redirects from /anatomy ([#19](https://github.com/marcop135/nextfold/issues/19)).
+- Site: Rename Anatomy to Inside a page at /inside-a-page, with redirects from /anatomy ([#26](https://github.com/marcop135/nextfold/pull/26)) ([#19](https://github.com/marcop135/nextfold/issues/19)).
 
 ## [0.2.0] - 2026-11-18
 
