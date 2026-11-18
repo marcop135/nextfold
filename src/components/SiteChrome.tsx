@@ -57,7 +57,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
               Built and maintained by <a href={AUTHOR.url}>{AUTHOR.name}</a>
             </p>
             <Link className="footer-mark" href="/" aria-label={`${SITE_NAME} home`}>
-              <Image src="/icon.svg" alt="" width={48} height={48} />
+              <Image src="/icon.svg" alt="" width={48} height={48} unoptimized />
             </Link>
           </div>
           <div className="footer-links">
