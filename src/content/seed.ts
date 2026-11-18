@@ -194,7 +194,7 @@ export const seedPages: Page[] = [
         _key: "source",
         heading: "Read the full schema",
         body: "Every section type, with its rules and Studio preview, is in one file.",
-        link: { label: "Open sections.ts on GitHub", href: "https://github.com/marcop135/nextfold/blob/main/src/sanity/schemaTypes/sections.ts" },
+        link: { label: "View the source", href: "https://github.com/marcop135/nextfold/blob/main/src/sanity/schemaTypes/sections.ts" },
       },
     ],
   },
