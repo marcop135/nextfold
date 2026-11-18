@@ -45,7 +45,8 @@ See [Architecture](docs/architecture.md) for the request path through the code.
 
 | Layer | Tools |
 | --- | --- |
-| Framework | Next.js 16 App Router, React 19, TypeScript 5 |
+| Framework | Next.js 16 App Router, React 19 |
+| Language | TypeScript 5 |
 | Content | Sanity Studio 6 at `/studio`, GROQ |
 | Styling | Plain CSS with cascade layers and `light-dark()` |
 | Analytics | Self-hosted Matomo, cookieless |
