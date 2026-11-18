@@ -14,6 +14,7 @@
 
 - Brand: Replace the README and Open Graph images with Geist artwork ([#9](https://github.com/marcop135/nextfold/pull/9)) ([#4](https://github.com/marcop135/nextfold/issues/4)).
 - README: Add demo links and a numbered, animated content flow; regroup the tech stack and follow Next Story's order ([#10](https://github.com/marcop135/nextfold/pull/10)) ([#5](https://github.com/marcop135/nextfold/issues/5)).
+- Footer: Restructure the footer like Next Story's and move Privacy and For agents out of the header ([#12](https://github.com/marcop135/nextfold/pull/12)) ([#6](https://github.com/marcop135/nextfold/issues/6)).
 
 ## [0.1.0] - 2026-11-17
 
