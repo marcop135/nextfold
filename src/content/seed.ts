@@ -1,37 +1,200 @@
-import type { Page } from "@/sanity/types";
+import type { CallToActionSection, FeatureGridSection, HeroSection, Page } from "@/sanity/types";
+
+const asData = (section: object) => JSON.stringify(section, null, 2);
+
+const anatomyHero: HeroSection = {
+  _type: "hero",
+  _key: "hero",
+  eyebrow: "Anatomy",
+  heading: "One page, taken apart",
+  body: "Each section on this page is followed by the data it was rendered from. Both come from the same object, so they always match.",
+};
+
+const anatomyGrid: FeatureGridSection = {
+  _type: "featureGrid",
+  _key: "limits",
+  heading: "What a feature grid holds",
+  items: [
+    { _key: "heading", title: "One heading", body: "Required, up to 80 characters." },
+    { _key: "count", title: "Two to six items", body: "The Studio rejects fewer than two items or more than six." },
+    { _key: "fields", title: "A title and a body", body: "Titles stop at 60 characters, bodies at 200." },
+  ],
+};
+
+const anatomyCta: CallToActionSection = {
+  _type: "callToAction",
+  _key: "next",
+  heading: "Where these limits come from",
+  body: "Guardrails lists what the schema checks before an editor can publish.",
+  link: { label: "See the guardrails", href: "/guardrails" },
+};
+
+/** Kept in step with the hero definition in src/sanity/schemaTypes/sections.ts. */
+const heroSchema = `export const hero = defineType({
+  name: "hero",
+  title: "Hero",
+  type: "object",
+  fields: [
+    defineField({ name: "eyebrow", type: "string", validation: (rule) => rule.max(40) }),
+    defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
+    defineField({ name: "body", type: "text", rows: 3, validation: (rule) => rule.max(240) }),
+    defineField({ name: "cta", title: "Call to action", type: "link" }),
+  ],
+});`;
 
 /** Shown until the Sanity dataset publishes a page with the same slug. */
 export const seedPages: Page[] = [
   {
-    title: "Next Fold: Next.js and Sanity section library",
+    title: "Next Fold: marketing pages from typed Sanity sections",
     slug: "home",
     description:
-      "Next Fold is a Next.js and Sanity demo in progress: marketing pages built from typed sections, with Visual Editing and migrations to come.",
+      "Next Fold is a Next.js and Sanity demo: editors compose marketing pages from typed sections, developers own the schema and the components.",
     sections: [
       {
         _type: "hero",
         _key: "hero",
-        eyebrow: "Work in progress",
-        heading: "Marketing pages built from Sanity sections",
-        body: "Editors compose each page from typed sections in Sanity Studio. Developers own the schema, the queries, and the components. The site grows in public, one release at a time.",
-        cta: { label: "See the Storyblok version", href: "https://nextstory.marcopontili.com" },
+        eyebrow: "Next.js + Sanity",
+        heading: "Marketing pages built from typed sections",
+        body: "Editors build each page in Sanity Studio from a short list of sections. Developers define those sections in code, so pages can change every day and still match the design.",
+        cta: { label: "Take a page apart", href: "/anatomy" },
       },
       {
         _type: "featureGrid",
-        _key: "next",
-        heading: "What ships next",
+        _key: "owners",
+        heading: "Who owns what",
         items: [
-          { _key: "schema", title: "Schema ownership", body: "Validation, Studio previews, a custom desk, and generated TypeScript types." },
-          { _key: "editing", title: "Visual Editing", body: "Click-to-edit overlays, draft previews, and live content from Sanity." },
-          { _key: "migrations", title: "Content migrations", body: "Schema changes shipped with a migration script, tried on a dry run first." },
+          { _key: "editors", title: "Editors", body: "Write the copy, order the sections, and publish from Sanity Studio without a deploy." },
+          { _key: "developers", title: "Developers", body: "Own the section types, their field rules, and the React component behind each one." },
+          { _key: "readers", title: "Readers and agents", body: "Get the same content as an HTML page or as Markdown, listed in llms.txt." },
+        ],
+      },
+      {
+        _type: "steps",
+        _key: "flow",
+        heading: "From schema to page",
+        items: [
+          { _key: "define", title: "Define", body: "Each section type is a schema in src/sanity/schemaTypes." },
+          { _key: "edit", title: "Edit", body: "Editors add and order sections on a page in the Studio at /studio." },
+          { _key: "publish", title: "Publish", body: "Publishing saves the page to the Sanity dataset." },
+          {
+            _key: "fetch",
+            title: "Fetch",
+            body: "A GROQ query reads the published page through the Sanity CDN and caches it for 60 seconds. Without a Sanity page, a bundled seed page fills in.",
+          },
+          { _key: "render", title: "Render", body: "Each section maps to one React Server Component. The page also ships as Markdown." },
         ],
       },
       {
         _type: "callToAction",
-        _key: "agents",
-        heading: "Read this site as Markdown",
-        body: "Every page has a Markdown version for agents and text readers.",
-        link: { label: "Markdown and discovery files", href: "/for-agents" },
+        _key: "anatomy",
+        heading: "See where each section comes from",
+        body: "The next page shows its sections next to the data stored for them.",
+        link: { label: "Open the anatomy", href: "/anatomy" },
+      },
+    ],
+  },
+  {
+    title: "Anatomy of a page: sections and their Sanity data",
+    slug: "anatomy",
+    description:
+      "Each section on this page next to the JSON stored for it in Sanity: a hero, a feature grid, and a call to action.",
+    sections: [
+      anatomyHero,
+      {
+        _type: "codeSample",
+        _key: "hero-data",
+        heading: "The hero above, as data",
+        filename: "page.sections[0]",
+        language: "json",
+        code: asData(anatomyHero),
+      },
+      anatomyGrid,
+      {
+        _type: "codeSample",
+        _key: "limits-data",
+        heading: "The feature grid above, as data",
+        body: "Every item carries a _key, so editors can reorder items without losing track of them.",
+        filename: "page.sections[2]",
+        language: "json",
+        code: asData(anatomyGrid),
+      },
+      {
+        _type: "codeSample",
+        _key: "next-data",
+        heading: "The call to action below, as data",
+        body: "A link is its own object type, shared by heroes and calls to action.",
+        filename: "page.sections[5]",
+        language: "json",
+        code: asData(anatomyCta),
+      },
+      anatomyCta,
+    ],
+  },
+  {
+    title: "Guardrails: what the Next Fold schema checks",
+    slug: "guardrails",
+    description:
+      "The rules the Sanity schema enforces before a page can be published: required fields, length limits, allowed sections, and link formats.",
+    sections: [
+      {
+        _type: "hero",
+        _key: "hero",
+        eyebrow: "Guardrails",
+        heading: "Rules that keep every page on brand",
+        body: "The schema decides what an editor can publish. The limits live in code next to the components, so copy that fits the Studio also fits the layout.",
+      },
+      {
+        _type: "featureGrid",
+        _key: "rules",
+        heading: "What the schema checks",
+        items: [
+          { _key: "required", title: "Required fields", body: "A section without a heading cannot be published." },
+          {
+            _key: "length",
+            title: "Length limits",
+            body: "Headings stop at 80 characters. Meta descriptions must run 70 to 160 characters.",
+          },
+          {
+            _key: "allowed",
+            title: "Allowed sections",
+            body: "A page accepts only the section types listed in page.ts. Nothing else appears in the Add item menu.",
+          },
+          {
+            _key: "links",
+            title: "Link formats",
+            body: "A link must be a site path or an https:// URL. Plain http and other schemes are rejected.",
+          },
+        ],
+      },
+      {
+        _type: "steps",
+        _key: "fail",
+        heading: "When a rule fails",
+        items: [
+          { _key: "mark", title: "The Studio flags the field", body: "The field is marked and the message names the rule it broke." },
+          { _key: "block", title: "Publishing waits", body: "Sanity does not publish a document while a validation error remains." },
+          {
+            _key: "fix",
+            title: "The fix goes live",
+            body: "Once every field passes, the page publishes and the site shows it within 60 seconds.",
+          },
+        ],
+      },
+      {
+        _type: "codeSample",
+        _key: "schema",
+        heading: "The hero schema",
+        body: "Each rule is one line of TypeScript next to its field.",
+        filename: "src/sanity/schemaTypes/sections.ts",
+        language: "ts",
+        code: heroSchema,
+      },
+      {
+        _type: "callToAction",
+        _key: "source",
+        heading: "Read the full schema",
+        body: "Every section type, with its rules and Studio preview, is in one file.",
+        link: { label: "Open sections.ts on GitHub", href: "https://github.com/marcop135/nextfold/blob/main/src/sanity/schemaTypes/sections.ts" },
       },
     ],
   },

@@ -5,7 +5,7 @@ flowchart TB
   schema["src/sanity/schemaTypes"] --> studio["/studio<br/>embedded Sanity Studio"]
   studio -- publish --> dataset[(Sanity dataset)]
   dataset -- "GROQ, CDN, 60 s" --> fetch["src/sanity/lib/fetch-page.ts"]
-  seed["src/content/seed.ts"] -- "page missing in Sanity" --> fetch
+  seed["src/content/seed.ts"] -- "no project ID, or slug missing" --> fetch
   fetch --> pages["App Router pages<br/>Server Components"]
   fetch --> markdown["Markdown versions, llms.txt, sitemap"]
 ```
@@ -17,6 +17,8 @@ flowchart TB
 | `page` | Document | `title`, `slug`, `description` (70 to 160 characters), `sections` |
 | `hero` | Section | `eyebrow`, `heading`, `body`, `cta` |
 | `featureGrid` | Section | `heading`, `items` (2 to 6 of `title`, `body`) |
+| `steps` | Section | `heading`, `items` (2 to 8 of `title`, `body`) |
+| `codeSample` | Section | `heading`, `body`, `filename`, `language` (`json`, `ts`, `groq`, `bash`), `code` |
 | `callToAction` | Section | `heading`, `body`, `link` |
 | `link` | Object | `label`, `href` (starts with `/` or `https://`) |
 

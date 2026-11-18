@@ -1,5 +1,13 @@
 import Link from "next/link";
-import type { CallToActionSection, FeatureGridSection, HeroSection, Link as LinkValue, Section } from "@/sanity/types";
+import type {
+  CallToActionSection,
+  CodeSampleSection,
+  FeatureGridSection,
+  HeroSection,
+  Link as LinkValue,
+  Section,
+  StepsSection,
+} from "@/sanity/types";
 
 function SectionLink({ link, className }: { link: LinkValue; className: string }) {
   return link.href.startsWith("/") ? (
@@ -45,6 +53,41 @@ function FeatureGrid({ section }: { section: FeatureGridSection }) {
   );
 }
 
+function Steps({ section }: { section: StepsSection }) {
+  return (
+    <section className="section" aria-labelledby={`${section._key}-title`}>
+      <div className="wrap">
+        <h2 id={`${section._key}-title`}>{section.heading}</h2>
+        <ol className="steps">
+          {section.items?.map((item) => (
+            <li key={item._key}>
+              <h3>{item.title}</h3>
+              {item.body ? <p>{item.body}</p> : null}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+function CodeSample({ section }: { section: CodeSampleSection }) {
+  return (
+    <section className="section" aria-labelledby={`${section._key}-title`}>
+      <div className="wrap">
+        <h2 id={`${section._key}-title`}>{section.heading}</h2>
+        {section.body ? <p className="lead section-lead">{section.body}</p> : null}
+        <figure className="code-sample">
+          <figcaption>{section.filename}</figcaption>
+          <pre tabIndex={0} aria-label={section.filename}>
+            <code className={`language-${section.language}`}>{section.code}</code>
+          </pre>
+        </figure>
+      </div>
+    </section>
+  );
+}
+
 function CallToAction({ section }: { section: CallToActionSection }) {
   return (
     <section className="section cta" aria-labelledby={`${section._key}-title`}>
@@ -64,6 +107,10 @@ export function SectionRenderer({ sections }: { sections: Section[] }) {
         return <Hero key={section._key} section={section} isFirst={index === 0} />;
       case "featureGrid":
         return <FeatureGrid key={section._key} section={section} />;
+      case "steps":
+        return <Steps key={section._key} section={section} />;
+      case "codeSample":
+        return <CodeSample key={section._key} section={section} />;
       case "callToAction":
         return <CallToAction key={section._key} section={section} />;
       default:
