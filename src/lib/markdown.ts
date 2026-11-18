@@ -42,14 +42,27 @@ export function cmsPageMarkdown(page: Page, path: string): string {
   sections.forEach((section, index) => {
     const level = index === 0 && section._type === "hero" ? "#" : "##";
     out.push(`${level} ${section.heading}`);
-    if (section._type === "hero") {
-      if (section.body) out.push(section.body);
-      if (section.cta) out.push(`[${section.cta.label}](${absolute(section.cta.href)})`);
-    } else if (section._type === "featureGrid") {
-      out.push((section.items ?? []).map((item) => `- **${item.title}**${item.body ? `: ${item.body}` : ""}`).join("\n"));
-    } else {
-      if (section.body) out.push(section.body);
-      out.push(`[${section.link.label}](${absolute(section.link.href)})`);
+    switch (section._type) {
+      case "hero":
+        if (section.body) out.push(section.body);
+        if (section.cta) out.push(`[${section.cta.label}](${absolute(section.cta.href)})`);
+        break;
+      case "featureGrid":
+        out.push((section.items ?? []).map((item) => `- **${item.title}**${item.body ? `: ${item.body}` : ""}`).join("\n"));
+        break;
+      case "steps":
+        out.push(
+          (section.items ?? []).map((item, step) => `${step + 1}. **${item.title}**${item.body ? `: ${item.body}` : ""}`).join("\n"),
+        );
+        break;
+      case "codeSample":
+        if (section.body) out.push(section.body);
+        out.push(`\`${section.filename}\``, "```" + section.language + "\n" + section.code + "\n```");
+        break;
+      case "callToAction":
+        if (section.body) out.push(section.body);
+        out.push(`[${section.link.label}](${absolute(section.link.href)})`);
+        break;
     }
   });
   return out.join("\n\n") + "\n";

@@ -16,6 +16,23 @@ export type FeatureGridSection = {
   items?: { _key: string; title: string; body?: string }[];
 };
 
+export type StepsSection = {
+  _type: "steps";
+  _key: string;
+  heading: string;
+  items?: { _key: string; title: string; body?: string }[];
+};
+
+export type CodeSampleSection = {
+  _type: "codeSample";
+  _key: string;
+  heading: string;
+  body?: string;
+  filename: string;
+  language: "json" | "ts" | "groq" | "bash";
+  code: string;
+};
+
 export type CallToActionSection = {
   _type: "callToAction";
   _key: string;
@@ -24,7 +41,7 @@ export type CallToActionSection = {
   link: Link;
 };
 
-export type Section = HeroSection | FeatureGridSection | CallToActionSection;
+export type Section = HeroSection | FeatureGridSection | StepsSection | CodeSampleSection | CallToActionSection;
 
 export type Page = {
   title: string;
