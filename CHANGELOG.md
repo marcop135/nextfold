@@ -8,8 +8,7 @@
 
 ### Added
 
-- Add Anatomy of a page and Guardrails pages, and rewrite the home page around who owns what ([#7](https://github.com/marcop135/nextfold/issues/7)).
-- Add steps and code sample section types to the Studio, the site, and the Markdown versions ([#7](https://github.com/marcop135/nextfold/issues/7)).
+- Add Anatomy and Guardrails pages, steps and code sample sections, and a rewritten home page ([#7](https://github.com/marcop135/nextfold/issues/7)).
 
 ## [0.1.0] - 2026-11-17
 
