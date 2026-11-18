@@ -26,6 +26,8 @@ export const page = defineType({
       of: [
         defineArrayMember({ type: "hero" }),
         defineArrayMember({ type: "featureGrid" }),
+        defineArrayMember({ type: "steps" }),
+        defineArrayMember({ type: "codeSample" }),
         defineArrayMember({ type: "callToAction" }),
       ],
     }),

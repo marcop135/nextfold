@@ -302,6 +302,63 @@
     }
   }
 
+  .steps {
+    display: grid;
+    gap: var(--space-2);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    list-style: none;
+    margin-block-start: var(--space-3);
+    padding: 0;
+    counter-reset: step;
+
+    & li {
+      counter-increment: step;
+      border-block-start: 0.1875rem solid var(--color-accent);
+      padding-block-start: var(--space-2);
+    }
+
+    & li::before {
+      content: counter(step, decimal-leading-zero);
+      display: block;
+      margin-block-end: var(--space-1);
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+
+    & h3 {
+      font-size: 1.125rem;
+      margin-block-end: var(--space-1);
+    }
+
+    & p {
+      color: var(--color-muted);
+    }
+  }
+
+  .code-sample {
+    margin-block-start: var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    max-inline-size: 52rem;
+
+    & figcaption {
+      padding: var(--space-1) var(--space-2);
+      border-block-end: 1px solid var(--color-border);
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+
+    & pre {
+      overflow-x: auto;
+      padding: var(--space-2);
+      font-size: 0.875rem;
+      line-height: 1.55;
+    }
+  }
+
   .cta {
     background: var(--color-band);
     color: var(--color-on-band);
