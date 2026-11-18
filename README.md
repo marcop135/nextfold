@@ -34,7 +34,7 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/content-flow-dark.svg" />
-  <img src="docs/content-flow-light.svg" alt="Five steps: define section types in code, edit a page in Studio, publish to the Sanity dataset, fetch it with GROQ through the CDN (or a bundled seed page), render one component per section as HTML and Markdown" width="720" />
+  <img src="docs/content-flow-light.svg" alt="Five steps: define section types in code, edit a page in Studio, publish to the Sanity dataset, fetch it with GROQ through the CDN (or a bundled seed page), render one component per section as HTML and Markdown" width="560" />
 </picture>
 
 See [Architecture](docs/architecture.md) for the request path through the code.
