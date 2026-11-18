@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- CI: Run lint, typecheck, and build on every PR; add Dependabot.
+
 ## [0.2.0] - 2026-11-18
 
 ### Added

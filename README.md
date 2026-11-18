@@ -49,7 +49,7 @@ See [Architecture](docs/architecture.md) for the request path through the code.
 | Framework | Next.js 16 App Router, React 19 |
 | Styling | Plain CSS with cascade layers and `light-dark()` |
 | Content | Sanity Studio 6 at `/studio`, GROQ |
-| Quality | ESLint, TypeScript |
+| Quality | ESLint, TypeScript, GitHub Actions CI, Dependabot |
 | Analytics | Self-hosted Matomo, cookieless |
 | Hosting | Vercel |
 | DNS | Cloudflare, `nextfold` CNAME, DNS only |
