@@ -37,9 +37,7 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
   <img src="docs/content-flow-light.svg" alt="Five steps: define section types in code, edit a page in Studio, publish to the Sanity dataset, fetch it with GROQ through the CDN (or a bundled seed page), render one component per section as HTML and Markdown" width="560" />
 </picture>
 
-See [Architecture](docs/architecture.md) for the request path through the code.
-
-[Sanity setup](docs/sanity-setup.md) · [Architecture](docs/architecture.md) · [Changelog](CHANGELOG.md)
+[Architecture](docs/architecture.md) follows a request through the code. Every page is listed in the [docs index](docs/README.md).
 
 ## Tech stack
 
