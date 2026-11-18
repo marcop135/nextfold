@@ -692,6 +692,36 @@
 }
 
 @layer components {
+  /* Prism token colors, each at least 4.5:1 on the code surface in its theme. */
+  .token:is(.comment, .prolog) {
+    color: light-dark(#57606a, #8b949e);
+    font-style: italic;
+  }
+
+  .token:is(.punctuation, .operator) {
+    color: var(--color-muted);
+  }
+
+  .token:is(.property, .tag, .attr-name) {
+    color: var(--color-link);
+  }
+
+  .token:is(.string, .attr-value, .template-string) {
+    color: light-dark(#1a7f37, #8fd694);
+  }
+
+  .token:is(.number, .boolean, .null, .constant) {
+    color: light-dark(#0550ae, #79c0ff);
+  }
+
+  .token:is(.keyword, .builtin) {
+    color: light-dark(#8250df, #d2a8ff);
+  }
+
+  .token:is(.function, .class-name) {
+    color: light-dark(#953800, #ffa657);
+  }
+
   .section-lead {
     margin-block-start: var(--space-1);
   }

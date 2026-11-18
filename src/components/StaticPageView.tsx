@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Block, Inline, StaticPage } from "@/content/static-pages";
 import { pageJsonLd } from "@/lib/site";
+import { CodeBlock } from "./CodeBlock";
 import { JsonLd } from "./JsonLd";
 
 function InlineParts({ parts }: { parts: Inline[] }) {
@@ -42,7 +43,7 @@ function BlockView({ block }: { block: Block }) {
     case "pre":
       return (
         <pre tabIndex={0} aria-label={block.label}>
-          <code>{block.text}</code>
+          <CodeBlock code={block.text} language={block.language ?? "text"} />
         </pre>
       );
   }
