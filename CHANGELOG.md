@@ -8,8 +8,7 @@
 
 ### Changed
 
-- Link the live demo pages from the README and redraw the content flow as five numbered, animated steps ([#5](https://github.com/marcop135/nextfold/issues/5)).
-- Group the README tech stack by layer, adding styling, hosting, and DNS, and shorten the quick start ([#5](https://github.com/marcop135/nextfold/issues/5)).
+- Add demo links, a numbered animated content flow, and a layered tech stack to the README; shorten the quick start ([#5](https://github.com/marcop135/nextfold/issues/5)).
 
 ## [0.1.0] - 2026-11-17
 
