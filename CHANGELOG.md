@@ -8,7 +8,7 @@
 
 ### Added
 
-- Add Anatomy and Guardrails pages, steps and code sample sections, and a rewritten home page ([#7](https://github.com/marcop135/nextfold/issues/7)).
+- Pages: Add Anatomy and Guardrails pages, steps and code sample sections, and a rewritten home page ([#7](https://github.com/marcop135/nextfold/issues/7)).
 
 ## [0.1.0] - 2026-11-17
 
