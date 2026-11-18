@@ -11,7 +11,6 @@
 - CI: Run lint, typecheck, and build on every PR; add Dependabot ([#23](https://github.com/marcop135/nextfold/pull/23)) ([#16](https://github.com/marcop135/nextfold/issues/16)).
 - Site: Add a mobile menu and animated hero intros ([#24](https://github.com/marcop135/nextfold/pull/24)) ([#17](https://github.com/marcop135/nextfold/issues/17)).
 - Docs: Add an index of the docs pages ([#25](https://github.com/marcop135/nextfold/pull/25)) ([#22](https://github.com/marcop135/nextfold/issues/22)).
-- Site: Highlight code samples with Prism ([#28](https://github.com/marcop135/nextfold/pull/28)) ([#18](https://github.com/marcop135/nextfold/issues/18)).
 - CI: Fail a PR when committed Sanity types are stale ([#29](https://github.com/marcop135/nextfold/pull/29)) ([#20](https://github.com/marcop135/nextfold/issues/20)).
 - Studio: Add a site settings document that drives the header and footer ([#30](https://github.com/marcop135/nextfold/pull/30)) ([#21](https://github.com/marcop135/nextfold/issues/21)).
 - Content: Add `npm run seed:import` to copy the seed pages into a Sanity dataset ([#30](https://github.com/marcop135/nextfold/pull/30)) ([#21](https://github.com/marcop135/nextfold/issues/21)).
