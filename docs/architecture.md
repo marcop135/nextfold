@@ -15,6 +15,7 @@ flowchart TB
 | Type | Kind | Fields |
 | --- | --- | --- |
 | `page` | Document | `title`, `slug`, `description` (70 to 160 characters), `sections` |
+| `siteSettings` | Document, one only | `nav` (1 to 5 links), `footerNote`, `projectLinks`, `siteInfoLinks` |
 | `hero` | Section | `eyebrow`, `heading`, `body`, `cta` |
 | `featureGrid` | Section | `heading`, `items` (2 to 6 of `title`, `body`) |
 | `steps` | Section | `heading`, `items` (2 to 8 of `title`, `body`) |
@@ -25,6 +26,10 @@ flowchart TB
 A page is an ordered list of sections. Each section type has one schema in [`sections.ts`](../src/sanity/schemaTypes/sections.ts) and one component in [`SectionRenderer.tsx`](../src/components/SectionRenderer.tsx).
 
 Sanity TypeGen writes the TypeScript types to [`sanity.types.ts`](../src/sanity/sanity.types.ts) from the extracted [`schema.json`](../src/sanity/schema.json) and the GROQ queries; [`types.ts`](../src/sanity/types.ts) gives them app-facing names. After a schema or query change, run `npm run typegen` and commit both files. CI regenerates them and fails when the committed output differs.
+
+## Studio desk
+
+[`structure.ts`](../src/sanity/structure.ts) lists **Site settings** first, then **Pages**. Site settings is one document with the ID `siteSettings`: it is missing from the New document menu and has no delete, duplicate, or unpublish action. The header and footer read it through `getSiteSettings` in [`fetch-page.ts`](../src/sanity/lib/fetch-page.ts), with the seed settings from [`seed.ts`](../src/content/seed.ts) until it is published.
 
 ## Request path
 

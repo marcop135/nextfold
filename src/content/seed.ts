@@ -1,4 +1,4 @@
-import type { CallToActionSection, FeatureGridSection, HeroSection, Page } from "@/sanity/types";
+import type { CallToActionSection, FeatureGridSection, HeroSection, Page, SiteSettings } from "@/sanity/types";
 
 const asData = (section: object) => JSON.stringify(section, null, 2);
 
@@ -204,3 +204,20 @@ export const seedPages: Page[] = [
     ],
   },
 ];
+
+/** Shown until the Sanity dataset publishes the siteSettings document. */
+export const seedSettings: SiteSettings = {
+  nav: [
+    { _key: "inside", _type: "link", label: "Inside a page", href: "/inside-a-page" },
+    { _key: "guardrails", _type: "link", label: "Guardrails", href: "/guardrails" },
+  ],
+  footerNote: "Next Fold Headless CMS",
+  projectLinks: [
+    { _key: "docs", _type: "link", label: "Documentation", href: "https://github.com/marcop135/nextfold/tree/main/docs" },
+    { _key: "license", _type: "link", label: "MIT license", href: "https://github.com/marcop135/nextfold/blob/main/LICENSE" },
+  ],
+  siteInfoLinks: [
+    { _key: "privacy", _type: "link", label: "Privacy", href: "/privacy" },
+    { _key: "for-agents", _type: "link", label: "For agents", href: "/for-agents" },
+  ],
+};

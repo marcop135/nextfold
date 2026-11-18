@@ -2,7 +2,15 @@
  * App-facing names for the types Sanity TypeGen writes to `sanity.types.ts`.
  * Regenerate with `npm run typegen` after a schema or query change; CI fails when the output drifts.
  */
-import type { CallToAction, CodeSample, FeatureGrid, Hero, PAGE_QUERY_RESULT, Steps } from "./sanity.types";
+import type {
+  CallToAction,
+  CodeSample,
+  FeatureGrid,
+  Hero,
+  PAGE_QUERY_RESULT,
+  SETTINGS_QUERY_RESULT,
+  Steps,
+} from "./sanity.types";
 
 export type { Link } from "./sanity.types";
 
@@ -16,5 +24,7 @@ export type CallToActionSection = Keyed<CallToAction>;
 
 export type Page = NonNullable<PAGE_QUERY_RESULT>;
 export type Section = NonNullable<Page["sections"]>[number];
+
+export type SiteSettings = NonNullable<SETTINGS_QUERY_RESULT>;
 
 export type ContentSource = "sanity" | "seed";

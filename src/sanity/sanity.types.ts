@@ -67,6 +67,30 @@ export type Hero = {
   cta?: Link;
 };
 
+export type SiteSettings = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  nav: Array<
+    {
+      _key: string;
+    } & Link
+  >;
+  footerNote: string;
+  projectLinks?: Array<
+    {
+      _key: string;
+    } & Link
+  >;
+  siteInfoLinks?: Array<
+    {
+      _key: string;
+    } & Link
+  >;
+};
+
 export type Page = {
   _id: string;
   _type: "page";
@@ -221,6 +245,7 @@ export type AllSanitySchemaTypes =
   | Steps
   | FeatureGrid
   | Hero
+  | SiteSettings
   | Page
   | Slug
   | SanityImagePaletteSwatch
@@ -299,11 +324,34 @@ export type SITEMAP_QUERY_RESULT = Array<{
   updatedAt: string;
 }>;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: SETTINGS_QUERY
+// Query: *[_type == "siteSettings" && _id == "siteSettings"][0]{ nav, footerNote, projectLinks, siteInfoLinks }
+export type SETTINGS_QUERY_RESULT = {
+  nav: Array<
+    {
+      _key: string;
+    } & Link
+  >;
+  footerNote: string;
+  projectLinks: Array<
+    {
+      _key: string;
+    } & Link
+  > | null;
+  siteInfoLinks: Array<
+    {
+      _key: string;
+    } & Link
+  > | null;
+} | null;
+
 // Query TypeMap
 declare global {
   interface SanityQueries {
     '\n  *[_type == "page" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    description,\n    sections[]{ ... }\n  }\n': PAGE_QUERY_RESULT;
     '\n  *[_type == "page" && defined(slug.current)]{ "slug": slug.current, "updatedAt": _updatedAt }\n': SITEMAP_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0]{ nav, footerNote, projectLinks, siteInfoLinks }\n': SETTINGS_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

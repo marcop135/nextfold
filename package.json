@@ -9,7 +9,8 @@
     "start": "next start --port 3100",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "typegen": "sanity schema extract --enforce-required-fields --force --path src/sanity/schema.json && sanity typegen generate"
+    "typegen": "sanity schema extract --enforce-required-fields --force --path src/sanity/schema.json && sanity typegen generate",
+    "seed:import": "sanity exec scripts/import-seed.ts --with-user-token"
   },
   "dependencies": {
     "@sanity/vision": "^6.23.0",

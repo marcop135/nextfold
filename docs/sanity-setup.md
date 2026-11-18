@@ -17,7 +17,7 @@ The pricing page lists no card requirement for Free. A public dataset is enough:
 
 1. Sign up at [sanity.io](https://www.sanity.io/get-started) with Google, GitHub, or email.
 2. In [sanity.io/manage](https://www.sanity.io/manage), create a project named `Next Fold` with a dataset named `production`, visibility public.
-3. Copy the project ID into `.env`:
+3. Copy `.env.example` to `.env` if you have not yet, then set the project ID:
 
    ```bash
    NEXT_PUBLIC_SANITY_PROJECT_ID=<project id>
@@ -26,10 +26,17 @@ The pricing page lists no card requirement for Free. A public dataset is enough:
 
 4. In the project, open **Settings > API settings > CORS origins** and add `http://localhost:3100` with **Allow credentials** on. The embedded Studio needs credentials.
 5. Restart `npm run dev`, open http://localhost:3100/studio, and log in with the same account.
-6. Create a **Page** with slug `home`, add a Hero, a Feature grid, and a Call to action, then publish.
-7. Open http://localhost:3100. The line under the page reads `Content source: sanity`.
+6. Copy the seed content into the dataset:
 
-Until Sanity has a published page for a slug, the sample page with that slug renders instead. Published changes appear within 60 seconds.
+   ```bash
+   npx sanity login
+   npm run seed:import
+   ```
+
+   This creates the `home`, `inside-a-page`, and `guardrails` pages and the site settings. Documents that already exist stay as they are, so a second run never overwrites edits.
+7. Open http://localhost:3100. The line above the footer reads `Content source: sanity`.
+
+Until Sanity has a published page for a slug, the seed page with that slug from [`seed.ts`](../src/content/seed.ts) renders instead: `home`, `inside-a-page`, and `guardrails`. Published changes appear within 60 seconds.
 
 ## Troubleshooting
 
