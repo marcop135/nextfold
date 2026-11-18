@@ -9,6 +9,7 @@
 ### Added
 
 - Pages: Add Anatomy and Guardrails pages, steps and code sample sections, and a rewritten home page ([#11](https://github.com/marcop135/nextfold/pull/11)) ([#7](https://github.com/marcop135/nextfold/issues/7)).
+- Favicon: Add a light and dark favicon with `favicon.ico` and an Apple touch icon ([#13](https://github.com/marcop135/nextfold/pull/13)) ([#8](https://github.com/marcop135/nextfold/issues/8)).
 
 ### Changed
 
