@@ -7,11 +7,11 @@
 /* @fonts:end */
     .sans { font-family: 'Geist', sans-serif; }
     .mono { font-family: 'Geist Mono', monospace; }
-    .eyebrow { font-weight: 500; font-size: 19px; letter-spacing: 1px; fill: #A3A9B3; }
+    .eyebrow { font-weight: 500; font-size: 19px; letter-spacing: 1px; fill: #C9CDD4; }
     .wordmark { font-weight: 700; letter-spacing: -5px; fill: #E8E9EC; }
-    .tagline { font-weight: 400; fill: #A3A9B3; }
+    .tagline { font-weight: 400; fill: #C9CDD4; }
     .code { font-weight: 400; font-size: 16px; fill: #E8E9EC; white-space: pre; }
-    .dim { fill: #A3A9B3; }
+    .dim { fill: #C9CDD4; }
     .str { fill: #FF8478; }
   </style>
   <defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#1D1F22" stroke-width="1"/></pattern></defs>
