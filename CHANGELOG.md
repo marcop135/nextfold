@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Restructure the footer like Next Story's and move Privacy and For agents out of the header ([#6](https://github.com/marcop135/nextfold/issues/6)).
+- Footer: Restructure the footer like Next Story's and move Privacy and For agents out of the header ([#6](https://github.com/marcop135/nextfold/issues/6)).
 
 ## [0.1.0] - 2026-11-17
 
