@@ -2,24 +2,18 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { SiteHeader, type NavItem } from "@/components/SiteHeader";
 import { AUTHOR, REPO_URL, SITE_NAME } from "@/lib/site";
+import { getSiteSettings } from "@/sanity/lib/fetch-page";
+import type { SiteSettings } from "@/sanity/types";
 import { version } from "../../package.json";
 
-const nav: NavItem[] = [
-  { href: "/inside-a-page", label: "Inside a page" },
-  { href: "/guardrails", label: "Guardrails" },
-];
+function SiteLink({ link }: { link: SiteSettings["nav"][number] }) {
+  return link.href.startsWith("/") ? <Link href={link.href}>{link.label}</Link> : <a href={link.href}>{link.label}</a>;
+}
 
-const projectLinks = [
-  { href: `${REPO_URL}/tree/main/docs`, label: "Documentation" },
-  { href: `${REPO_URL}/blob/main/LICENSE`, label: "MIT license" },
-];
-
-const siteInfoLinks = [
-  { href: "/privacy", label: "Privacy" },
-  { href: "/for-agents", label: "For agents" },
-];
-
-export function SiteChrome({ children }: { children: ReactNode }) {
+/** Header and footer from the siteSettings document, with the seed settings as fallback. */
+export async function SiteChrome({ children }: { children: ReactNode }) {
+  const settings = await getSiteSettings();
+  const nav: NavItem[] = settings.nav.map(({ href, label }) => ({ href, label }));
   return (
     <>
       <a className="skip-link" href="#main">
@@ -33,7 +27,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         <div className="wrap site-footer__inner">
           <div>
             <p className="footer-note">
-              Next Fold Headless CMS{" "}
+              {settings.footerNote}{" "}
               <span className="footer-version">v{version}</span>
             </p>
             <p>
@@ -76,20 +70,16 @@ export function SiteChrome({ children }: { children: ReactNode }) {
                 </svg>
                 View the source
               </a>
-              {projectLinks.map((item) => (
-                <a key={item.href} href={item.href}>
-                  {item.label}
-                </a>
+              {settings.projectLinks?.map((link) => (
+                <SiteLink key={link._key} link={link} />
               ))}
             </nav>
             <nav className="footer-nav" aria-labelledby="footer-site-info">
               <h2 className="footer-nav__heading" id="footer-site-info">
                 Site info
               </h2>
-              {siteInfoLinks.map((item) => (
-                <Link key={item.href} href={item.href}>
-                  {item.label}
-                </Link>
+              {settings.siteInfoLinks?.map((link) => (
+                <SiteLink key={link._key} link={link} />
               ))}
               <a href="/llms.txt">llms.txt</a>
             </nav>

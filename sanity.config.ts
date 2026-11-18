@@ -5,6 +5,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { apiVersion, dataset, projectId } from "./src/sanity/env";
 import { schemaTypes } from "./src/sanity/schemaTypes";
+import { documentActions, newDocumentOptions, structure } from "./src/sanity/structure";
 
 export default defineConfig({
   basePath: "/studio",
@@ -12,5 +13,9 @@ export default defineConfig({
   dataset,
   title: "Next Fold",
   schema: { types: schemaTypes },
-  plugins: [structureTool(), visionTool({ defaultApiVersion: apiVersion })],
+  document: {
+    newDocumentOptions,
+    actions: (prev, { schemaType }) => documentActions(prev, schemaType),
+  },
+  plugins: [structureTool({ structure }), visionTool({ defaultApiVersion: apiVersion })],
 });

@@ -1,7 +1,7 @@
-import { seedPages } from "@/content/seed";
-import type { ContentSource, Page } from "../types";
+import { seedPages, seedSettings } from "@/content/seed";
+import type { ContentSource, Page, SiteSettings } from "../types";
 import { client } from "./client";
-import { PAGE_QUERY, SITEMAP_QUERY } from "./queries";
+import { PAGE_QUERY, SETTINGS_QUERY, SITEMAP_QUERY } from "./queries";
 
 const REVALIDATE_SECONDS = 60;
 const next = { revalidate: REVALIDATE_SECONDS, tags: ["page"] };
@@ -15,6 +15,17 @@ export async function getPage(slug: string): Promise<LoadedPage | null> {
   const page = await client.fetch<Page | null>(PAGE_QUERY, { slug }, { next });
   if (page) return { page, source: "sanity" };
   return seed && { page: seed, source: "seed" };
+}
+
+/** Header and footer content: the siteSettings document, or the seed settings until it is published. */
+export async function getSiteSettings(): Promise<SiteSettings> {
+  if (!client) return seedSettings;
+  const settings = await client.fetch<SiteSettings | null>(
+    SETTINGS_QUERY,
+    {},
+    { next: { revalidate: REVALIDATE_SECONDS, tags: ["siteSettings"] } },
+  );
+  return settings ?? seedSettings;
 }
 
 export type SitemapEntry = { slug: string; updatedAt?: string };
