@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add a folded-page favicon that switches with the light and dark theme, plus `favicon.ico` and an Apple touch icon ([#8](https://github.com/marcop135/nextfold/issues/8)).
+
 ## [0.1.0] - 2026-11-17
 
 ### Added
