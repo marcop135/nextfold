@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Replace the README and Open Graph images with Geist artwork of a section type and the hero it renders ([#4](https://github.com/marcop135/nextfold/issues/4)).
+- Replace the README and Open Graph images with Geist artwork ([#4](https://github.com/marcop135/nextfold/issues/4)).
 
 ## [0.1.0] - 2026-11-17
 
