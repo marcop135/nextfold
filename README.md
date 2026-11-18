@@ -26,7 +26,7 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
 | Page | What it shows |
 | --- | --- |
 | [Home](https://nextfold.marcopontili.com/) | What editors and developers each own |
-| [Anatomy of a page](https://nextfold.marcopontili.com/anatomy) | Each section next to the Sanity data it came from |
+| [Inside a page](https://nextfold.marcopontili.com/inside-a-page) | Each section next to the Sanity data it came from |
 | [Guardrails](https://nextfold.marcopontili.com/guardrails) | The schema rules that keep pages on brand |
 | [For agents](https://nextfold.marcopontili.com/for-agents) | Markdown versions, `llms.txt`, sitemap |
 

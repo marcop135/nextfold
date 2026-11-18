@@ -11,6 +11,10 @@
 - CI: Run lint, typecheck, and build on every PR; add Dependabot.
 - Site: Add a mobile menu and animated hero intros.
 
+### Changed
+
+- Site: Rename Anatomy to Inside a page at /inside-a-page, with redirects from /anatomy ([#19](https://github.com/marcop135/nextfold/issues/19)).
+
 ## [0.2.0] - 2026-11-18
 
 ### Added
