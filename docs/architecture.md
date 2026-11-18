@@ -5,7 +5,7 @@ flowchart TB
   schema["src/sanity/schemaTypes"] --> studio["/studio<br/>embedded Sanity Studio"]
   studio -- publish --> dataset[(Sanity dataset)]
   dataset -- "GROQ, CDN, 60 s" --> fetch["src/sanity/lib/fetch-page.ts"]
-  seed["src/content/seed.ts"] -- "page missing in Sanity" --> fetch
+  seed["src/content/seed.ts"] -- "no project ID, or slug missing" --> fetch
   fetch --> pages["App Router pages<br/>Server Components"]
   fetch --> markdown["Markdown versions, llms.txt, sitemap"]
 ```

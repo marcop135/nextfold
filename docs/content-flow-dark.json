@@ -2,12 +2,12 @@
   "themeVariables": {
     "fontSize": "14px",
     "darkMode": true,
-    "primaryColor": "#131315",
-    "primaryTextColor": "#FFFFFF",
-    "primaryBorderColor": "#5A5A60",
-    "lineColor": "#F03E2F",
-    "textColor": "#FFFFFF",
-    "edgeLabelBackground": "#0B0B0C",
-    "background": "#0B0B0C"
+    "primaryColor": "#17181A",
+    "primaryTextColor": "#E8E9EC",
+    "primaryBorderColor": "#2C2E33",
+    "lineColor": "#FF8478",
+    "textColor": "#E8E9EC",
+    "edgeLabelBackground": "#101112",
+    "background": "#101112"
   }
 }

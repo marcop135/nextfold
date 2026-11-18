@@ -3,11 +3,11 @@
     "fontSize": "14px",
     "darkMode": false,
     "primaryColor": "#FFFFFF",
-    "primaryTextColor": "#0B0B0C",
-    "primaryBorderColor": "#0B0B0C",
+    "primaryTextColor": "#101112",
+    "primaryBorderColor": "#DFE0E4",
     "lineColor": "#C42A1C",
-    "textColor": "#0B0B0C",
-    "edgeLabelBackground": "#FFFFFF",
-    "background": "#FFFFFF"
+    "textColor": "#101112",
+    "edgeLabelBackground": "#F3F3F5",
+    "background": "#F3F3F5"
   }
 }
