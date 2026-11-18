@@ -6,7 +6,7 @@ export type Block =
   | { type: "h2"; text: string }
   | { type: "p"; parts: Inline[] }
   | { type: "ul"; items: Inline[][] }
-  | { type: "pre"; label: string; text: string };
+  | { type: "pre"; label: string; text: string; language?: string };
 
 export type StaticPage = { path: string; title: string; heading: string; description: string; blocks: Block[] };
 
@@ -34,7 +34,7 @@ export const forAgents: StaticPage = {
         ["Or request the page URL with ", { code: "Accept: text/markdown" }, "."],
       ],
     },
-    { type: "pre", label: "Request the home page as Markdown", text: `curl -H 'Accept: text/markdown' ${SITE_URL}/` },
+    { type: "pre", label: "Request the home page as Markdown", language: "bash", text: `curl -H 'Accept: text/markdown' ${SITE_URL}/` },
     { type: "h2", text: "Find every page" },
     {
       type: "ul",

@@ -26,7 +26,7 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
 | Page | What it shows |
 | --- | --- |
 | [Home](https://nextfold.marcopontili.com/) | What editors and developers each own |
-| [Anatomy of a page](https://nextfold.marcopontili.com/anatomy) | Each section next to the Sanity data it came from |
+| [Inside a page](https://nextfold.marcopontili.com/inside-a-page) | Each section next to the Sanity data it came from |
 | [Guardrails](https://nextfold.marcopontili.com/guardrails) | The schema rules that keep pages on brand |
 | [For agents](https://nextfold.marcopontili.com/for-agents) | Markdown versions, `llms.txt`, sitemap |
 
@@ -37,9 +37,7 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
   <img src="docs/content-flow-light.svg" alt="Five steps: define section types in code, edit a page in Studio, publish to the Sanity dataset, fetch it with GROQ through the CDN (or a bundled seed page), render one component per section as HTML and Markdown" width="560" />
 </picture>
 
-See [Architecture](docs/architecture.md) for the request path through the code.
-
-[Sanity setup](docs/sanity-setup.md) · [Architecture](docs/architecture.md) · [Changelog](CHANGELOG.md)
+[Architecture](docs/architecture.md) follows a request through the code. Every page is listed in the [docs index](docs/README.md).
 
 ## Tech stack
 
@@ -49,7 +47,7 @@ See [Architecture](docs/architecture.md) for the request path through the code.
 | Framework | Next.js 16 App Router, React 19 |
 | Styling | Plain CSS with cascade layers and `light-dark()` |
 | Content | Sanity Studio 6 at `/studio`, GROQ |
-| Quality | ESLint, TypeScript |
+| Quality | ESLint, TypeScript, Sanity TypeGen, GitHub Actions CI, Dependabot |
 | Analytics | Self-hosted Matomo, cookieless |
 | Hosting | Vercel |
 | DNS | Cloudflare, `nextfold` CNAME, DNS only |
@@ -75,6 +73,8 @@ Open http://localhost:3100. Without `NEXT_PUBLIC_SANITY_PROJECT_ID`, the bundled
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript, no output files |
 | `npm run build` | Production build |
+| `npm run typegen` | Regenerate the Sanity schema and types after a schema or query change |
+| `npm run seed:import` | Copy the seed pages and site settings into your Sanity dataset |
 | `npm start` | Serve the production build on port 3100 |
 
 </details>

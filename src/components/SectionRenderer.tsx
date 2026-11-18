@@ -1,4 +1,6 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
+import { CodeBlock } from "@/components/CodeBlock";
 import type {
   CallToActionSection,
   CodeSampleSection,
@@ -21,15 +23,18 @@ function SectionLink({ link, className }: { link: LinkValue; className: string }
   );
 }
 
-function Hero({ section, isFirst }: { section: HeroSection; isFirst: boolean }) {
+function Hero({ section, isFirst, visual }: { section: HeroSection; isFirst: boolean; visual?: ReactNode }) {
   const Heading = isFirst ? "h1" : "h2";
   return (
     <section className="section hero" aria-labelledby={`${section._key}-title`}>
-      <div className="wrap">
-        {section.eyebrow ? <p className="eyebrow">{section.eyebrow}</p> : null}
-        <Heading id={`${section._key}-title`}>{section.heading}</Heading>
-        {section.body ? <p className="lead">{section.body}</p> : null}
-        {section.cta ? <SectionLink className="button" link={section.cta} /> : null}
+      <div className={visual ? "wrap hero__layout" : "wrap"}>
+        <div className="hero__intro">
+          {section.eyebrow ? <p className="eyebrow">{section.eyebrow}</p> : null}
+          <Heading id={`${section._key}-title`}>{section.heading}</Heading>
+          {section.body ? <p className="lead">{section.body}</p> : null}
+          {section.cta ? <SectionLink className="button" link={section.cta} /> : null}
+        </div>
+        {visual}
       </div>
     </section>
   );
@@ -80,7 +85,7 @@ function CodeSample({ section }: { section: CodeSampleSection }) {
         <figure className="code-sample">
           <figcaption>{section.filename}</figcaption>
           <pre tabIndex={0} aria-label={section.filename}>
-            <code className={`language-${section.language}`}>{section.code}</code>
+            <CodeBlock code={section.code} language={section.language} />
           </pre>
         </figure>
       </div>
@@ -100,11 +105,19 @@ function CallToAction({ section }: { section: CallToActionSection }) {
   );
 }
 
-export function SectionRenderer({ sections }: { sections: Section[] }) {
+/** `heroVisual` sits beside the opening hero only. */
+export function SectionRenderer({ sections, heroVisual }: { sections: Section[]; heroVisual?: ReactNode }) {
   return sections.map((section, index) => {
     switch (section._type) {
       case "hero":
-        return <Hero key={section._key} section={section} isFirst={index === 0} />;
+        return (
+          <Hero
+            key={section._key}
+            section={section}
+            isFirst={index === 0}
+            visual={index === 0 ? heroVisual : undefined}
+          />
+        );
       case "featureGrid":
         return <FeatureGrid key={section._key} section={section} />;
       case "steps":

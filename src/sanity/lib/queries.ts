@@ -12,3 +12,7 @@ export const PAGE_QUERY = defineQuery(`
 export const SITEMAP_QUERY = defineQuery(`
   *[_type == "page" && defined(slug.current)]{ "slug": slug.current, "updatedAt": _updatedAt }
 `);
+
+export const SETTINGS_QUERY = defineQuery(`
+  *[_type == "siteSettings" && _id == "siteSettings"][0]{ nav, footerNote, projectLinks, siteInfoLinks }
+`);

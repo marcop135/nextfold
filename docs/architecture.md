@@ -15,6 +15,7 @@ flowchart TB
 | Type | Kind | Fields |
 | --- | --- | --- |
 | `page` | Document | `title`, `slug`, `description` (70 to 160 characters), `sections` |
+| `siteSettings` | Document, one only | `nav` (1 to 5 links), `footerNote`, `projectLinks`, `siteInfoLinks` |
 | `hero` | Section | `eyebrow`, `heading`, `body`, `cta` |
 | `featureGrid` | Section | `heading`, `items` (2 to 6 of `title`, `body`) |
 | `steps` | Section | `heading`, `items` (2 to 8 of `title`, `body`) |
@@ -22,15 +23,22 @@ flowchart TB
 | `callToAction` | Section | `heading`, `body`, `link` |
 | `link` | Object | `label`, `href` (starts with `/` or `https://`) |
 
-A page is an ordered list of sections. Each section type has one schema in [`sections.ts`](../src/sanity/schemaTypes/sections.ts) and one component in [`SectionRenderer.tsx`](../src/components/SectionRenderer.tsx). The TypeScript shapes in [`types.ts`](../src/sanity/types.ts) are written by hand for now.
+A page is an ordered list of sections. Each section type has one schema in [`sections.ts`](../src/sanity/schemaTypes/sections.ts) and one component in [`SectionRenderer.tsx`](../src/components/SectionRenderer.tsx).
+
+Sanity TypeGen writes the TypeScript types to [`sanity.types.ts`](../src/sanity/sanity.types.ts) from the extracted [`schema.json`](../src/sanity/schema.json) and the GROQ queries; [`types.ts`](../src/sanity/types.ts) gives them app-facing names. After a schema or query change, run `npm run typegen` and commit both files. CI regenerates them and fails when the committed output differs.
+
+## Studio desk
+
+[`structure.ts`](../src/sanity/structure.ts) lists **Site settings** first, then **Pages**. Site settings is one document with the ID `siteSettings`: it is missing from the New document menu and has no delete, duplicate, or unpublish action. The header and footer read it through `getSiteSettings` in [`fetch-page.ts`](../src/sanity/lib/fetch-page.ts), with the seed settings from [`seed.ts`](../src/content/seed.ts) until it is published.
 
 ## Request path
 
 1. [`src/proxy.ts`](../src/proxy.ts) runs first. It rewrites `/index.md` and `/<slug>.md` to the Markdown route, and answers a page request that prefers `text/markdown` with Markdown. HTML responses carry a `Link` header to their Markdown version. A request that accepts neither type gets 406.
 2. [`(site)/page.tsx`](../src/app/(site)/page.tsx) loads the page with slug `home`. [`[slug]/page.tsx`](../src/app/(site)/[slug]/page.tsx) loads every other slug and returns 404 for `/home`.
-3. [`fetch-page.ts`](../src/sanity/lib/fetch-page.ts) reads published content through the Sanity CDN with [`PAGE_QUERY`](../src/sanity/lib/queries.ts), tagged `page` and refreshed every 60 seconds. When there is no project ID, or Sanity has no page with that slug, it returns the seed page instead. The line under each page names the source.
-4. [`PageView`](../src/components/PageView.tsx) renders the sections and the page's JSON-LD. A leading Hero holds the page `h1`; otherwise the page title does.
-5. [`studio/[[...tool]]/page.tsx`](../src/app/studio/[[...tool]]/page.tsx) mounts the Studio from [`sanity.config.ts`](../sanity.config.ts) outside the site layout. Without a project ID it shows setup steps.
+3. [`fetch-page.ts`](../src/sanity/lib/fetch-page.ts) reads published content through the Sanity CDN with [`PAGE_QUERY`](../src/sanity/lib/queries.ts), tagged `page` and refreshed every 60 seconds. When there is no project ID, or Sanity has no page with that slug, it returns the seed page instead. The `Content source:` line above the footer names the source.
+4. [`PageView`](../src/components/PageView.tsx) renders the sections and the page's JSON-LD. A leading Hero holds the page `h1`; otherwise the page title does. On the home page, the leading Hero also gets the animated [`HeroVisual`](../src/components/HeroVisual.tsx).
+5. [`SiteChrome`](../src/components/SiteChrome.tsx) wraps every site page in the header and footer. The header, [`SiteHeader`](../src/components/SiteHeader.tsx), is the only client component in the chrome: it holds the small-screen menu.
+6. [`studio/[[...tool]]/page.tsx`](../src/app/studio/[[...tool]]/page.tsx) mounts the Studio from [`sanity.config.ts`](../sanity.config.ts) outside the site layout. Without a project ID it shows setup steps.
 
 ## Search and agent discovery
 
@@ -49,3 +57,4 @@ A page is an ordered list of sections. Each section type has one schema in [`sec
 - [`Analytics.tsx`](../src/components/Analytics.tsx) loads a self-hosted, cookieless Matomo Tag Manager container. [`MatomoRouteTracker`](../src/components/MatomoRouteTracker.tsx) records client-side navigation. Both stay off until `NEXT_PUBLIC_MATOMO_SITE_ID` and `NEXT_PUBLIC_MATOMO_CONTAINER_ID` are set.
 - The proxy reports page fetches by AI assistants (`ChatGPT-User`, `Claude-User`, and others) to Matomo from the server, without changing the response.
 - [`next.config.ts`](../next.config.ts) sets CSP, HSTS, `nosniff`, Referrer-Policy, and `No-Vary-Search` on site routes. `/studio` gets `X-Frame-Options: SAMEORIGIN` and `noindex` instead of the CSP, because the Studio calls the Sanity APIs from the browser.
+- The same file redirects `/anatomy` and `/anatomy.md` to `/inside-a-page` and `/inside-a-page.md` with a permanent redirect (308), so links to the page's old name keep working.

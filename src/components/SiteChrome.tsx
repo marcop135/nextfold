@@ -1,48 +1,25 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { SiteHeader, type NavItem } from "@/components/SiteHeader";
 import { AUTHOR, REPO_URL, SITE_NAME } from "@/lib/site";
+import { getSiteSettings } from "@/sanity/lib/fetch-page";
+import type { SiteSettings } from "@/sanity/types";
 import { version } from "../../package.json";
 
-const nav = [
-  { href: "/anatomy", label: "Anatomy of a page" },
-  { href: "/guardrails", label: "Guardrails" },
-];
+function SiteLink({ link }: { link: SiteSettings["nav"][number] }) {
+  return link.href.startsWith("/") ? <Link href={link.href}>{link.label}</Link> : <a href={link.href}>{link.label}</a>;
+}
 
-const projectLinks = [
-  { href: `${REPO_URL}/tree/main/docs`, label: "Documentation" },
-  { href: `${REPO_URL}/blob/main/LICENSE`, label: "MIT license" },
-  { href: "https://nextstory.marcopontili.com", label: "Next Story, the Storyblok version" },
-];
-
-const siteInfoLinks = [
-  { href: "/privacy", label: "Privacy" },
-  { href: "/for-agents", label: "For agents" },
-];
-
-export function SiteChrome({ children }: { children: ReactNode }) {
+/** Header and footer from the siteSettings document, with the seed settings as fallback. */
+export async function SiteChrome({ children }: { children: ReactNode }) {
+  const settings = await getSiteSettings();
+  const nav: NavItem[] = settings.nav.map(({ href, label }) => ({ href, label }));
   return (
     <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <header className="site-header">
-        <div className="wrap site-header__inner">
-          <Link href="/" className="brand">
-            <span className="brand__mark" aria-hidden="true" />
-            {SITE_NAME}
-          </Link>
-          <nav aria-label="Main">
-            <ul className="nav-list">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader nav={nav} />
       <main id="main" tabIndex={-1}>
         {children}
       </main>
@@ -50,14 +27,25 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         <div className="wrap site-footer__inner">
           <div>
             <p className="footer-note">
-              {SITE_NAME}: marketing pages from typed Sanity sections{" "}
+              {settings.footerNote}{" "}
               <span className="footer-version">v{version}</span>
             </p>
             <p>
-              Built and maintained by <a href={AUTHOR.url}>{AUTHOR.name}</a>
+              Built and maintained by{" "}
+              <a className="footer-author" href={AUTHOR.url} title={AUTHOR.name}>
+                {AUTHOR.name}
+              </a>
             </p>
             <Link className="footer-mark" href="/" aria-label={`${SITE_NAME} home`}>
-              <Image src="/icon.svg" alt="" width={48} height={48} unoptimized />
+              {/* Inline, so the ink follows the page colors rather than the SVG's own color scheme. */}
+              <svg viewBox="0 0 32 32" width="48" height="48" aria-hidden="true">
+                <path
+                  className="footer-mark__ink"
+                  d="M6.5 2H20l8 8v17.5a2.5 2.5 0 0 1-2.5 2.5h-19A2.5 2.5 0 0 1 4 27.5v-23A2.5 2.5 0 0 1 6.5 2z"
+                />
+                <path className="footer-mark__fold" d="M20 2v5.5a2.5 2.5 0 0 0 2.5 2.5H28z" />
+                <rect className="footer-mark__band" x="8" y="17" width="16" height="5" />
+              </svg>
             </Link>
           </div>
           <div className="footer-links">
@@ -82,20 +70,16 @@ export function SiteChrome({ children }: { children: ReactNode }) {
                 </svg>
                 View the source
               </a>
-              {projectLinks.map((item) => (
-                <a key={item.href} href={item.href}>
-                  {item.label}
-                </a>
+              {settings.projectLinks?.map((link) => (
+                <SiteLink key={link._key} link={link} />
               ))}
             </nav>
             <nav className="footer-nav" aria-labelledby="footer-site-info">
               <h2 className="footer-nav__heading" id="footer-site-info">
                 Site info
               </h2>
-              {siteInfoLinks.map((item) => (
-                <Link key={item.href} href={item.href}>
-                  {item.label}
-                </Link>
+              {settings.siteInfoLinks?.map((link) => (
+                <SiteLink key={link._key} link={link} />
               ))}
               <a href="/llms.txt">llms.txt</a>
             </nav>
