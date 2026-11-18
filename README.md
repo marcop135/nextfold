@@ -45,12 +45,12 @@ See [Architecture](docs/architecture.md) for the request path through the code.
 
 | Layer | Tools |
 | --- | --- |
-| Framework | Next.js 16 App Router, React 19 |
 | Language | TypeScript 5 |
-| Content | Sanity Studio 6 at `/studio`, GROQ |
+| Framework | Next.js 16 App Router, React 19 |
 | Styling | Plain CSS with cascade layers and `light-dark()` |
-| Analytics | Self-hosted Matomo, cookieless |
+| Content | Sanity Studio 6 at `/studio`, GROQ |
 | Quality | ESLint, TypeScript |
+| Analytics | Self-hosted Matomo, cookieless |
 | Hosting | Vercel |
 | DNS | Cloudflare, `nextfold` CNAME, DNS only |
 
