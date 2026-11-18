@@ -1,53 +1,20 @@
-export type Link = { label: string; href: string };
+/**
+ * App-facing names for the types Sanity TypeGen writes to `sanity.types.ts`.
+ * Regenerate with `npm run typegen` after a schema or query change; CI fails when the output drifts.
+ */
+import type { CallToAction, CodeSample, FeatureGrid, Hero, PAGE_QUERY_RESULT, Steps } from "./sanity.types";
 
-export type HeroSection = {
-  _type: "hero";
-  _key: string;
-  eyebrow?: string;
-  heading: string;
-  body?: string;
-  cta?: Link;
-};
+export type { Link } from "./sanity.types";
 
-export type FeatureGridSection = {
-  _type: "featureGrid";
-  _key: string;
-  heading: string;
-  items?: { _key: string; title: string; body?: string }[];
-};
+type Keyed<T> = T & { _key: string };
 
-export type StepsSection = {
-  _type: "steps";
-  _key: string;
-  heading: string;
-  items?: { _key: string; title: string; body?: string }[];
-};
+export type HeroSection = Keyed<Hero>;
+export type FeatureGridSection = Keyed<FeatureGrid>;
+export type StepsSection = Keyed<Steps>;
+export type CodeSampleSection = Keyed<CodeSample>;
+export type CallToActionSection = Keyed<CallToAction>;
 
-export type CodeSampleSection = {
-  _type: "codeSample";
-  _key: string;
-  heading: string;
-  body?: string;
-  filename: string;
-  language: "json" | "ts" | "groq" | "bash";
-  code: string;
-};
-
-export type CallToActionSection = {
-  _type: "callToAction";
-  _key: string;
-  heading: string;
-  body?: string;
-  link: Link;
-};
-
-export type Section = HeroSection | FeatureGridSection | StepsSection | CodeSampleSection | CallToActionSection;
-
-export type Page = {
-  title: string;
-  slug: string;
-  description: string;
-  sections?: Section[];
-};
+export type Page = NonNullable<PAGE_QUERY_RESULT>;
+export type Section = NonNullable<Page["sections"]>[number];
 
 export type ContentSource = "sanity" | "seed";

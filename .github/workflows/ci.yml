@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   build:
-    name: Lint, typecheck, and build
+    name: Lint, typecheck, types, and build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,6 +38,18 @@ jobs:
 
       - name: Typecheck
         run: npm run typecheck
+
+      - name: Check generated Sanity types
+        run: |
+          npm run typegen
+          git diff --exit-code -- src/sanity/schema.json src/sanity/sanity.types.ts || {
+            echo "::error::Sanity types are out of date. Run npm run typegen and commit the result."
+            exit 1
+          }
+        env:
+          # Schema extraction loads sanity.config.ts, which needs a project ID; no API call is made.
+          NEXT_PUBLIC_SANITY_PROJECT_ID: placeholder
+          SANITY_TELEMETRY_DISABLED: "1"
 
       - name: Build
         # No Sanity env: pages render from the seed content in src/content/seed.ts.

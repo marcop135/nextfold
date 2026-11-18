@@ -11,11 +11,13 @@
 - CI: Run lint, typecheck, and build on every PR; add Dependabot.
 - Site: Add a mobile menu and animated hero intros.
 - Docs: Add an index of the docs pages ([#25](https://github.com/marcop135/nextfold/pull/25)) ([#22](https://github.com/marcop135/nextfold/issues/22)).
-- Site: Highlight code samples with Prism ([#18](https://github.com/marcop135/nextfold/issues/18)).
+- Site: Highlight code samples with Prism ([#28](https://github.com/marcop135/nextfold/pull/28)) ([#18](https://github.com/marcop135/nextfold/issues/18)).
+- CI: Fail a PR when committed Sanity types are stale ([#20](https://github.com/marcop135/nextfold/issues/20)).
 
 ### Changed
 
 - Site: Rename Anatomy to Inside a page at /inside-a-page, with redirects from /anatomy ([#27](https://github.com/marcop135/nextfold/pull/27)) ([#19](https://github.com/marcop135/nextfold/issues/19)).
+- Types: Generate Sanity types with TypeGen ([#20](https://github.com/marcop135/nextfold/issues/20)).
 
 ## [0.2.0] - 2026-11-18
 
