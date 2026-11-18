@@ -47,7 +47,7 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
 | Framework | Next.js 16 App Router, React 19 |
 | Styling | Plain CSS with cascade layers and `light-dark()` |
 | Content | Sanity Studio 6 at `/studio`, GROQ |
-| Quality | ESLint, TypeScript |
+| Quality | ESLint, TypeScript, Sanity TypeGen, GitHub Actions CI, Dependabot |
 | Analytics | Self-hosted Matomo, cookieless |
 | Hosting | Vercel |
 | DNS | Cloudflare, `nextfold` CNAME, DNS only |
@@ -73,6 +73,7 @@ Open http://localhost:3100. Without `NEXT_PUBLIC_SANITY_PROJECT_ID`, the bundled
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript, no output files |
 | `npm run build` | Production build |
+| `npm run typegen` | Regenerate the Sanity schema and types after a schema or query change |
 | `npm start` | Serve the production build on port 3100 |
 
 </details>
