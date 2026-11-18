@@ -11,6 +11,7 @@
 - CI: Run lint, typecheck, and build on every PR; add Dependabot.
 - Site: Add a mobile menu and animated hero intros.
 - Docs: Add an index of the docs pages ([#25](https://github.com/marcop135/nextfold/pull/25)) ([#22](https://github.com/marcop135/nextfold/issues/22)).
+- Site: Highlight code samples with Prism ([#18](https://github.com/marcop135/nextfold/issues/18)).
 
 ### Changed
 

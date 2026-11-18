@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { CodeBlock } from "@/components/CodeBlock";
 import type {
   CallToActionSection,
   CodeSampleSection,
@@ -84,7 +85,7 @@ function CodeSample({ section }: { section: CodeSampleSection }) {
         <figure className="code-sample">
           <figcaption>{section.filename}</figcaption>
           <pre tabIndex={0} aria-label={section.filename}>
-            <code className={`language-${section.language}`}>{section.code}</code>
+            <CodeBlock code={section.code} language={section.language} />
           </pre>
         </figure>
       </div>
