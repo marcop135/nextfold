@@ -5,7 +5,7 @@ import { AUTHOR, REPO_URL, SITE_NAME } from "@/lib/site";
 import { version } from "../../package.json";
 
 const nav: NavItem[] = [
-  { href: "/anatomy", label: "Anatomy of a page" },
+  { href: "/inside-a-page", label: "Inside a page" },
   { href: "/guardrails", label: "Guardrails" },
 ];
 

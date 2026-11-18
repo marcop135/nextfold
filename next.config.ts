@@ -35,6 +35,12 @@ const nextConfig: NextConfig = {
   // next dev would otherwise write AGENTS.md and CLAUDE.md into the repo root.
   agentRules: false,
   devIndicators: false,
+  async redirects() {
+    return [
+      { source: "/anatomy", destination: "/inside-a-page", permanent: true },
+      { source: "/anatomy.md", destination: "/inside-a-page.md", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

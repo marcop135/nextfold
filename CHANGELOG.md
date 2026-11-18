@@ -12,6 +12,10 @@
 - Site: Add a mobile menu and animated hero intros.
 - Docs: Add an index of the docs pages ([#25](https://github.com/marcop135/nextfold/pull/25)) ([#22](https://github.com/marcop135/nextfold/issues/22)).
 
+### Changed
+
+- Site: Rename Anatomy to Inside a page at /inside-a-page, with redirects from /anatomy ([#27](https://github.com/marcop135/nextfold/pull/27)) ([#19](https://github.com/marcop135/nextfold/issues/19)).
+
 ## [0.2.0] - 2026-11-18
 
 ### Added
