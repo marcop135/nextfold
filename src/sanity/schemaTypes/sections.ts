@@ -61,3 +61,62 @@ export const callToAction = defineType({
     prepare: ({ title }) => ({ title, subtitle: "Call to action" }),
   },
 });
+
+export const steps = defineType({
+  name: "steps",
+  title: "Steps",
+  type: "object",
+  fields: [
+    defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
+    defineField({
+      name: "items",
+      type: "array",
+      validation: (rule) => rule.min(2).max(8),
+      of: [
+        defineArrayMember({
+          name: "step",
+          type: "object",
+          fields: [
+            defineField({ name: "title", type: "string", validation: (rule) => rule.required().max(60) }),
+            defineField({ name: "body", type: "text", rows: 2, validation: (rule) => rule.max(240) }),
+          ],
+        }),
+      ],
+    }),
+  ],
+  preview: {
+    select: { title: "heading", items: "items" },
+    prepare: ({ title, items }) => ({
+      title,
+      subtitle: `Steps, ${Array.isArray(items) ? items.length : 0} items`,
+    }),
+  },
+});
+
+export const codeSample = defineType({
+  name: "codeSample",
+  title: "Code sample",
+  type: "object",
+  fields: [
+    defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
+    defineField({ name: "body", type: "text", rows: 2, validation: (rule) => rule.max(240) }),
+    defineField({
+      name: "filename",
+      title: "File name or label",
+      type: "string",
+      validation: (rule) => rule.required().max(80),
+    }),
+    defineField({
+      name: "language",
+      type: "string",
+      options: { list: ["json", "ts", "groq", "bash"] },
+      initialValue: "ts",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({ name: "code", type: "text", rows: 12, validation: (rule) => rule.required().max(4000) }),
+  ],
+  preview: {
+    select: { title: "heading", filename: "filename" },
+    prepare: ({ title, filename }) => ({ title, subtitle: `Code sample, ${filename ?? ""}` }),
+  },
+});
