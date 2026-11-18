@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark.svg" />
-    <img src=".github/brand/readme-light.svg" alt="Next Fold: a Sanity Studio page document whose sections hold a hero, a feature grid, and a call to action" width="100%" />
+    <img src=".github/brand/readme-light.svg" alt="Next Fold: a hero section type defined in code, overlapped by the hero section it renders" width="100%" />
   </picture>
 </p>
 
