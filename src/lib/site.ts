@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://nextfold.marcopontili.com").replace(/\/$/, "");
 export const SITE_NAME = "Next Fold";
 export const SITE_DESCRIPTION =
-  "A Next.js and Sanity demo in progress: editors compose marketing pages from typed sections, developers own the schema.";
+  "A Next.js and Sanity demo: editors compose marketing pages from typed sections, developers own the schema and the components.";
 export const AUTHOR = { name: "Marco Pontili", url: "https://marcopontili.com" } as const;
 export const OG_IMAGE = { url: "/og.jpg", width: 1200, height: 630, alt: "Next Fold: define a section once, editors compose pages from it" };
 

@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Pages: Add Anatomy and Guardrails pages, steps and code sample sections, and a rewritten home page ([#11](https://github.com/marcop135/nextfold/pull/11)) ([#7](https://github.com/marcop135/nextfold/issues/7)).
+
 ### Changed
 
 - Brand: Replace the README and Open Graph images with Geist artwork ([#9](https://github.com/marcop135/nextfold/pull/9)) ([#4](https://github.com/marcop135/nextfold/issues/4)).

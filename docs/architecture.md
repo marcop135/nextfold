@@ -17,6 +17,8 @@ flowchart TB
 | `page` | Document | `title`, `slug`, `description` (70 to 160 characters), `sections` |
 | `hero` | Section | `eyebrow`, `heading`, `body`, `cta` |
 | `featureGrid` | Section | `heading`, `items` (2 to 6 of `title`, `body`) |
+| `steps` | Section | `heading`, `items` (2 to 8 of `title`, `body`) |
+| `codeSample` | Section | `heading`, `body`, `filename`, `language` (`json`, `ts`, `groq`, `bash`), `code` |
 | `callToAction` | Section | `heading`, `body`, `link` |
 | `link` | Object | `label`, `href` (starts with `/` or `https://`) |
 
