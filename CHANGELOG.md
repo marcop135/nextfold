@@ -10,20 +10,20 @@
 
 ### Added
 
-- Pages: Add Anatomy and Guardrails pages, steps and code sample sections, and a rewritten home page ([#11](https://github.com/marcop135/nextfold/pull/11)) ([#7](https://github.com/marcop135/nextfold/issues/7)).
-- Favicon: Add a light and dark favicon with `favicon.ico` and an Apple touch icon ([#13](https://github.com/marcop135/nextfold/pull/13)) ([#8](https://github.com/marcop135/nextfold/issues/8)).
+- Pages: Add Anatomy and Guardrails pages, plus steps and code sample sections ([#11](https://github.com/marcop135/nextfold/pull/11)) ([#7](https://github.com/marcop135/nextfold/issues/7)).
+- Favicon: Add a light and dark favicon ([#13](https://github.com/marcop135/nextfold/pull/13)) ([#8](https://github.com/marcop135/nextfold/issues/8)).
 
 ### Changed
 
-- Brand: Replace the README and Open Graph images with Geist artwork ([#9](https://github.com/marcop135/nextfold/pull/9)) ([#4](https://github.com/marcop135/nextfold/issues/4)).
-- README: Add demo links and a numbered, animated content flow; regroup the tech stack and follow Next Story's order ([#10](https://github.com/marcop135/nextfold/pull/10)) ([#5](https://github.com/marcop135/nextfold/issues/5)).
-- Footer: Restructure the footer like Next Story's and move Privacy and For agents out of the header ([#12](https://github.com/marcop135/nextfold/pull/12)) ([#6](https://github.com/marcop135/nextfold/issues/6)).
+- Brand: Replace the README and Open Graph images ([#9](https://github.com/marcop135/nextfold/pull/9)) ([#4](https://github.com/marcop135/nextfold/issues/4)).
+- README: Add demo links and a numbered content flow ([#10](https://github.com/marcop135/nextfold/pull/10)) ([#5](https://github.com/marcop135/nextfold/issues/5)).
+- Footer: Restructure the footer into link columns ([#12](https://github.com/marcop135/nextfold/pull/12)) ([#6](https://github.com/marcop135/nextfold/issues/6)).
 
 ## [0.1.0] - 2026-11-17
 
 ### Added
 
-- Site: Add a Next.js site built from hero, feature grid, and call to action sections, with Sanity Studio at `/studio` ([#2](https://github.com/marcop135/nextfold/pull/2)) ([#1](https://github.com/marcop135/nextfold/issues/1)).
-- SEO: Add a Markdown version of every page, `llms.txt`, a sitemap, robots rules, JSON-LD, and an Open Graph image ([#2](https://github.com/marcop135/nextfold/pull/2)) ([#1](https://github.com/marcop135/nextfold/issues/1)).
-- Pages: Add privacy and For agents pages, and cookieless Matomo analytics ([#2](https://github.com/marcop135/nextfold/pull/2)) ([#1](https://github.com/marcop135/nextfold/issues/1)).
+- Site: Add a Next.js site built from Sanity sections, with Studio at `/studio` ([#2](https://github.com/marcop135/nextfold/pull/2)) ([#1](https://github.com/marcop135/nextfold/issues/1)).
+- SEO: Add Markdown pages, `llms.txt`, a sitemap, robots rules, JSON-LD, and an Open Graph image ([#2](https://github.com/marcop135/nextfold/pull/2)) ([#1](https://github.com/marcop135/nextfold/issues/1)).
+- Pages: Add Privacy and For agents pages and cookieless Matomo analytics ([#2](https://github.com/marcop135/nextfold/pull/2)) ([#1](https://github.com/marcop135/nextfold/issues/1)).
 - Docs: Document Sanity setup and the architecture ([#2](https://github.com/marcop135/nextfold/pull/2)) ([#1](https://github.com/marcop135/nextfold/issues/1)).
