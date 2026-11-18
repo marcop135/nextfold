@@ -1,5 +1,6 @@
 import type { LoadedPage } from "@/sanity/lib/fetch-page";
 import { pageJsonLd } from "@/lib/site";
+import { HeroVisual } from "./HeroVisual";
 import { JsonLd } from "./JsonLd";
 import { SectionRenderer } from "./SectionRenderer";
 
@@ -14,7 +15,7 @@ export function PageView({ loaded, path }: { loaded: LoadedPage; path: string })
           <h1 className="page-title">{page.title}</h1>
         </div>
       )}
-      <SectionRenderer sections={sections} />
+      <SectionRenderer sections={sections} heroVisual={path === "/" ? <HeroVisual /> : undefined} />
       <p className="wrap source-note">
         Content source: <code>{source}</code>
       </p>

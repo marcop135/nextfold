@@ -34,6 +34,7 @@ const shared = [
 const nextConfig: NextConfig = {
   // next dev would otherwise write AGENTS.md and CLAUDE.md into the repo root.
   agentRules: false,
+  devIndicators: false,
   async headers() {
     return [
       {

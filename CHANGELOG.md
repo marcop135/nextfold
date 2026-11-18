@@ -9,6 +9,7 @@
 ### Added
 
 - CI: Run lint, typecheck, and build on every PR; add Dependabot.
+- Site: Add a mobile menu and animated hero intros.
 
 ## [0.2.0] - 2026-11-18
 
