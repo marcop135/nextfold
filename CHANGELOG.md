@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Site: Present the demo as typed sections, the schema, and Studio
+- Site: Present the demo as typed sections, the schema, and Studio ([#35](https://github.com/marcop135/nextfold/pull/35)) ([#34](https://github.com/marcop135/nextfold/issues/34)).
 
 ## [0.4.0] - 2026-11-18
 
