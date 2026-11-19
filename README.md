@@ -93,10 +93,6 @@ All variables are optional in local mode. Set them in `.env` to load content fro
 | `NEXT_PUBLIC_SITE_URL` | Canonical URLs, sitemap, JSON-LD | `https://nextfold.marcopontili.com` |
 | `NEXT_PUBLIC_MATOMO_SITE_ID`, `NEXT_PUBLIC_MATOMO_CONTAINER_ID` | Cookieless analytics | Empty: no tracking |
 
-## Related
-
-[Next Story](https://github.com/marcop135/nextstory) is the Storyblok counterpart: localization, draft preview, webhook cache refresh, and read-only agent tools.
-
 ## Author
 
 [Marco Pontili](https://marcopontili.com)
