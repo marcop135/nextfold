@@ -481,7 +481,7 @@
           },
           "optional": true
         },
-        "cta": {
+        "link": {
           "type": "objectAttribute",
           "value": {
             "type": "inline",

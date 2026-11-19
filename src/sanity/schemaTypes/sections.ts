@@ -28,7 +28,7 @@ export const hero = defineType({
     defineField({ name: "eyebrow", type: "string", validation: (rule) => rule.max(40) }),
     defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
     defineField({ name: "body", type: "text", rows: 3, validation: (rule) => rule.max(240) }),
-    defineField({ name: "cta", title: "Call to action", type: "link" }),
+    defineField({ name: "link", title: "Call to action", type: "link" }),
     defineField({
       name: "image",
       type: "image",

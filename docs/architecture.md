@@ -16,7 +16,7 @@ flowchart TB
 | --- | --- | --- |
 | `page` | Document | `title`, `slug`, `description` (70 to 160 characters), `sections` |
 | `siteSettings` | Document, one only | `nav` (1 to 5 links), `footerNote`, `projectLinks`, `siteInfoLinks` |
-| `hero` | Section | `eyebrow`, `heading`, `body`, `cta`, `image` (hotspot and crop, alt text required once an image is set) |
+| `hero` | Section | `eyebrow`, `heading`, `body`, `link`, `image` (hotspot and crop, alt text required once an image is set) |
 | `featureGrid` | Section | `heading`, `items` (2 to 6 of `title`, `body`) |
 | `steps` | Section | `heading`, `items` (2 to 8 of `title`, `body`) |
 | `codeSample` | Section | `heading`, `body`, `filename`, `language` (`json`, `ts`, `groq`, `bash`), `code` |

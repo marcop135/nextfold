@@ -4,6 +4,12 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
+## [Unreleased]
+
+### Changed
+
+- Studio: Rename the hero's `cta` field to `link`, with a migration script that dry-runs first ([#55](https://github.com/marcop135/nextfold/pull/55)) ([#47](https://github.com/marcop135/nextfold/issues/47)).
+
 ## [0.5.0] - 2026-11-19
 
 ### Added

@@ -38,7 +38,7 @@ const heroSchema = `export const hero = defineType({
     defineField({ name: "eyebrow", type: "string", validation: (rule) => rule.max(40) }),
     defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
     defineField({ name: "body", type: "text", rows: 3, validation: (rule) => rule.max(240) }),
-    defineField({ name: "cta", title: "Call to action", type: "link" }),
+    defineField({ name: "link", title: "Call to action", type: "link" }),
   ],
 });`;
 
@@ -56,7 +56,7 @@ export const seedPages: Page[] = [
         eyebrow: "Next.js + Sanity",
         heading: "Typed sections, defined in code",
         body: "Editors fill each section in Sanity Studio. Developers define the section types, so a published page stays inside the schema.",
-        cta: { _type: "link", label: "Take a page apart", href: "/inside-a-page" },
+        link: { _type: "link", label: "Take a page apart", href: "/inside-a-page" },
       },
       {
         _type: "featureGrid",
