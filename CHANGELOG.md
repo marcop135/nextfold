@@ -10,10 +10,12 @@
 
 - Site: Refresh pages, Markdown, `llms.txt`, and the sitemap from a signed Sanity publish webhook ([#56](https://github.com/marcop135/nextfold/pull/56)) ([#48](https://github.com/marcop135/nextfold/issues/48)).
 - SEO: Give every page its own Open Graph and X card image with its heading and description ([#57](https://github.com/marcop135/nextfold/pull/57)) ([#49](https://github.com/marcop135/nextfold/issues/49)).
+- Privacy: Serve `/.well-known/gpc.json` ([#58](https://github.com/marcop135/nextfold/pull/58)) ([#50](https://github.com/marcop135/nextfold/issues/50)).
 
 ### Changed
 
 - Studio: Rename the hero's `cta` field to `link`, with a migration script that dry-runs first ([#55](https://github.com/marcop135/nextfold/pull/55)) ([#47](https://github.com/marcop135/nextfold/issues/47)).
+- Privacy: Count visits that send Do Not Track or Global Privacy Control, and say so on the privacy page ([#58](https://github.com/marcop135/nextfold/pull/58)) ([#50](https://github.com/marcop135/nextfold/issues/50)).
 
 ## [0.5.0] - 2026-11-19
 
