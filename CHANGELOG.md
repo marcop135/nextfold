@@ -4,6 +4,12 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
+## [Unreleased]
+
+### Changed
+
+- Site: Present the demo as typed sections, the schema, and Studio
+
 ## [0.4.0] - 2026-11-18
 
 ### Added
