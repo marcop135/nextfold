@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/site";
 import { getPage } from "@/sanity/lib/fetch-page";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const loaded = await getPage("home");
+  const loaded = await getPage("home", "clean");
   return loaded ? pageMetadata({ path: "/", title: loaded.page.title, description: loaded.page.description }) : {};
 }
 
