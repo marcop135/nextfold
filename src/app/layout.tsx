@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Marco Pontili", url: "https://marcopontili.com" }],
   robots: ROBOTS,
   openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US", images: [OG_IMAGE] },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

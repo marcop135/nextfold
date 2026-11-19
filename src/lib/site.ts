@@ -24,13 +24,20 @@ export function markdownPath(pathname: string): string {
 /** Site-wide Link header: discovery files for crawlers and agents. */
 export const DISCOVERY_LINK = '</sitemap.xml>; rel="sitemap", </llms.txt>; rel="describedby"; type="text/plain"';
 
+/** Generated Open Graph card for a page path, served by src/app/og/[slug]/route.tsx. */
+export function ogImagePath(path: string): string {
+  return `/og/${path === "/" ? "home" : path.slice(1)}`;
+}
+
 export function pageMetadata({ path, title, description }: { path: string; title: string; description: string }): Metadata {
+  const image = { url: ogImagePath(path), width: OG_IMAGE.width, height: OG_IMAGE.height, alt: title };
   return {
     title: { absolute: title },
     description,
     robots: ROBOTS,
     alternates: { canonical: path, types: { "text/markdown": markdownPath(path) } },
-    openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US", title, description, url: path, images: [OG_IMAGE] },
+    openGraph: { type: "website", siteName: SITE_NAME, locale: "en_US", title, description, url: path, images: [image] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }
 
@@ -76,7 +83,7 @@ export function pageJsonLd({
       author: { "@id": `${SITE_URL}/#author` },
       primaryImageOfPage: {
         "@type": "ImageObject",
-        url: `${SITE_URL}${OG_IMAGE.url}`,
+        url: `${SITE_URL}${ogImagePath(path)}`,
         width: OG_IMAGE.width,
         height: OG_IMAGE.height,
       },

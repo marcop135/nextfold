@@ -50,9 +50,10 @@ Sanity TypeGen writes the TypeScript types to [`sanity.types.ts`](../src/sanity/
 | `/llms.txt` | [`llms.txt/route.ts`](../src/app/llms.txt/route.ts) | Every page with its Markdown link and description |
 | `/sitemap.xml` | [`sitemap.ts`](../src/app/sitemap.ts) | `lastmod` from Sanity's `_updatedAt`; seed and fixed pages have none |
 | `/robots.txt` | [`robots.txt/route.ts`](../src/app/robots.txt/route.ts) | `Content-Signal: search=yes, ai-input=yes`, blocks `/studio`; Vercel previews block everything |
+| `/og/<slug>` | [`og/[slug]/route.tsx`](../src/app/og/[slug]/route.tsx) | 1200 × 630 Open Graph card per page: the hero's eyebrow and heading, then the meta description |
 | `/for-agents`, `/privacy` | [`static-pages.ts`](../src/content/static-pages.ts) | One data source renders both the HTML and the Markdown version |
 
-[`site.ts`](../src/lib/site.ts) builds the canonical URLs, Open Graph tags, and the JSON-LD graph (`WebSite`, `Person`, `WebPage`, and `BreadcrumbList` below the home page). Vercel preview deployments get `noindex`.
+[`site.ts`](../src/lib/site.ts) builds the canonical URLs, Open Graph and X card tags pointing at each page's `/og/<slug>` card, and the JSON-LD graph (`WebSite`, `Person`, `WebPage`, and `BreadcrumbList` below the home page). Vercel preview deployments get `noindex`.
 
 ## Analytics and headers
 
