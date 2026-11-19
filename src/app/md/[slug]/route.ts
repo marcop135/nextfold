@@ -13,7 +13,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ slu
   if (fixed) body = staticPageMarkdown(fixed);
   else if (slug !== "home") {
     try {
-      const loaded = await getPage(slug === "index" ? "home" : slug);
+      const loaded = await getPage(slug === "index" ? "home" : slug, "published");
       if (loaded) body = cmsPageMarkdown(loaded.page, path);
     } catch {
       return new Response("Content temporarily unavailable.\n", { status: 503, headers: { "Content-Type": "text/plain; charset=utf-8" } });
