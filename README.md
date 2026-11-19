@@ -17,7 +17,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Sanity](https://img.shields.io/badge/Sanity-Studio_6-F03E2F?logo=sanity&logoColor=white)](https://www.sanity.io/)
 
-A [Next.js](https://nextjs.org/) App Router and [Sanity](https://www.sanity.io/) demo. Editors build marketing pages from typed sections in Sanity Studio, embedded in the app. Developers own the schema, the GROQ queries, and the React components.
+A [Next.js](https://nextjs.org/) App Router and [Sanity](https://www.sanity.io/) demo of typed sections. Editors fill those sections in Studio. Developers own the schema, the GROQ queries, and the React components.
 
 ## Explore the demo
 

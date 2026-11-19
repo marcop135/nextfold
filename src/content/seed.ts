@@ -45,17 +45,17 @@ const heroSchema = `export const hero = defineType({
 /** Shown until the Sanity dataset publishes a page with the same slug. */
 export const seedPages: Page[] = [
   {
-    title: "Next Fold: marketing pages from typed Sanity sections",
+    title: "Next Fold: typed Sanity sections and the schema behind them",
     slug: "home",
     description:
-      "Next Fold is a Next.js and Sanity demo: editors compose marketing pages from typed sections, developers own the schema and the components.",
+      "Next Fold is a Next.js and Sanity demo: typed sections, the schema that limits them, and Studio. Editors fill the fields. Developers own the types.",
     sections: [
       {
         _type: "hero",
         _key: "hero",
         eyebrow: "Next.js + Sanity",
-        heading: "Marketing pages built from typed sections",
-        body: "Editors build each page in Sanity Studio from a short list of sections. Developers define those sections in code, so pages can change every day and still match the design.",
+        heading: "Typed sections, defined in code",
+        body: "Editors fill each section in Sanity Studio. Developers define the section types, so a published page stays inside the schema.",
         cta: { _type: "link", label: "Take a page apart", href: "/inside-a-page" },
       },
       {
@@ -141,7 +141,7 @@ export const seedPages: Page[] = [
         _type: "hero",
         _key: "hero",
         eyebrow: "Guardrails",
-        heading: "Rules that keep every page on brand",
+        heading: "Rules every page passes before it publishes",
         body: "The schema decides what an editor can publish. The limits live in code next to the components, so copy that fits the Studio also fits the layout.",
       },
       {
