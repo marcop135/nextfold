@@ -23,6 +23,8 @@ flowchart TB
 | `callToAction` | Section | `heading`, `body`, `link` |
 | `link` | Object | `label`, `href` (starts with `/` or `https://`) |
 
+Every section except `callToAction` takes a `theme` (`bg`, `surface`, `band`), and every section takes a `spacing` (`space-3`, `space-4`, `space-5`). The values are the custom property names in [`globals.css`](../src/app/globals.css), listed once in [`design-tokens.ts`](../src/lib/design-tokens.ts) for the schema; the CSS has one rule per value.
+
 A page is an ordered list of sections. Each section type has one schema in [`sections.ts`](../src/sanity/schemaTypes/sections.ts) and one component in [`SectionRenderer.tsx`](../src/components/SectionRenderer.tsx).
 
 Sanity TypeGen writes the TypeScript types to [`sanity.types.ts`](../src/sanity/sanity.types.ts) from the extracted [`schema.json`](../src/sanity/schema.json) and the GROQ queries; [`types.ts`](../src/sanity/types.ts) gives them app-facing names. After a schema or query change, run `npm run typegen` and commit both files. CI regenerates them and fails when the committed output differs.
