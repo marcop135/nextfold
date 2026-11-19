@@ -52,8 +52,12 @@ const nextConfig: NextConfig = {
           ...shared,
           { key: "Content-Security-Policy", value: csp },
           { key: "No-Vary-Search", value: 'params=("utm_source" "utm_medium" "utm_campaign" "utm_term" "utm_content")' },
-          { key: "Link", value: DISCOVERY_LINK },
         ],
+      },
+      // Markdown twins set their own Link header (canonical HTML plus these links); a config header would replace it.
+      {
+        source: "/((?!studio)(?!.*\\.md$).*)",
+        headers: [{ key: "Link", value: DISCOVERY_LINK }],
       },
       {
         source: "/studio/:path*",

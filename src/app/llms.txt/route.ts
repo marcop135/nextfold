@@ -1,5 +1,5 @@
 import { staticPages } from "@/content/static-pages";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, markdownPath } from "@/lib/site";
+import { REPO_URL, SITE_DESCRIPTION, SITE_NAME, SITE_URL, markdownPath } from "@/lib/site";
 import { getPage, getSitemapEntries } from "@/sanity/lib/fetch-page";
 
 export const revalidate = 60;
@@ -23,6 +23,7 @@ export async function GET() {
     [...pages.filter(Boolean), ...fixed].join("\n"),
     "## Optional",
     `- [Sitemap](${SITE_URL}/sitemap.xml): every public URL`,
+    `- [Source code](${REPO_URL}): the Next.js and Sanity project behind this site`,
   ].join("\n\n");
 
   return new Response(`${body}\n`, { headers: { "Content-Type": "text/plain; charset=utf-8" } });

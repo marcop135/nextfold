@@ -4,6 +4,31 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
+## [0.6.0] - 2026-11-19
+
+### Added
+
+- Site: Refresh pages, Markdown, `llms.txt`, and the sitemap from a signed Sanity publish webhook ([#56](https://github.com/marcop135/nextfold/pull/56)) ([#48](https://github.com/marcop135/nextfold/issues/48)).
+- SEO: Give every page its own Open Graph and X card image with its heading and description ([#57](https://github.com/marcop135/nextfold/pull/57)) ([#49](https://github.com/marcop135/nextfold/issues/49)).
+- Privacy: Serve `/.well-known/gpc.json` ([#58](https://github.com/marcop135/nextfold/pull/58)) ([#50](https://github.com/marcop135/nextfold/issues/50)).
+
+### Changed
+
+- Studio: Rename the hero's `cta` field to `link`, with a migration script that dry-runs first ([#55](https://github.com/marcop135/nextfold/pull/55)) ([#47](https://github.com/marcop135/nextfold/issues/47)).
+- Privacy: Count visits that send Do Not Track or Global Privacy Control, and say so on the privacy page ([#58](https://github.com/marcop135/nextfold/pull/58)) ([#50](https://github.com/marcop135/nextfold/issues/50)).
+- Site: Show the home page's sections as Studio rows beside the blocks they render, instead of code ([#59](https://github.com/marcop135/nextfold/pull/59)) ([#51](https://github.com/marcop135/nextfold/issues/51)).
+- Pages: Replace JSON and TypeScript samples with plain descriptions of each field and rule ([#60](https://github.com/marcop135/nextfold/pull/60)) ([#52](https://github.com/marcop135/nextfold/issues/52)).
+- Site: Restyle buttons with clear hover, focus, and pressed states in light and dark ([#61](https://github.com/marcop135/nextfold/pull/61)) ([#53](https://github.com/marcop135/nextfold/issues/53)).
+- Agents: List the source code repository in `llms.txt` ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+
+### Fixed
+
+- Markdown: Send the canonical HTML page in the `Link` header of every `.md` page ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+- SEO: Keep `.md` pages on preview deployments out of search ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+- A11y: Keep button arrows and the menu icon visible in forced colors ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+- A11y: Name scrollable code blocks as regions ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+- A11y: Keep focused elements clear of the draft mode bar ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+
 ## [0.5.0] - 2026-11-19
 
 ### Added

@@ -63,7 +63,7 @@ export const privacy: StaticPage = {
   description:
     "Next Fold uses cookieless self-hosted Matomo and Vercel hosting. Public pages set no cookies, so no consent banner is shown.",
   blocks: [
-    { type: "p", parts: [`This notice covers ${host}. Last updated: 2026-11-17.`] },
+    { type: "p", parts: [`This notice covers ${host}. Last updated: 2026-11-19.`] },
     { type: "h2", text: "Controller" },
     {
       type: "p",
@@ -78,7 +78,7 @@ export const privacy: StaticPage = {
     {
       type: "p",
       parts: [
-        "This site uses a self-hosted, cookieless Matomo installation run by the controller. No cookies are set and nothing is stored on your device. IP addresses are anonymised. When your browser sends Do Not Track, no page view is recorded.",
+        "This site uses a self-hosted, cookieless Matomo installation run by the controller. No cookies are set and nothing is stored on your device. IP addresses are anonymised. Page views are recorded when your browser sends Do Not Track or Global Privacy Control. Global Privacy Control asks a site not to sell or share your data for advertising, and this site does neither.",
       ],
     },
     {

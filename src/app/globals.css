@@ -93,6 +93,7 @@
   h3 {
     line-height: 1.15;
     letter-spacing: -0.02em;
+    overflow-wrap: break-word;
     text-wrap: balance;
   }
 
@@ -233,6 +234,7 @@
       min-block-size: 2.75rem;
       padding-block: 0.5rem;
       color: var(--color-muted);
+      overflow-wrap: anywhere;
       text-decoration: none;
 
       &:hover {
@@ -339,6 +341,15 @@
 
       &::after {
         transform: translateY(0.4375rem);
+      }
+    }
+
+    @media (forced-colors: active) {
+      .menu-toggle__icon,
+      .menu-toggle__icon::before,
+      .menu-toggle__icon::after {
+        forced-color-adjust: none;
+        background-color: ButtonText;
       }
     }
 
@@ -485,38 +496,89 @@
     max-inline-size: var(--measure-text);
   }
 
+  /*
+   * Buttons set their colors through custom properties, so each context swaps tokens, not rules.
+   * White label on red: 5.1:1 at rest in light, 4.8:1 in dark, higher on hover and press.
+   */
   .button {
+    --button-bg: light-dark(#c8321f, #d23a2a);
+    --button-bg-hover: light-dark(#ad2818, #bb2f20);
+    --button-bg-active: light-dark(#932013, #a32616);
+    --button-fg: #ffffff;
+    --button-glow: rgb(200 50 31 / 0.45);
+    --button-ring: var(--color-focus);
+    --button-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8h9m-4-4 4 4-4 4' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
     display: inline-flex;
     align-items: center;
-    min-block-size: 2.75rem;
+    gap: 0.5rem;
+    min-block-size: 2.875rem;
     margin-block-start: var(--space-3);
-    padding: 0.625rem 1.25rem;
-    /* White label on red: 4.67:1 at rest, 6.52:1 on hover and focus. */
-    background: #d63a2b;
-    color: #ffffff;
-    border: 1px solid #d63a2b;
-    border-radius: var(--radius);
+    padding: 0.6875rem 1rem 0.6875rem 1.25rem;
+    background: var(--button-bg);
+    color: var(--button-fg);
+    border: 0;
+    border-radius: 0.5rem;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.18),
+      0 1px 2px light-dark(rgb(16 17 18 / 0.18), rgb(0 0 0 / 0.5));
+    font-size: 1rem;
     font-weight: 600;
+    line-height: 1.25;
     text-decoration: none;
-    text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
     transition:
-      background-color 180ms ease,
-      border-color 180ms ease,
-      color 180ms ease,
-      transform 180ms ease;
+      background-color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
 
-    &:hover,
-    &:focus-visible {
-      background: #b3271a;
-      border-color: #b3271a;
+    &::after {
+      content: "";
+      flex: none;
+      inline-size: 1rem;
+      block-size: 1rem;
+      background: currentColor;
+      mask: var(--button-arrow) center / contain no-repeat;
+      transition: transform 160ms ease;
+    }
+
+    /* Links that leave the site point up and out. */
+    &[href^="http"] {
+      --button-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 11l6-6M6 5h5v5' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     }
 
     &:hover {
-      transform: translateY(-1px);
+      background: var(--button-bg-hover);
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.18),
+        0 0.5rem 1.25rem -0.5rem var(--button-glow);
+    }
+
+    &:hover::after {
+      transform: translateX(0.1875rem);
+    }
+
+    &[href^="http"]:hover::after {
+      transform: translate(0.125rem, -0.125rem);
     }
 
     &:active {
-      transform: translateY(0);
+      background: var(--button-bg-active);
+      box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.28);
+      transform: translateY(1px);
+    }
+
+    &:focus-visible {
+      outline: 0.125rem solid var(--button-ring);
+      outline-offset: 0.1875rem;
+    }
+
+    @media (forced-colors: active) {
+      border: 1px solid ButtonText;
+
+      &::after {
+        forced-color-adjust: none;
+        background: ButtonText;
+      }
     }
   }
 
@@ -603,29 +665,28 @@
   }
 
   .cta {
-    background: var(--color-band);
-    color: var(--color-on-band);
-
     & + .source-note {
       padding-block-start: var(--space-3);
     }
+  }
+
+  /* Dark band unless an editor picked the bg or surface theme, which would leave light text on a light ground. */
+  .cta:not([data-theme="bg"], [data-theme="surface"]) {
+    background: var(--color-band);
+    color: var(--color-on-band);
 
     & :focus-visible {
       outline-color: var(--color-on-band);
     }
 
-    /* Light button on the dark band, dark label (18.9:1); hover and focus only dim it slightly. */
+    /* Light button on the dark band, dark label (at least 9:1 in every state). */
     & .button {
-      --band-button: var(--color-on-band);
-      background: var(--band-button);
-      border-color: var(--band-button);
-      color: #101112;
-      text-shadow: 0 1px 0 rgb(255 255 255 / 0.6);
-
-      &:hover,
-      &:focus-visible {
-        --band-button: color-mix(in oklab, var(--color-on-band) 84%, var(--color-band));
-      }
+      --button-bg: var(--color-on-band);
+      --button-bg-hover: color-mix(in oklab, var(--color-on-band) 88%, var(--color-band));
+      --button-bg-active: color-mix(in oklab, var(--color-on-band) 78%, var(--color-band));
+      --button-fg: #101112;
+      --button-glow: rgb(255 255 255 / 0.22);
+      --button-ring: var(--color-on-band);
     }
   }
 
@@ -718,6 +779,11 @@
     max-inline-size: var(--measure-text);
     margin: var(--space-5) auto;
     padding-inline: var(--space-3);
+  }
+
+  /* The fixed bar must not cover the focused element: keep it clear when scrolling into view. */
+  html:has(.draft-mode-bar) {
+    scroll-padding-block-end: 6rem;
   }
 
   .draft-mode-bar {
@@ -833,152 +899,280 @@
     }
   }
 
-  /* Home hero illustration: four stages light up in turn, once, while on screen. */
+  /*
+   * Home hero illustration: the page's sections as Studio rows on the left and page blocks on the right.
+   * Each row and its block appear together, then the status turns to Published. Plays once while on screen.
+   */
   .hero-visual {
     margin: 0;
     min-inline-size: 0;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius);
+    border-radius: 0.75rem;
+    box-shadow: 0 1.5rem 3rem -2rem light-dark(rgb(16 17 18 / 0.35), rgb(0 0 0 / 0.8));
     overflow: hidden;
 
     & figcaption {
-      padding: var(--space-2) var(--space-3);
+      padding: 0.875rem var(--space-2);
+      border-block-start: 1px solid var(--color-border);
       color: var(--color-muted);
       font-size: 0.875rem;
+      line-height: 1.5;
     }
   }
 
-  .hero-visual__bar {
-    display: flex;
-    justify-content: space-between;
-    gap: var(--space-1);
-    padding: 0.75rem var(--space-2);
-    border-block-end: 1px solid var(--color-border);
-    color: var(--color-muted);
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-  }
-
-  .hero-visual__flow {
+  .hero-visual__panes {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-2);
-    margin: 0;
-    padding: var(--space-3);
-    list-style: none;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
 
-    @media (max-width: 36rem) {
+    @media (max-width: 30rem) {
       grid-template-columns: minmax(0, 1fr);
-      gap: var(--space-1);
-      padding: var(--space-2);
     }
   }
 
-  .hero-visual__stage {
-    min-inline-size: 0;
+  .hero-visual__studio {
+    display: flex;
+    flex-direction: column;
     padding: var(--space-2);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-  }
+    border-inline-end: 1px solid var(--color-border);
+    background: color-mix(in oklab, var(--color-bg) 60%, var(--color-surface));
 
-  .hero-visual__stage--1 {
-    animation-delay: 0.25s;
-  }
-
-  .hero-visual__stage--2 {
-    animation-delay: 0.5s;
-  }
-
-  .hero-visual__stage--3 {
-    animation-delay: 0.75s;
-    border-color: var(--color-accent);
-  }
-
-  .hero-visual__number {
-    color: var(--color-link);
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
+    @media (max-width: 30rem) {
+      border-inline-end: 0;
+      border-block-end: 1px solid var(--color-border);
+    }
   }
 
   .hero-visual__label {
-    display: block;
-    margin-block: 0.25rem 0.75rem;
-    font-weight: 650;
+    color: var(--color-muted);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  .hero-visual__sketch {
+  .hero-visual__doc {
+    margin-block: 0.125rem 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  .hero-visual__rows {
+    display: grid;
+    gap: 0.375rem;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-visual__row {
+    display: grid;
+    min-inline-size: 0;
+    padding: 0.4375rem 0.625rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-inline-start: 0.1875rem solid var(--color-accent);
+    border-radius: 0.375rem;
+    line-height: 1.3;
+  }
+
+  .hero-visual__type {
+    color: var(--color-muted);
+    font-size: 0.6875rem;
+    font-weight: 600;
+  }
+
+  .hero-visual__heading {
+    overflow: hidden;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hero-visual__status {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 0.375rem;
+    margin-block-start: auto;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .hero-visual__status-dot {
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-radius: 50%;
+    background: light-dark(#1a7f37, #3fb950);
+  }
+
+  .hero-visual__page {
+    padding: var(--space-2);
+    background-image: radial-gradient(var(--color-dot) 0.06rem, transparent 0.07rem);
+    background-size: 0.75rem 0.75rem;
+  }
+
+  .hero-visual__address {
+    margin-block-end: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-muted);
+    font-size: 0.6875rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hero-visual__blocks {
+    display: grid;
+    gap: 0.4375rem;
+  }
+
+  .hero-visual__block {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.375rem;
+    padding: 0.625rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+  }
 
-    & code {
-      color: var(--color-muted);
-      font-size: 0.75rem;
-      overflow-wrap: anywhere;
+  .hero-visual__block--hero {
+    padding-block: 0.875rem;
+  }
+
+  .hero-visual__block--callToAction {
+    background: var(--color-band);
+    border-color: var(--color-band);
+
+    & .wf-line {
+      background: color-mix(in oklab, var(--color-on-band) 55%, transparent);
     }
   }
 
-  .hero-visual__track {
-    block-size: 0.2rem;
-    background: var(--color-border);
+  .wf-line {
+    display: block;
+    inline-size: 70%;
+    block-size: 0.375rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--color-text) 20%, transparent);
+  }
 
-    & span {
-      display: block;
-      block-size: 100%;
-      background: var(--color-accent);
-      transform-origin: left;
-    }
+  .wf-line--title {
+    inline-size: 85%;
+    block-size: 0.625rem;
+    background: color-mix(in oklab, var(--color-text) 75%, transparent);
+  }
+
+  .wf-line--short {
+    inline-size: 45%;
+  }
+
+  .wf-pill {
+    display: block;
+    inline-size: 3.25rem;
+    block-size: 0.75rem;
+    margin-block-start: 0.125rem;
+    border-radius: 0.25rem;
+    background: #c8321f;
+  }
+
+  .wf-pill--light {
+    background: var(--color-on-band);
+  }
+
+  .wf-row {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    gap: 0.375rem;
+  }
+
+  .wf-card {
+    block-size: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    background: var(--color-bg);
+  }
+
+  .wf-step {
+    block-size: 1.125rem;
+    border-block-start: 0.125rem solid var(--color-accent);
+    background: color-mix(in oklab, var(--color-text) 6%, transparent);
   }
 
   .hero-visual:is([data-motion="running"], [data-motion="paused"]) {
-    & .hero-visual__stage {
-      animation: hero-visual-stage 4s both;
+    & .hero-visual__row {
+      animation: hero-visual-row 0.7s calc(var(--i) * var(--step) + 0.2s) both;
     }
 
-    & .hero-visual__track span {
-      animation: hero-visual-progress 4.75s both;
+    & .hero-visual__block {
+      animation: hero-visual-block 0.6s calc(var(--i) * var(--step) + 0.4s) both;
+    }
+
+    & .hero-visual__status {
+      animation: hero-visual-publish 0.5s calc(var(--count) * var(--step) + 0.4s) both;
     }
   }
 
-  .hero-visual[data-motion="paused"] :is(.hero-visual__stage, .hero-visual__track span) {
+  .hero-visual[data-motion="paused"] :is(.hero-visual__row, .hero-visual__block, .hero-visual__status) {
     animation-play-state: paused;
   }
 
-  /* Until hydration decides whether the sequence runs, hold the first frame. */
+  /* Until hydration decides whether the sequence runs, hold the empty first frame. */
   @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-    .hero-visual[data-motion="pending"] {
-      & .hero-visual__stage {
-        opacity: 0.4;
-        transform: translateY(0.5rem);
-      }
-
-      & .hero-visual__track span {
-        transform: scaleX(0);
-      }
+    .hero-visual[data-motion="pending"] :is(.hero-visual__row, .hero-visual__block, .hero-visual__status) {
+      opacity: 0;
     }
   }
 
-  @keyframes hero-visual-stage {
-    0% {
-      opacity: 0.4;
-      transform: translateY(0.5rem);
-    }
-
-    30%,
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes hero-visual-progress {
+  @keyframes hero-visual-row {
     from {
-      transform: scaleX(0);
+      opacity: 0;
+      transform: translateX(-0.5rem);
+      box-shadow: 0 0 0 0.1875rem color-mix(in oklab, var(--color-accent) 35%, transparent);
+    }
+
+    50% {
+      opacity: 1;
+      transform: translateX(0);
+      box-shadow: 0 0 0 0.1875rem color-mix(in oklab, var(--color-accent) 35%, transparent);
     }
 
     to {
-      transform: scaleX(1);
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+
+  @keyframes hero-visual-block {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem) scale(0.98);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes hero-visual-publish {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
     }
   }
 

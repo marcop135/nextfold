@@ -34,7 +34,7 @@ The pricing page lists no card requirement for Free. A public dataset is enough:
    ```
 
    This creates the `home`, `inside-a-page`, and `guardrails` pages and the site settings. Documents that already exist stay as they are, so a second run never overwrites edits.
-7. Open http://localhost:3100. The line above the footer reads `Content source: sanity`.
+7. Open http://localhost:3100. The line above the footer reads "This page comes from the Sanity dataset."
 8. For Presentation and Visual Editing, create a viewer token. It reads drafts, so it stays on the server:
 
    ```bash
@@ -44,7 +44,40 @@ The pricing page lists no card requirement for Free. A public dataset is enough:
    Set it as `SANITY_API_READ_TOKEN` in `.env` and in the Vercel project's environment, then restart `npm run dev`.
 9. Open **Presentation** in the Studio. The page loads in draft mode with click-to-edit overlays, and edits show before you publish.
 
+10. For publishes to refresh cached pages when no browser has the site open, add a webhook in **sanity.io/manage > API > Webhooks**:
+
+    | Setting | Value |
+    | --- | --- |
+    | URL | `https://<your domain>/api/revalidate` |
+    | Dataset | `production` |
+    | Trigger on | Create, Update, Delete |
+    | Filter | `_type in ["page", "siteSettings"]` |
+    | Projection | `{_type, "slug": slug.current}` |
+    | HTTP method | POST |
+    | Secret | A random string, also set as `SANITY_REVALIDATE_SECRET` in Vercel |
+
+    The route checks the signature, then expires the page, the page list behind the sitemap and `llms.txt`, or the site settings.
+
 Until Sanity has a published page for a slug, the seed page with that slug from [`seed.ts`](../src/content/seed.ts) renders instead: `home`, `inside-a-page`, and `guardrails`. Published changes reach open pages through the Live Content API.
+
+## Rename a field
+
+A field rename ships with a migration in [`migrations/`](../migrations). The hero's `cta` became `link` this way:
+
+1. Rename the field in the schema and update the components that read it.
+2. Keep reading the old name in the query until the data moves. `PAGE_QUERY` maps a hero's `cta` to `link` when `link` is empty.
+3. Dry run, which lists the patches and writes nothing:
+
+   ```bash
+   npx sanity login
+   npx sanity migration run rename-hero-cta-to-link
+   ```
+
+4. Apply it, then drop the old name from the query:
+
+   ```bash
+   npx sanity migration run rename-hero-cta-to-link --no-dry-run
+   ```
 
 ## Troubleshooting
 
@@ -52,5 +85,6 @@ Until Sanity has a published page for a slug, the seed page with that slug from 
 | --- | --- |
 | `/studio` shows "Studio needs a Sanity project" | `NEXT_PUBLIC_SANITY_PROJECT_ID` is empty, or the dev server was not restarted |
 | Studio login loops or shows a CORS error | `http://localhost:3100` is missing from the CORS origins, or has credentials off |
-| The page still reads `Content source: seed` | The Page with slug `home` is a draft; publish it |
+| The page still says it comes from the seed copy | The Page with slug `home` is a draft; publish it |
+| The webhook returns 401 | The secret in the webhook and `SANITY_REVALIDATE_SECRET` differ |
 | Presentation shows "Draft mode needs ..." | `SANITY_API_READ_TOKEN` is empty, or the dev server was not restarted |

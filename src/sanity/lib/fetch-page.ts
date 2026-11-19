@@ -5,6 +5,13 @@ import { PAGE_QUERY, SETTINGS_QUERY, SITEMAP_QUERY } from "./queries";
 
 export type LoadedPage = { page: Page; source: ContentSource };
 
+/** Cache tags the publish webhook in src/app/api/revalidate/route.ts expires. */
+export const TAGS = {
+  page: (slug: string) => `page:${slug}`,
+  pageList: "page-list",
+  settings: "settings",
+} as const;
+
 /**
  * `published` skips draft mode: Markdown twins, llms.txt, the sitemap, and static params always read published content.
  * `clean` keeps drafts but drops stega, for strings that end up outside the page body, such as metadata.
@@ -21,7 +28,7 @@ function options(mode: FetchMode) {
 export async function getPage(slug: string, mode: FetchMode = "page"): Promise<LoadedPage | null> {
   const seed = seedPages.find((page) => page.slug === slug) ?? null;
   if (!live) return seed && { page: seed, source: "seed" };
-  const { data } = await live.sanityFetch({ query: PAGE_QUERY, params: { slug }, ...options(mode) });
+  const { data } = await live.sanityFetch({ query: PAGE_QUERY, params: { slug }, tags: [TAGS.page(slug)], ...options(mode) });
   if (data) return { page: data as Page, source: "sanity" };
   return seed && { page: seed, source: "seed" };
 }
@@ -29,7 +36,7 @@ export async function getPage(slug: string, mode: FetchMode = "page"): Promise<L
 /** Header and footer content: the siteSettings document, or the seed settings until it is published. */
 export async function getSiteSettings(): Promise<SiteSettings> {
   if (!live) return seedSettings;
-  const { data } = await live.sanityFetch({ query: SETTINGS_QUERY });
+  const { data } = await live.sanityFetch({ query: SETTINGS_QUERY, tags: [TAGS.settings] });
   return (data as SiteSettings | null) ?? seedSettings;
 }
 
@@ -37,7 +44,7 @@ export type SitemapEntry = { slug: string; updatedAt?: string };
 
 export async function getSitemapEntries(): Promise<SitemapEntry[]> {
   const fromSanity = live
-    ? ((await live.sanityFetch({ query: SITEMAP_QUERY, ...options("published") })).data as SitemapEntry[])
+    ? ((await live.sanityFetch({ query: SITEMAP_QUERY, tags: [TAGS.pageList], ...options("published") })).data as SitemapEntry[])
     : [];
   const slugs = new Set(fromSanity.map((entry) => entry.slug));
   return [...fromSanity, ...seedPages.filter((page) => !slugs.has(page.slug)).map((page) => ({ slug: page.slug }))];

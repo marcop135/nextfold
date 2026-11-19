@@ -48,7 +48,7 @@ export function cmsPageMarkdown(page: Page, path: string): string {
         if (section.image?.asset && "url" in section.image.asset) {
           out.push(`![${section.image.alt ?? ""}](${section.image.asset.url})`);
         }
-        if (section.cta) out.push(`[${section.cta.label}](${absolute(section.cta.href)})`);
+        if (section.link) out.push(`[${section.link.label}](${absolute(section.link.href)})`);
         break;
       case "featureGrid":
         out.push((section.items ?? []).map((item) => `- **${item.title}**${item.body ? `: ${item.body}` : ""}`).join("\n"));

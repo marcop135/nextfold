@@ -25,9 +25,9 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
 
 | Page | What it shows |
 | --- | --- |
-| [Home](https://nextfold.marcopontili.com/) | What editors and developers each own |
-| [Inside a page](https://nextfold.marcopontili.com/inside-a-page) | Each section next to the Sanity data it came from |
-| [Guardrails](https://nextfold.marcopontili.com/guardrails) | The schema rules that keep pages on brand |
+| [Home](https://nextfold.marcopontili.com/) | Who does what, and the page's own sections as an editor sees them in the Studio |
+| [Inside a page](https://nextfold.marcopontili.com/inside-a-page) | Each section followed by the fields an editor filled in to make it |
+| [Guardrails](https://nextfold.marcopontili.com/guardrails) | The rules the Studio checks before a page can publish |
 | [For agents](https://nextfold.marcopontili.com/for-agents) | Markdown versions, `llms.txt`, sitemap |
 
 ## How content flows
@@ -89,7 +89,8 @@ All variables are optional in local mode. Set them in `.env` to load content fro
 | --- | --- | --- |
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | Sanity content and the Studio | Empty: sample content only |
 | `NEXT_PUBLIC_SANITY_DATASET` | Sanity content and the Studio | `production` |
-| `SANITY_API_READ_TOKEN` | Draft previews (planned) | Empty |
+| `SANITY_API_READ_TOKEN` | Draft mode, Presentation, and Visual Editing | Empty: published content only |
+| `SANITY_REVALIDATE_SECRET` | Publish webhook at `/api/revalidate` | Empty: the webhook answers 501 |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URLs, sitemap, JSON-LD | `https://nextfold.marcopontili.com` |
 | `NEXT_PUBLIC_MATOMO_SITE_ID`, `NEXT_PUBLIC_MATOMO_CONTAINER_ID` | Cookieless analytics | Empty: no tracking |
 
