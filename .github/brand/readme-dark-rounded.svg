@@ -27,7 +27,7 @@
   <text class="mono code" x="746" y="236">fields: [</text>
   <text class="mono code" x="762" y="262">heading <tspan class="dim">max 80</tspan></text>
   <text class="mono code" x="762" y="288">body    <tspan class="dim">max 240</tspan></text>
-  <text class="mono code" x="762" y="314">cta     <tspan class="dim">link</tspan></text>
+  <text class="mono code" x="762" y="314">link    <tspan class="dim">link</tspan></text>
   <text class="mono code" x="746" y="340">],</text>
   <text class="mono code" x="730" y="364">})</text>
   <rect x="900" y="300" width="300" height="220" rx="10" fill="#17181A" stroke="#E8E9EC" stroke-width="2"/>

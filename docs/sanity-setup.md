@@ -46,6 +46,25 @@ The pricing page lists no card requirement for Free. A public dataset is enough:
 
 Until Sanity has a published page for a slug, the seed page with that slug from [`seed.ts`](../src/content/seed.ts) renders instead: `home`, `inside-a-page`, and `guardrails`. Published changes reach open pages through the Live Content API.
 
+## Rename a field
+
+A field rename ships with a migration in [`migrations/`](../migrations). The hero's `cta` became `link` this way:
+
+1. Rename the field in the schema and update the components that read it.
+2. Keep reading the old name in the query until the data moves. `PAGE_QUERY` maps a hero's `cta` to `link` when `link` is empty.
+3. Dry run, which lists the patches and writes nothing:
+
+   ```bash
+   npx sanity login
+   npx sanity migration run rename-hero-cta-to-link
+   ```
+
+4. Apply it, then drop the old name from the query:
+
+   ```bash
+   npx sanity migration run rename-hero-cta-to-link --no-dry-run
+   ```
+
 ## Troubleshooting
 
 | Symptom | Check |

@@ -1,5 +1,6 @@
 import { defineQuery } from "next-sanity";
 
+/** Heroes saved before the rename-hero-cta-to-link migration still store their link as `cta`; drop that line once it has run. */
 export const PAGE_QUERY = defineQuery(`
   *[_type == "page" && slug.current == $slug][0]{
     title,
@@ -7,6 +8,7 @@ export const PAGE_QUERY = defineQuery(`
     description,
     sections[]{
       ...,
+      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },
       _type == "hero" && defined(image.asset) => {
         image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }
       }

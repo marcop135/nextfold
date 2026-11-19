@@ -78,7 +78,7 @@ export type Hero = {
   eyebrow?: string;
   heading: string;
   body?: string;
-  cta?: Link;
+  link?: Link;
   image?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -286,7 +286,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current == $slug][0]{    title,    "slug": slug.current,    description,    sections[]{      ...,      _type == "hero" && defined(image.asset) => {        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }      }    }  }
+// Query: *[_type == "page" && slug.current == $slug][0]{    title,    "slug": slug.current,    description,    sections[]{      ...,      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },      _type == "hero" && defined(image.asset) => {        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }      }    }  }
 export type PAGE_QUERY_RESULT = {
   title: string;
   slug: string;
@@ -330,7 +330,7 @@ export type PAGE_QUERY_RESULT = {
         eyebrow?: string;
         heading: string;
         body?: string;
-        cta?: Link;
+        link?: Link;
         image?: {
           asset?: SanityImageAssetReference;
           media?: unknown;
@@ -348,7 +348,7 @@ export type PAGE_QUERY_RESULT = {
         eyebrow?: string;
         heading: string;
         body?: string;
-        cta?: Link;
+        link?: Link;
         image: {
           asset: {
             _id: string;
@@ -419,7 +419,7 @@ export type SETTINGS_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "page" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    description,\n    sections[]{\n      ...,\n      _type == "hero" && defined(image.asset) => {\n        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
+    '\n  *[_type == "page" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    description,\n    sections[]{\n      ...,\n      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },\n      _type == "hero" && defined(image.asset) => {\n        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
     '\n  *[_type == "page" && defined(slug.current)]{ "slug": slug.current, "updatedAt": _updatedAt }\n': SITEMAP_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0]{ nav, footerNote, projectLinks, siteInfoLinks }\n': SETTINGS_QUERY_RESULT;
   }

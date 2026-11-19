@@ -65,7 +65,7 @@ function Hero({ section, isFirst, visual }: { section: HeroSection; isFirst: boo
           {section.eyebrow ? <p className="eyebrow">{section.eyebrow}</p> : null}
           <Heading id={`${section._key}-title`}>{section.heading}</Heading>
           {section.body ? <p className="lead">{section.body}</p> : null}
-          {section.cta ? <SectionLink className="button" link={section.cta} /> : null}
+          {section.link ? <SectionLink className="button" link={section.link} /> : null}
         </div>
         {visual}
       </div>
