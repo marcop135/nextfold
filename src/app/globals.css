@@ -788,6 +788,21 @@
     }
   }
 
+  .hero-image {
+    margin: 0;
+
+    & img {
+      display: block;
+      inline-size: 100%;
+      block-size: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface);
+    }
+  }
+
   /* Home hero illustration: four stages light up in turn, once, while on screen. */
   .hero-visual {
     margin: 0;

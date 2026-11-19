@@ -1,4 +1,5 @@
 import { stegaClean } from "next-sanity";
+import { Image } from "next-sanity/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CodeBlock } from "@/components/CodeBlock";
@@ -24,8 +25,31 @@ function SectionLink({ link, className }: { link: LinkValue; className: string }
   );
 }
 
+type HeroImageValue = NonNullable<HeroSection["image"]>;
+type ResolvedAsset = Extract<NonNullable<HeroImageValue["asset"]>, { url: string }>;
+
+function HeroImage({ image, asset, preload }: { image: HeroImageValue; asset: ResolvedAsset; preload: boolean }) {
+  return (
+    <figure className="hero-image">
+      {/* 4:3 whatever the upload: the crop applies first, then the frame centers on the hotspot. */}
+      <Image
+        src={{ ...image, asset }}
+        alt={stegaClean(image.alt) ?? ""}
+        width={960}
+        height={720}
+        sizes="(min-width: 56rem) 34rem, 100vw"
+        placeholder={asset.metadata?.lqip ? "blur" : "empty"}
+        preload={preload}
+      />
+    </figure>
+  );
+}
+
 function Hero({ section, isFirst, visual }: { section: HeroSection; isFirst: boolean; visual?: ReactNode }) {
   const Heading = isFirst ? "h1" : "h2";
+  const asset = section.image?.asset && "url" in section.image.asset ? section.image.asset : null;
+  // An editor's image takes the place of the built-in visual.
+  if (section.image && asset) visual = <HeroImage image={section.image} asset={asset} preload={isFirst} />;
   return (
     <section className="section hero" aria-labelledby={`${section._key}-title`}>
       <div className={visual ? "wrap hero__layout" : "wrap"}>

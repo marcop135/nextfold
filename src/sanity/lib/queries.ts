@@ -5,7 +5,12 @@ export const PAGE_QUERY = defineQuery(`
     title,
     "slug": slug.current,
     description,
-    sections[]{ ... }
+    sections[]{
+      ...,
+      _type == "hero" && defined(image.asset) => {
+        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }
+      }
+    }
   }
 `);
 
