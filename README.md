@@ -89,7 +89,8 @@ All variables are optional in local mode. Set them in `.env` to load content fro
 | --- | --- | --- |
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | Sanity content and the Studio | Empty: sample content only |
 | `NEXT_PUBLIC_SANITY_DATASET` | Sanity content and the Studio | `production` |
-| `SANITY_API_READ_TOKEN` | Draft previews (planned) | Empty |
+| `SANITY_API_READ_TOKEN` | Draft mode, Presentation, and Visual Editing | Empty: published content only |
+| `SANITY_REVALIDATE_SECRET` | Publish webhook at `/api/revalidate` | Empty: the webhook answers 501 |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URLs, sitemap, JSON-LD | `https://nextfold.marcopontili.com` |
 | `NEXT_PUBLIC_MATOMO_SITE_ID`, `NEXT_PUBLIC_MATOMO_CONTAINER_ID` | Cookieless analytics | Empty: no tracking |
 
