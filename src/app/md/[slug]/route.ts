@@ -1,6 +1,6 @@
 import { staticPages } from "@/content/static-pages";
 import { cmsPageMarkdown, staticPageMarkdown } from "@/lib/markdown";
-import { SITE_URL } from "@/lib/site";
+import { DISCOVERY_LINK, IS_INDEXABLE, SITE_URL } from "@/lib/site";
 import { getPage } from "@/sanity/lib/fetch-page";
 
 /** Markdown twins, reached through /index.md and /<slug>.md rewrites in src/proxy.ts. */
@@ -25,8 +25,9 @@ export async function GET(_request: Request, { params }: { params: Promise<{ slu
     headers: {
       "Content-Type": "text/markdown; charset=utf-8",
       "Cache-Control": "public, max-age=0, s-maxage=60, stale-while-revalidate=300",
-      Link: `<${SITE_URL}${path}>; rel="canonical"; type="text/html"`,
+      Link: `<${SITE_URL}${path}>; rel="canonical"; type="text/html", ${DISCOVERY_LINK}`,
       Vary: "Accept",
+      ...(IS_INDEXABLE ? {} : { "X-Robots-Tag": "noindex, nofollow" }),
     },
   });
 }

@@ -19,6 +19,15 @@
 - Site: Show the home page's sections as Studio rows beside the blocks they render, instead of code ([#59](https://github.com/marcop135/nextfold/pull/59)) ([#51](https://github.com/marcop135/nextfold/issues/51)).
 - Pages: Replace JSON and TypeScript samples with plain descriptions of each field and rule ([#60](https://github.com/marcop135/nextfold/pull/60)) ([#52](https://github.com/marcop135/nextfold/issues/52)).
 - Site: Restyle buttons with clear hover, focus, and pressed states in light and dark ([#61](https://github.com/marcop135/nextfold/pull/61)) ([#53](https://github.com/marcop135/nextfold/issues/53)).
+- Agents: List the source code repository in `llms.txt` ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+
+### Fixed
+
+- Markdown: Send the canonical HTML page in the `Link` header of every `.md` page ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+- SEO: Keep `.md` pages on preview deployments out of search ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+- A11y: Keep button arrows and the menu icon visible in forced colors ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+- A11y: Name scrollable code blocks as regions ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
+- A11y: Keep focused elements clear of the draft mode bar ([#62](https://github.com/marcop135/nextfold/pull/62)) ([#54](https://github.com/marcop135/nextfold/issues/54)).
 
 ## [0.5.0] - 2026-11-19
 

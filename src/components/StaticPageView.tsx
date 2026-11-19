@@ -42,7 +42,7 @@ function BlockView({ block }: { block: Block }) {
       );
     case "pre":
       return (
-        <pre tabIndex={0} aria-label={block.label}>
+        <pre tabIndex={0} role={block.label ? "region" : undefined} aria-label={block.label}>
           <CodeBlock code={block.text} language={block.language ?? "text"} />
         </pre>
       );
