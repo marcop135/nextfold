@@ -1,3 +1,4 @@
+import { stegaClean } from "next-sanity";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CodeBlock } from "@/components/CodeBlock";
@@ -84,8 +85,8 @@ function CodeSample({ section }: { section: CodeSampleSection }) {
         {section.body ? <p className="lead section-lead">{section.body}</p> : null}
         <figure className="code-sample">
           <figcaption>{section.filename}</figcaption>
-          <pre tabIndex={0} aria-label={section.filename}>
-            <CodeBlock code={section.code} language={section.language} />
+          <pre tabIndex={0} aria-label={stegaClean(section.filename)}>
+            <CodeBlock code={section.code} language={stegaClean(section.language)} />
           </pre>
         </figure>
       </div>

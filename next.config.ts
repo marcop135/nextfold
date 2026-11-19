@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 import { DISCOVERY_LINK } from "./src/lib/site";
+import { projectId } from "./src/sanity/env";
 
 const isDev = process.env.NODE_ENV !== "production";
 // The container loads from mt.; its bundled tracker reports to matomo.
 const matomo = "https://mt.marcopontili.com https://matomo.marcopontili.com";
+// Live Content API events for <SanityLive />.
+const sanityLive = projectId ? ` https://${projectId}.api.sanity.io https://${projectId}.apicdn.sanity.io` : "";
 
 /**
  * App Router streams inline RSC payload scripts, so script-src keeps 'unsafe-inline'.
@@ -16,7 +19,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: https://cdn.sanity.io ${matomo}`,
   "font-src 'self'",
-  `connect-src 'self' ${matomo}${isDev ? " ws: wss:" : ""}`,
+  `connect-src 'self' ${matomo}${sanityLive}${isDev ? " ws: wss:" : ""}`,
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",

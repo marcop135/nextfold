@@ -4,6 +4,16 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
+## [Unreleased]
+
+### Added
+
+- Studio: Preview drafts in Presentation with click-to-edit overlays ([#36](https://github.com/marcop135/nextfold/issues/36)).
+
+### Changed
+
+- Site: Refresh published content through the Live Content API instead of every 60 seconds ([#36](https://github.com/marcop135/nextfold/issues/36)).
+
 ## [0.4.1] - 2026-11-19
 
 ### Changed

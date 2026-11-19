@@ -8,7 +8,7 @@ export async function GET() {
   const entries = await getSitemapEntries();
   const pages = await Promise.all(
     entries.map(async ({ slug }) => {
-      const loaded = await getPage(slug);
+      const loaded = await getPage(slug, "published");
       const path = slug === "home" ? "/" : `/${slug}`;
       return loaded ? `- [${loaded.page.title}](${SITE_URL}${markdownPath(path)}): ${loaded.page.description}` : null;
     }),
