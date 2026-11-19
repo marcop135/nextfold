@@ -6,7 +6,6 @@ import type {
   CallToAction,
   CodeSample,
   FeatureGrid,
-  Hero,
   PAGE_QUERY_RESULT,
   SETTINGS_QUERY_RESULT,
   Steps,
@@ -16,7 +15,6 @@ export type { Link } from "./sanity.types";
 
 type Keyed<T> = T & { _key: string };
 
-export type HeroSection = Keyed<Hero>;
 export type FeatureGridSection = Keyed<FeatureGrid>;
 export type StepsSection = Keyed<Steps>;
 export type CodeSampleSection = Keyed<CodeSample>;
@@ -24,6 +22,8 @@ export type CallToActionSection = Keyed<CallToAction>;
 
 export type Page = NonNullable<PAGE_QUERY_RESULT>;
 export type Section = NonNullable<Page["sections"]>[number];
+/** From the query, not the schema: PAGE_QUERY dereferences the hero image asset. */
+export type HeroSection = Extract<Section, { _type: "hero" }>;
 
 export type SiteSettings = NonNullable<SETTINGS_QUERY_RESULT>;
 

@@ -35,8 +35,16 @@ The pricing page lists no card requirement for Free. A public dataset is enough:
 
    This creates the `home`, `inside-a-page`, and `guardrails` pages and the site settings. Documents that already exist stay as they are, so a second run never overwrites edits.
 7. Open http://localhost:3100. The line above the footer reads `Content source: sanity`.
+8. For Presentation and Visual Editing, create a viewer token. It reads drafts, so it stays on the server:
 
-Until Sanity has a published page for a slug, the seed page with that slug from [`seed.ts`](../src/content/seed.ts) renders instead: `home`, `inside-a-page`, and `guardrails`. Published changes appear within 60 seconds.
+   ```bash
+   npx sanity tokens add "Next Fold preview" --role=viewer
+   ```
+
+   Set it as `SANITY_API_READ_TOKEN` in `.env` and in the Vercel project's environment, then restart `npm run dev`.
+9. Open **Presentation** in the Studio. The page loads in draft mode with click-to-edit overlays, and edits show before you publish.
+
+Until Sanity has a published page for a slug, the seed page with that slug from [`seed.ts`](../src/content/seed.ts) renders instead: `home`, `inside-a-page`, and `guardrails`. Published changes reach open pages through the Live Content API.
 
 ## Troubleshooting
 
@@ -45,3 +53,4 @@ Until Sanity has a published page for a slug, the seed page with that slug from 
 | `/studio` shows "Studio needs a Sanity project" | `NEXT_PUBLIC_SANITY_PROJECT_ID` is empty, or the dev server was not restarted |
 | Studio login loops or shows a CORS error | `http://localhost:3100` is missing from the CORS origins, or has credentials off |
 | The page still reads `Content source: seed` | The Page with slug `home` is a draft; publish it |
+| Presentation shows "Draft mode needs ..." | `SANITY_API_READ_TOKEN` is empty, or the dev server was not restarted |

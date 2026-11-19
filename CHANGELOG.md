@@ -4,6 +4,18 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
+## [0.5.0] - 2026-11-19
+
+### Added
+
+- Studio: Preview drafts in Presentation with click-to-edit overlays ([#41](https://github.com/marcop135/nextfold/pull/41)) ([#36](https://github.com/marcop135/nextfold/issues/36)).
+- Studio: Add a hero image with hotspot and crop, served at 4:3 from the Sanity image CDN ([#43](https://github.com/marcop135/nextfold/pull/43)) ([#37](https://github.com/marcop135/nextfold/issues/37)).
+- Studio: Set a section's background and spacing from the design token names in the CSS ([#44](https://github.com/marcop135/nextfold/pull/44)) ([#38](https://github.com/marcop135/nextfold/issues/38)).
+
+### Changed
+
+- Site: Refresh published content through the Live Content API instead of every 60 seconds ([#41](https://github.com/marcop135/nextfold/pull/41)) ([#36](https://github.com/marcop135/nextfold/issues/36)).
+
 ## [0.4.1] - 2026-11-19
 
 ### Changed
