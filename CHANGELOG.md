@@ -17,6 +17,7 @@
 - Studio: Rename the hero's `cta` field to `link`, with a migration script that dry-runs first ([#55](https://github.com/marcop135/nextfold/pull/55)) ([#47](https://github.com/marcop135/nextfold/issues/47)).
 - Privacy: Count visits that send Do Not Track or Global Privacy Control, and say so on the privacy page ([#58](https://github.com/marcop135/nextfold/pull/58)) ([#50](https://github.com/marcop135/nextfold/issues/50)).
 - Site: Show the home page's sections as Studio rows beside the blocks they render, instead of code ([#59](https://github.com/marcop135/nextfold/pull/59)) ([#51](https://github.com/marcop135/nextfold/issues/51)).
+- Pages: Replace JSON and TypeScript samples with plain descriptions of each field and rule ([#60](https://github.com/marcop135/nextfold/pull/60)) ([#52](https://github.com/marcop135/nextfold/issues/52)).
 
 ## [0.5.0] - 2026-11-19
 

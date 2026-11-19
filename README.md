@@ -25,9 +25,9 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
 
 | Page | What it shows |
 | --- | --- |
-| [Home](https://nextfold.marcopontili.com/) | What editors and developers each own |
-| [Inside a page](https://nextfold.marcopontili.com/inside-a-page) | Each section next to the Sanity data it came from |
-| [Guardrails](https://nextfold.marcopontili.com/guardrails) | The schema rules that keep pages on brand |
+| [Home](https://nextfold.marcopontili.com/) | Who does what, and the page's own sections as an editor sees them in the Studio |
+| [Inside a page](https://nextfold.marcopontili.com/inside-a-page) | Each section followed by the fields an editor filled in to make it |
+| [Guardrails](https://nextfold.marcopontili.com/guardrails) | The rules the Studio checks before a page can publish |
 | [For agents](https://nextfold.marcopontili.com/for-agents) | Markdown versions, `llms.txt`, sitemap |
 
 ## How content flows

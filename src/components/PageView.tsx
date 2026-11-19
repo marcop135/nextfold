@@ -33,7 +33,9 @@ export function PageView({ loaded, path }: { loaded: LoadedPage; path: string })
         }
       />
       <p className="wrap source-note">
-        Content source: <code>{source}</code>
+        {source === "sanity"
+          ? "This page comes from the Sanity dataset."
+          : "This page comes from the seed copy bundled with the site, until the Sanity dataset publishes its own version."}
       </p>
       <JsonLd
         data={pageJsonLd({

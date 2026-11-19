@@ -34,7 +34,7 @@ The pricing page lists no card requirement for Free. A public dataset is enough:
    ```
 
    This creates the `home`, `inside-a-page`, and `guardrails` pages and the site settings. Documents that already exist stay as they are, so a second run never overwrites edits.
-7. Open http://localhost:3100. The line above the footer reads `Content source: sanity`.
+7. Open http://localhost:3100. The line above the footer reads "This page comes from the Sanity dataset."
 8. For Presentation and Visual Editing, create a viewer token. It reads drafts, so it stays on the server:
 
    ```bash
@@ -85,6 +85,6 @@ A field rename ships with a migration in [`migrations/`](../migrations). The her
 | --- | --- |
 | `/studio` shows "Studio needs a Sanity project" | `NEXT_PUBLIC_SANITY_PROJECT_ID` is empty, or the dev server was not restarted |
 | Studio login loops or shows a CORS error | `http://localhost:3100` is missing from the CORS origins, or has credentials off |
-| The page still reads `Content source: seed` | The Page with slug `home` is a draft; publish it |
+| The page still says it comes from the seed copy | The Page with slug `home` is a draft; publish it |
 | The webhook returns 401 | The secret in the webhook and `SANITY_REVALIDATE_SECRET` differ |
 | Presentation shows "Draft mode needs ..." | `SANITY_API_READ_TOKEN` is empty, or the dev server was not restarted |
