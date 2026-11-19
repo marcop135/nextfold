@@ -10,6 +10,12 @@
 
 - Site: Present the demo as typed sections, the schema, and Studio ([#35](https://github.com/marcop135/nextfold/pull/35)) ([#34](https://github.com/marcop135/nextfold/issues/34)).
 
+## [Unreleased]
+
+### Added
+
+- Studio: Add a hero image with hotspot and crop, served at 4:3 from the Sanity image CDN ([#37](https://github.com/marcop135/nextfold/issues/37)).
+
 ## [0.4.0] - 2026-11-18
 
 ### Added

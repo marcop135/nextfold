@@ -9,10 +9,29 @@ export const hero = defineType({
     defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
     defineField({ name: "body", type: "text", rows: 3, validation: (rule) => rule.max(240) }),
     defineField({ name: "cta", title: "Call to action", type: "link" }),
+    defineField({
+      name: "image",
+      type: "image",
+      description: "Shown beside the text at 4:3. Set the hotspot on the subject; the crop follows it.",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt text",
+          type: "string",
+          description: "What the image shows, for screen readers and Markdown.",
+          validation: (rule) =>
+            rule.max(160).custom((alt, context) => {
+              const image = context.parent as { asset?: unknown } | undefined;
+              return image?.asset && !alt ? "Describe the image" : true;
+            }),
+        }),
+      ],
+    }),
   ],
   preview: {
-    select: { title: "heading" },
-    prepare: ({ title }) => ({ title, subtitle: "Hero" }),
+    select: { title: "heading", media: "image" },
+    prepare: ({ title, media }) => ({ title, subtitle: "Hero", media }),
   },
 });
 
