@@ -9,7 +9,7 @@
 ### Added
 
 - Studio: Preview drafts in Presentation with click-to-edit overlays ([#41](https://github.com/marcop135/nextfold/pull/41)) ([#36](https://github.com/marcop135/nextfold/issues/36)).
-- Studio: Add a hero image with hotspot and crop, served at 4:3 from the Sanity image CDN ([#37](https://github.com/marcop135/nextfold/issues/37)).
+- Studio: Add a hero image with hotspot and crop, served at 4:3 from the Sanity image CDN ([#43](https://github.com/marcop135/nextfold/pull/43)) ([#37](https://github.com/marcop135/nextfold/issues/37)).
 
 ### Changed
 
