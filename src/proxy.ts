@@ -5,7 +5,7 @@ import { DISCOVERY_LINK, markdownPath } from "@/lib/site";
 
 const MARKDOWN_FILE = /^\/([a-z0-9-]+)\.md$/;
 const PAGE_PATH = /^\/(?:[a-z0-9-]+)?$/;
-const NOT_PAGES = new Set(["/studio", "/md", "/api"]);
+const NOT_PAGES = new Set(["/studio", "/md", "/api", "/og"]);
 
 /**
  * - /index.md and /<slug>.md rewrite to the Markdown route.
