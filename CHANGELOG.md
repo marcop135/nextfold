@@ -9,6 +9,7 @@
 ### Added
 
 - Site: Refresh pages, Markdown, `llms.txt`, and the sitemap from a signed Sanity publish webhook ([#56](https://github.com/marcop135/nextfold/pull/56)) ([#48](https://github.com/marcop135/nextfold/issues/48)).
+- SEO: Give every page its own Open Graph and X card image with its heading and description ([#57](https://github.com/marcop135/nextfold/pull/57)) ([#49](https://github.com/marcop135/nextfold/issues/49)).
 
 ### Changed
 
