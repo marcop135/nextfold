@@ -1,3 +1,4 @@
+import { stegaClean } from "next-sanity";
 import type { LoadedPage } from "@/sanity/lib/fetch-page";
 import { pageJsonLd } from "@/lib/site";
 import { HeroVisual } from "./HeroVisual";
@@ -8,6 +9,8 @@ export function PageView({ loaded, path }: { loaded: LoadedPage; path: string })
   const { page, source } = loaded;
   const sections = page.sections ?? [];
   const startsWithHero = sections[0]?._type === "hero";
+  // Draft mode encodes field paths into strings; structured data gets the plain text.
+  const title = stegaClean(page.title);
   return (
     <>
       {startsWithHero ? null : (
@@ -22,9 +25,9 @@ export function PageView({ loaded, path }: { loaded: LoadedPage; path: string })
       <JsonLd
         data={pageJsonLd({
           path,
-          title: page.title,
-          description: page.description,
-          crumbs: path === "/" ? [] : [{ name: page.title, path }],
+          title,
+          description: stegaClean(page.description),
+          crumbs: path === "/" ? [] : [{ name: title, path }],
         })}
       />
     </>

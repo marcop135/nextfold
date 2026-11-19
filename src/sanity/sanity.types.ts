@@ -66,12 +66,27 @@ export type FeatureGrid = {
   spacing?: "space-3" | "space-4" | "space-5";
 };
 
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
 export type Hero = {
   _type: "hero";
   eyebrow?: string;
   heading: string;
   body?: string;
   cta?: Link;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
   theme?: "bg" | "surface" | "band";
   spacing?: "space-3" | "space-4" | "space-5";
 };
@@ -128,6 +143,22 @@ export type Page = {
   >;
 };
 
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
 export type Slug = {
   _type: "slug";
   current: string;
@@ -170,22 +201,6 @@ export type SanityImageMetadata = {
   thumbHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
 };
 
 export type SanityFileAsset = {
@@ -253,16 +268,17 @@ export type AllSanitySchemaTypes =
   | CodeSample
   | Steps
   | FeatureGrid
+  | SanityImageAssetReference
   | Hero
   | SiteSettings
   | Page
+  | SanityImageCrop
+  | SanityImageHotspot
   | Slug
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
   | SanityImageMetadata
-  | SanityImageHotspot
-  | SanityImageCrop
   | SanityFileAsset
   | SanityAssetSourceData
   | SanityImageAsset
@@ -270,7 +286,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current == $slug][0]{    title,    "slug": slug.current,    description,    sections[]{ ... }  }
+// Query: *[_type == "page" && slug.current == $slug][0]{    title,    "slug": slug.current,    description,    sections[]{      ...,      _type == "hero" && defined(image.asset) => {        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }      }    }  }
 export type PAGE_QUERY_RESULT = {
   title: string;
   slug: string;
@@ -315,6 +331,42 @@ export type PAGE_QUERY_RESULT = {
         heading: string;
         body?: string;
         cta?: Link;
+        image?: {
+          asset?: SanityImageAssetReference;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        };
+        theme?: "band" | "bg" | "surface";
+        spacing?: "space-3" | "space-4" | "space-5";
+      }
+    | {
+        _key: string;
+        _type: "hero";
+        eyebrow?: string;
+        heading: string;
+        body?: string;
+        cta?: Link;
+        image: {
+          asset: {
+            _id: string;
+            url: string;
+            metadata: {
+              lqip: string | null;
+              dimensions: {
+                width: number;
+                height: number;
+              } | null;
+            } | null;
+          } | null;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+        } | null;
         theme?: "band" | "bg" | "surface";
         spacing?: "space-3" | "space-4" | "space-5";
       }
@@ -367,7 +419,7 @@ export type SETTINGS_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "page" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    description,\n    sections[]{ ... }\n  }\n': PAGE_QUERY_RESULT;
+    '\n  *[_type == "page" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    description,\n    sections[]{\n      ...,\n      _type == "hero" && defined(image.asset) => {\n        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
     '\n  *[_type == "page" && defined(slug.current)]{ "slug": slug.current, "updatedAt": _updatedAt }\n': SITEMAP_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == "siteSettings"][0]{ nav, footerNote, projectLinks, siteInfoLinks }\n': SETTINGS_QUERY_RESULT;
   }
