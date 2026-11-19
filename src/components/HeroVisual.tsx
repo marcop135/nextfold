@@ -1,18 +1,68 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
+import { SITE_URL } from "@/lib/site";
 
-const stages = [
-  { label: "Define", lines: ['defineType("hero")', 'defineType("steps")', 'defineType("callToAction")'] },
-  { label: "Compose", lines: ["page.sections", "[hero, steps, callToAction]"] },
-  { label: "Publish", lines: ['perspective: "published"', "GROQ over the CDN"] },
-  { label: "Render", lines: ["<Hero />", "<Steps />", "<CallToAction />"] },
-];
+export type VisualSection = { key: string; type: string; heading: string };
 
-const caption = "Section types defined in code become the pages editors compose and publish.";
+const TYPE_TITLES: Record<string, string> = {
+  hero: "Hero",
+  featureGrid: "Feature grid",
+  steps: "Steps",
+  codeSample: "Code sample",
+  callToAction: "Call to action",
+};
 
-/** Plays once while on screen; holds still under reduced motion or in a hidden tab. */
-export function HeroVisual() {
+/** A sketch of how each section type looks on the page, small enough for the preview pane. */
+function Wireframe({ type }: { type: string }) {
+  switch (type) {
+    case "hero":
+      return (
+        <>
+          <span className="wf-line wf-line--title" />
+          <span className="wf-line wf-line--short" />
+          <span className="wf-pill" />
+        </>
+      );
+    case "featureGrid":
+      return (
+        <>
+          <span className="wf-line wf-line--short" />
+          <span className="wf-row">
+            <span className="wf-card" />
+            <span className="wf-card" />
+            <span className="wf-card" />
+          </span>
+        </>
+      );
+    case "steps":
+      return (
+        <>
+          <span className="wf-line wf-line--short" />
+          <span className="wf-row">
+            <span className="wf-step" />
+            <span className="wf-step" />
+            <span className="wf-step" />
+            <span className="wf-step" />
+          </span>
+        </>
+      );
+    default:
+      return (
+        <>
+          <span className="wf-line wf-line--short" />
+          <span className="wf-pill wf-pill--light" />
+        </>
+      );
+  }
+}
+
+/**
+ * The page's own sections, as an editor lists them in the Studio and as the site renders them.
+ * They appear one by one, then the page shows as published. Plays once while on screen;
+ * holds the finished state under reduced motion.
+ */
+export function HeroVisual({ sections }: { sections: VisualSection[] }) {
   const figure = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -37,7 +87,7 @@ export function HeroVisual() {
       { threshold: [0, 0.25] },
     );
     const finish = (event: AnimationEvent) => {
-      if (event.animationName !== "hero-visual-progress") return;
+      if (event.animationName !== "hero-visual-publish") return;
       completed = true;
       update();
     };
@@ -55,30 +105,54 @@ export function HeroVisual() {
   }, []);
 
   return (
-    <figure ref={figure} className="hero-visual" data-motion="pending">
-      <div className="hero-visual__bar" aria-hidden="true">
-        <span>sanity / page</span>
-        <span>home</span>
+    <figure
+      ref={figure}
+      className="hero-visual"
+      data-motion="pending"
+      style={
+        {
+          "--count": sections.length,
+          // Stagger caps the whole sequence near 4.4s, under the 5s limit of WCAG 2.2.2.
+          "--step": `${Math.min(0.7, 3.5 / Math.max(sections.length, 1))}s`,
+        } as CSSProperties
+      }
+    >
+      <div className="hero-visual__panes" aria-hidden="true">
+        <div className="hero-visual__studio">
+          <p className="hero-visual__label">Sanity Studio</p>
+          <p className="hero-visual__doc">Home page</p>
+          <ol className="hero-visual__rows">
+            {sections.map((section, index) => (
+              <li key={section.key} className="hero-visual__row" style={{ "--i": index } as CSSProperties}>
+                <span className="hero-visual__type">{TYPE_TITLES[section.type] ?? section.type}</span>
+                <span className="hero-visual__heading">{section.heading}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="hero-visual__status">
+            <span className="hero-visual__status-dot" />
+            Published
+          </p>
+        </div>
+        <div className="hero-visual__page">
+          <p className="hero-visual__address">{SITE_URL.replace("https://", "")}</p>
+          <div className="hero-visual__blocks">
+            {sections.map((section, index) => (
+              <span
+                key={section.key}
+                className={`hero-visual__block hero-visual__block--${section.type}`}
+                style={{ "--i": index } as CSSProperties}
+              >
+                <Wireframe type={section.type} />
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
-      <ol className="hero-visual__flow" aria-label={caption}>
-        {stages.map((stage, index) => (
-          <li key={stage.label} className={`hero-visual__stage hero-visual__stage--${index}`}>
-            <span className="hero-visual__number" aria-hidden="true">
-              0{index + 1}
-            </span>
-            <span className="hero-visual__label">{stage.label}</span>
-            <span className="hero-visual__sketch" aria-hidden="true">
-              {stage.lines.map((line) => (
-                <code key={line}>{line}</code>
-              ))}
-            </span>
-          </li>
-        ))}
-      </ol>
-      <div className="hero-visual__track" aria-hidden="true">
-        <span />
-      </div>
-      <figcaption>{caption}</figcaption>
+      <figcaption>
+        This page as an editor sees it in Sanity Studio, next to what the site builds from it. Each section the editor
+        adds becomes one block on the page.
+      </figcaption>
     </figure>
   );
 }
