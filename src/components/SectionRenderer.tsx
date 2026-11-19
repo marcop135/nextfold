@@ -1,3 +1,4 @@
+import { stegaClean } from "next-sanity";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CodeBlock } from "@/components/CodeBlock";
@@ -10,6 +11,14 @@ import type {
   Section,
   StepsSection,
 } from "@/sanity/types";
+
+/** Style options become data attributes; globals.css maps each value to its token. */
+function styleAttributes(section: Section) {
+  return {
+    "data-theme": "theme" in section ? stegaClean(section.theme) : undefined,
+    "data-spacing": stegaClean(section.spacing),
+  };
+}
 
 function SectionLink({ link, className }: { link: LinkValue; className: string }) {
   return link.href.startsWith("/") ? (
@@ -26,7 +35,7 @@ function SectionLink({ link, className }: { link: LinkValue; className: string }
 function Hero({ section, isFirst, visual }: { section: HeroSection; isFirst: boolean; visual?: ReactNode }) {
   const Heading = isFirst ? "h1" : "h2";
   return (
-    <section className="section hero" aria-labelledby={`${section._key}-title`}>
+    <section className="section hero" {...styleAttributes(section)} aria-labelledby={`${section._key}-title`}>
       <div className={visual ? "wrap hero__layout" : "wrap"}>
         <div className="hero__intro">
           {section.eyebrow ? <p className="eyebrow">{section.eyebrow}</p> : null}
@@ -42,7 +51,7 @@ function Hero({ section, isFirst, visual }: { section: HeroSection; isFirst: boo
 
 function FeatureGrid({ section }: { section: FeatureGridSection }) {
   return (
-    <section className="section" aria-labelledby={`${section._key}-title`}>
+    <section className="section" {...styleAttributes(section)} aria-labelledby={`${section._key}-title`}>
       <div className="wrap">
         <h2 id={`${section._key}-title`}>{section.heading}</h2>
         <ul className="feature-grid">
@@ -60,7 +69,7 @@ function FeatureGrid({ section }: { section: FeatureGridSection }) {
 
 function Steps({ section }: { section: StepsSection }) {
   return (
-    <section className="section" aria-labelledby={`${section._key}-title`}>
+    <section className="section" {...styleAttributes(section)} aria-labelledby={`${section._key}-title`}>
       <div className="wrap">
         <h2 id={`${section._key}-title`}>{section.heading}</h2>
         <ol className="steps">
@@ -78,7 +87,7 @@ function Steps({ section }: { section: StepsSection }) {
 
 function CodeSample({ section }: { section: CodeSampleSection }) {
   return (
-    <section className="section" aria-labelledby={`${section._key}-title`}>
+    <section className="section" {...styleAttributes(section)} aria-labelledby={`${section._key}-title`}>
       <div className="wrap">
         <h2 id={`${section._key}-title`}>{section.heading}</h2>
         {section.body ? <p className="lead section-lead">{section.body}</p> : null}
@@ -95,7 +104,7 @@ function CodeSample({ section }: { section: CodeSampleSection }) {
 
 function CallToAction({ section }: { section: CallToActionSection }) {
   return (
-    <section className="section cta" aria-labelledby={`${section._key}-title`}>
+    <section className="section cta" {...styleAttributes(section)} aria-labelledby={`${section._key}-title`}>
       <div className="wrap cta__inner">
         <h2 id={`${section._key}-title`}>{section.heading}</h2>
         {section.body ? <p>{section.body}</p> : null}

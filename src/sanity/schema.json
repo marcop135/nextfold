@@ -63,6 +63,27 @@
             "name": "link"
           },
           "optional": false
+        },
+        "spacing": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "space-3"
+              },
+              {
+                "type": "string",
+                "value": "space-4"
+              },
+              {
+                "type": "string",
+                "value": "space-5"
+              }
+            ]
+          },
+          "optional": true
         }
       }
     }
@@ -132,6 +153,48 @@
             "type": "string"
           },
           "optional": false
+        },
+        "theme": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "bg"
+              },
+              {
+                "type": "string",
+                "value": "surface"
+              },
+              {
+                "type": "string",
+                "value": "band"
+              }
+            ]
+          },
+          "optional": true
+        },
+        "spacing": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "space-3"
+              },
+              {
+                "type": "string",
+                "value": "space-4"
+              },
+              {
+                "type": "string",
+                "value": "space-5"
+              }
+            ]
+          },
+          "optional": true
         }
       }
     }
@@ -197,6 +260,48 @@
                 }
               }
             }
+          },
+          "optional": true
+        },
+        "theme": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "bg"
+              },
+              {
+                "type": "string",
+                "value": "surface"
+              },
+              {
+                "type": "string",
+                "value": "band"
+              }
+            ]
+          },
+          "optional": true
+        },
+        "spacing": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "space-3"
+              },
+              {
+                "type": "string",
+                "value": "space-4"
+              },
+              {
+                "type": "string",
+                "value": "space-5"
+              }
+            ]
           },
           "optional": true
         }
@@ -266,6 +371,48 @@
             }
           },
           "optional": true
+        },
+        "theme": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "bg"
+              },
+              {
+                "type": "string",
+                "value": "surface"
+              },
+              {
+                "type": "string",
+                "value": "band"
+              }
+            ]
+          },
+          "optional": true
+        },
+        "spacing": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "space-3"
+              },
+              {
+                "type": "string",
+                "value": "space-4"
+              },
+              {
+                "type": "string",
+                "value": "space-5"
+              }
+            ]
+          },
+          "optional": true
         }
       }
     }
@@ -309,6 +456,48 @@
           "value": {
             "type": "inline",
             "name": "link"
+          },
+          "optional": true
+        },
+        "theme": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "bg"
+              },
+              {
+                "type": "string",
+                "value": "surface"
+              },
+              {
+                "type": "string",
+                "value": "band"
+              }
+            ]
+          },
+          "optional": true
+        },
+        "spacing": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "space-3"
+              },
+              {
+                "type": "string",
+                "value": "space-4"
+              },
+              {
+                "type": "string",
+                "value": "space-5"
+              }
+            ]
           },
           "optional": true
         }

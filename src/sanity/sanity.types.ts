@@ -26,6 +26,7 @@ export type CallToAction = {
   heading: string;
   body?: string;
   link: Link;
+  spacing?: "space-3" | "space-4" | "space-5";
 };
 
 export type CodeSample = {
@@ -35,6 +36,8 @@ export type CodeSample = {
   filename: string;
   language: "json" | "ts" | "groq" | "bash";
   code: string;
+  theme?: "bg" | "surface" | "band";
+  spacing?: "space-3" | "space-4" | "space-5";
 };
 
 export type Steps = {
@@ -46,6 +49,8 @@ export type Steps = {
     _type: "step";
     _key: string;
   }>;
+  theme?: "bg" | "surface" | "band";
+  spacing?: "space-3" | "space-4" | "space-5";
 };
 
 export type FeatureGrid = {
@@ -57,6 +62,8 @@ export type FeatureGrid = {
     _type: "feature";
     _key: string;
   }>;
+  theme?: "bg" | "surface" | "band";
+  spacing?: "space-3" | "space-4" | "space-5";
 };
 
 export type Hero = {
@@ -65,6 +72,8 @@ export type Hero = {
   heading: string;
   body?: string;
   cta?: Link;
+  theme?: "bg" | "surface" | "band";
+  spacing?: "space-3" | "space-4" | "space-5";
 };
 
 export type SiteSettings = {
@@ -273,6 +282,7 @@ export type PAGE_QUERY_RESULT = {
         heading: string;
         body?: string;
         link: Link;
+        spacing?: "space-3" | "space-4" | "space-5";
       }
     | {
         _key: string;
@@ -282,6 +292,8 @@ export type PAGE_QUERY_RESULT = {
         filename: string;
         language: "bash" | "groq" | "json" | "ts";
         code: string;
+        theme?: "band" | "bg" | "surface";
+        spacing?: "space-3" | "space-4" | "space-5";
       }
     | {
         _key: string;
@@ -293,6 +305,8 @@ export type PAGE_QUERY_RESULT = {
           _type: "feature";
           _key: string;
         }>;
+        theme?: "band" | "bg" | "surface";
+        spacing?: "space-3" | "space-4" | "space-5";
       }
     | {
         _key: string;
@@ -301,6 +315,8 @@ export type PAGE_QUERY_RESULT = {
         heading: string;
         body?: string;
         cta?: Link;
+        theme?: "band" | "bg" | "surface";
+        spacing?: "space-3" | "space-4" | "space-5";
       }
     | {
         _key: string;
@@ -312,6 +328,8 @@ export type PAGE_QUERY_RESULT = {
           _type: "step";
           _key: string;
         }>;
+        theme?: "band" | "bg" | "surface";
+        spacing?: "space-3" | "space-4" | "space-5";
       }
   > | null;
 } | null;

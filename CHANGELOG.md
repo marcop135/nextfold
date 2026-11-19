@@ -10,6 +10,12 @@
 
 - Site: Present the demo as typed sections, the schema, and Studio ([#35](https://github.com/marcop135/nextfold/pull/35)) ([#34](https://github.com/marcop135/nextfold/issues/34)).
 
+## [Unreleased]
+
+### Added
+
+- Studio: Set a section's background and spacing from the design token names in the CSS ([#38](https://github.com/marcop135/nextfold/issues/38)).
+
 ## [0.4.0] - 2026-11-18
 
 ### Added
