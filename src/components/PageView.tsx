@@ -18,7 +18,20 @@ export function PageView({ loaded, path }: { loaded: LoadedPage; path: string })
           <h1 className="page-title">{page.title}</h1>
         </div>
       )}
-      <SectionRenderer sections={sections} heroVisual={path === "/" ? <HeroVisual /> : undefined} />
+      <SectionRenderer
+        sections={sections}
+        heroVisual={
+          path === "/" ? (
+            <HeroVisual
+              sections={sections.map((section) => ({
+                key: section._key,
+                type: stegaClean(section._type),
+                heading: stegaClean(section.heading),
+              }))}
+            />
+          ) : undefined
+        }
+      />
       <p className="wrap source-note">
         Content source: <code>{source}</code>
       </p>
