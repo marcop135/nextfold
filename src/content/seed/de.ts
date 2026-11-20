@@ -94,11 +94,6 @@ export const pages: Page[] = [
         theme: "surface",
         items: [
           feature(
-            "reorder",
-            "Diese Seite umsortieren",
-            "Verschieben Sie die Abschnitte im Studio-Fenster oben nach oben oder unten, und die Vorschau der Seite folgt.",
-          ),
-          feature(
             "break",
             "Eine Regel brechen",
             "Leeren Sie eine Überschrift oder fügen Sie eine lange Zeile ein, und die Prüfungen des Studios halten die Veröffentlichung auf.",

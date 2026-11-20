@@ -26,7 +26,7 @@
 - Site: Cache pages, Markdown, `llms.txt`, and the sitemap with Next.js Cache Components until a publish expires them.
 - Site: Set headings smaller and tighter, and link the footer version to its release notes.
 - Studio: Read every text limit and its message from one rules file shared with the site.
-- Brand: Replace the README header and Open Graph image with a Studio pane folding back to show its page.
+- Brand: Replace the README header and Open Graph image with the Next Fold mark, name, and one line.
 - Hosting: Run server functions in Frankfurt (`fra1`), next to the EU audience and analytics.
 
 ### Fixed

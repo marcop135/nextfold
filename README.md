@@ -2,7 +2,7 @@
   <a href="https://nextfold.marcopontili.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark-rounded.svg" />
-      <img src=".github/brand/readme-light-rounded.svg" alt="Next Fold: the Sanity Studio pane for the home page, its corner folded back to show the page it renders" width="100%" />
+      <img src=".github/brand/readme-light-rounded.svg" alt="Next Fold: Next.js + Sanity, run end to end" width="100%" />
     </picture>
   </a>
 </p>

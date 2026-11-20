@@ -94,11 +94,6 @@ export const pages: Page[] = [
         theme: "surface",
         items: [
           feature(
-            "reorder",
-            "Reorder this page",
-            "Move the sections in the Studio pane at the top up or down, and the page preview follows.",
-          ),
-          feature(
             "break",
             "Break a rule",
             "Clear a heading or paste a long line into the playground, and watch the Studio's checks hold back the publish.",
