@@ -58,5 +58,5 @@ jobs:
           SANITY_TELEMETRY_DISABLED: "1"
 
       - name: Build
-        # No Sanity env: pages render from the seed content in src/content/seed.ts.
+        # No Sanity env: pages render from the seed content in src/content/seed.
         run: npm run build
