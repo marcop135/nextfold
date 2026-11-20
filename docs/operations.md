@@ -49,7 +49,7 @@ Analytics run on a self-hosted Matomo with a Tag Manager container. The site loa
 
 ## Brand images
 
-[`art.mjs`](../.github/brand/art.mjs) writes `og.svg` and the README headers from one layout; [`round-readme-images.mjs`](../scripts/round-readme-images.mjs) adds the rounded variants:
+[`art.mjs`](../.github/brand/art.mjs) writes `og.svg` and the README headers, each from its own layout; [`round-readme-images.mjs`](../scripts/round-readme-images.mjs) adds the rounded variants:
 
 ```bash
 node .github/brand/art.mjs
