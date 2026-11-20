@@ -118,12 +118,17 @@ export function CacheInspector({ context, locale }: { context: CacheContext; loc
               })}
             </select>
           </label>
-          <button className="cache-inspector__button" type="submit" disabled={busy}>
+          {/* aria-disabled, not disabled: a disabled button would drop keyboard focus mid-request. */}
+          <button className="cache-inspector__button" type="submit" aria-disabled={busy} onClick={(event) => busy && event.preventDefault()}>
             {busy ? t.requesting : t.again}
           </button>
         </form>
 
-        <div role="status" aria-live="polite">
+        {/* Announces one short line per request; the table itself stays out of the live region. */}
+        <p className="visually-hidden" role="status">
+          {latest ? t.caption(formatTime(latest.at, t.dateLocale)) : ""}
+        </p>
+        <div>
           {latest ? (
             shown.length ? (
               <table className="cache-inspector__table">

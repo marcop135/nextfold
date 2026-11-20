@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { VisualEditing } from "next-sanity/visual-editing";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
@@ -46,6 +45,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const isDraftMode = await readDraftMode();
+  // Imported only in draft mode so the Visual Editing overlay stays out of the public bundle.
+  const VisualEditing = isDraftMode ? (await import("next-sanity/visual-editing")).VisualEditing : null;
   return (
     <html lang={locale} className={inter.variable}>
       <body>
@@ -53,7 +54,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         {live ? <live.SanityLive includeDrafts={isDraftMode} /> : null}
         {isDraftMode ? (
           <>
-            <VisualEditing />
+            {VisualEditing ? <VisualEditing /> : null}
             <DraftModeBar locale={locale} />
           </>
         ) : null}

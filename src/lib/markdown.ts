@@ -2,7 +2,7 @@ import type { Block, Inline, StaticPage } from "@/content/static-pages";
 import type { Page } from "@/sanity/types";
 import { APP_BLOCKS, isAppBlockKind } from "./app-blocks";
 import { LOCALE_NAMES, localizeHref, localizedPath, type Locale } from "./i18n";
-import { SITE_URL } from "./site";
+import { SITE_URL, absoluteUrl } from "./site";
 
 const absolute = (href: string) => (href.startsWith("/") ? `${SITE_URL}${href}` : href);
 
@@ -12,7 +12,7 @@ function frontmatter(title: string, description: string, path: string, locale: L
     "---",
     `title: ${JSON.stringify(title)}`,
     `description: ${JSON.stringify(description)}`,
-    `url: ${SITE_URL}${localizedPath(path, locale)}`,
+    `url: ${absoluteUrl(localizedPath(path, locale))}`,
     `lang: ${LOCALE_NAMES[locale].hreflang}`,
     "---",
   ].join("\n");

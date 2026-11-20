@@ -33,6 +33,9 @@
 ### Fixed
 
 - Site: Wrap long section headings in the home hero visual instead of cutting them off.
+- A11y: Keep keyboard focus in the hero visual, Guardrails playground, and cache inspector when their buttons change.
+- Site: Keep query strings and anchors on links that switch language.
+- SEO: Use one form of the home URL across canonical, sitemap, Markdown links, and JSON-LD.
 
 ## [0.6.0] - 2026-11-19
 

@@ -1106,6 +1106,10 @@
     block-size: 0.5rem;
     border-radius: 50%;
     background: light-dark(#1a7f37, #3fb950);
+
+    @media (forced-colors: active) {
+      background: CanvasText;
+    }
   }
 
   .hero-visual__page {
@@ -1395,7 +1399,7 @@
       display: none;
     }
 
-    & .button:disabled {
+    & .button:is(:disabled, [aria-disabled="true"]) {
       --button-bg: light-dark(#8a8f9a, #3a3d44);
       --button-bg-hover: var(--button-bg);
       cursor: not-allowed;
@@ -1638,7 +1642,7 @@
     font-weight: 600;
     cursor: pointer;
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled, [aria-disabled="true"]) {
       border-color: var(--color-text);
     }
 
@@ -1647,7 +1651,7 @@
       outline-offset: 0.125rem;
     }
 
-    &:disabled {
+    &:is(:disabled, [aria-disabled="true"]) {
       cursor: progress;
       opacity: 0.6;
     }

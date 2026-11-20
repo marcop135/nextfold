@@ -19,6 +19,11 @@ export const ROBOTS: Metadata["robots"] = IS_INDEXABLE
   ? { index: true, follow: true, googleBot: { "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 } }
   : { index: false, follow: false };
 
+/** Absolute URL of a localized path, in the form the HTML head emits: the site root has no trailing slash. */
+export function absoluteUrl(localizedPathname: string): string {
+  return localizedPathname === "/" ? SITE_URL : `${SITE_URL}${localizedPathname}`;
+}
+
 /** Markdown twin of an HTML path: / → /index.md, /privacy → /privacy.md, /de → /de/index.md. */
 export function markdownPath(pathname: string): string {
   const path = pathname.replace(/\/$/, "");
@@ -91,12 +96,12 @@ export function pageJsonLd({
   locale?: Locale;
   homeName?: string;
 }) {
-  const url = `${SITE_URL}${localizedPath(path, locale)}`;
+  const url = absoluteUrl(localizedPath(path, locale));
   const graph: Record<string, unknown>[] = [
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
-      url: `${SITE_URL}/`,
+      url: SITE_URL,
       name: SITE_NAME,
       description: SITE_DESCRIPTIONS.en,
       inLanguage: locales.map((item) => LOCALE_NAMES[item].hreflang),
@@ -135,7 +140,7 @@ export function pageJsonLd({
         "@type": "ListItem",
         position: index + 1,
         name: item.name,
-        item: `${SITE_URL}${localizedPath(item.path, locale)}`,
+        item: absoluteUrl(localizedPath(item.path, locale)),
       })),
     });
   }

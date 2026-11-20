@@ -1,4 +1,5 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { defaultLocale } from "../../lib/i18n";
 import { PAGE_RULES } from "../../lib/rules";
 import { isUniqueInLanguage, languageField } from "./language";
 import { textRules } from "./text-rules";
@@ -40,7 +41,7 @@ export const page = defineType({
   preview: {
     select: { title: "title", slug: "slug.current", language: "language" },
     prepare: ({ title, slug, language }) => {
-      const prefix = language && language !== "en" ? `/${language}` : "";
+      const prefix = language && language !== defaultLocale ? `/${language}` : "";
       return { title, subtitle: slug === "home" ? prefix || "/" : `${prefix}/${slug ?? ""}` };
     },
   },

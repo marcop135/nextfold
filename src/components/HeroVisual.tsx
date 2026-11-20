@@ -82,6 +82,8 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
   const [active, setActive] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState("");
   const focusAfterMove = useRef<{ key: string; direction: "up" | "down" } | null>(null);
+  const status = useRef<HTMLParagraphElement>(null);
+  const focusStatus = useRef(false);
 
   const byKey = new Map(sections.map((section) => [section.key, section]));
   const toSections = (keys: string[]) => keys.map((key) => byKey.get(key)).filter((section): section is VisualSection => !!section);
@@ -143,6 +145,13 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
     (same && !same.disabled ? same : other)?.focus();
   }, [order, id]);
 
+  // Publish and Discard unmount while focused: hand focus to the status so it does not fall to the page start.
+  useEffect(() => {
+    if (moved || !focusStatus.current) return;
+    focusStatus.current = false;
+    status.current?.focus();
+  }, [moved]);
+
   const move = (key: string, direction: "up" | "down") => {
     const from = order.indexOf(key);
     const to = direction === "up" ? from - 1 : from + 1;
@@ -157,17 +166,21 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
     });
   };
 
-  const publish = () =>
+  const publish = () => {
+    focusStatus.current = true;
     withTransition(() => {
       setLiveOrder(order);
       setAnnouncement(t.publishedNow);
     });
+  };
 
-  const discard = () =>
+  const discard = () => {
+    focusStatus.current = true;
     withTransition(() => {
       setOrder(liveOrder);
       setAnnouncement(t.discarded);
     });
+  };
 
   return (
     <figure
@@ -184,7 +197,7 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
     >
       <div className="hero-visual__panes">
         <div className="hero-visual__studio">
-          <p className="hero-visual__label" aria-hidden="true">
+          <p className="hero-visual__label">
             {t.studio} <span className="hero-visual__demo">{t.demo}</span>
           </p>
           <p className="hero-visual__doc" id={`${id}-doc`}>
@@ -241,7 +254,7 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
             })}
           </ol>
           <div className="hero-visual__footer">
-            <p className="hero-visual__status" data-state={moved ? "draft" : "published"}>
+            <p ref={status} tabIndex={-1} className="hero-visual__status" data-state={moved ? "draft" : "published"}>
               <span className="hero-visual__status-dot" />
               {moved ? t.draft : t.published}
             </p>
