@@ -61,7 +61,7 @@ Every page also exists in German under [`/de`](https://nextfold.marcopontili.com
 
 ## Quick start
 
-Requires Node.js 22.13+.
+Requires Node.js 22+.
 
 ```bash
 npm install
