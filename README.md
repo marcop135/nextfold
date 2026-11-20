@@ -71,6 +71,16 @@ npm run dev
 
 Open http://localhost:3100. Without `NEXT_PUBLIC_SANITY_PROJECT_ID`, the bundled seed pages render.
 
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Dev server on port 3100 |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript, no output files |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build on port 3100 |
+| `npm run typegen` | Regenerate the Sanity schema and types after a schema or query change |
+| `npm run seed:import` | Copy the seed pages and site settings into your Sanity dataset |
+
 ## Sanity setup
 
 Create a project and dataset, add the CORS origin, and publish a first page with [Sanity setup](docs/sanity-setup.md).
