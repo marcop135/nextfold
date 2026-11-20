@@ -58,7 +58,7 @@ export const pages: Page[] = [
         _type: "hero",
         _key: "hero",
         eyebrow: "Next.js + Sanity",
-        heading: "The CMS is the easy part",
+        heading: "A CMS site is more than the CMS",
         body: "Next Fold is a Next.js and Sanity site I run like a product: schema, Studio, caching, security, analytics, and releases. Editors can change every page, and every part of it is in a public repo.",
         link: { _type: "link", label: "See how it's run", href: "/system" },
       },

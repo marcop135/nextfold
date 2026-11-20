@@ -37,7 +37,7 @@
       <rect x="744" y="180" width="4" height="52" rx="2" fill="#F03E2F"/>
       <circle cx="764" cy="198" r="1.6" fill="#3A3D44"/><circle cx="771" cy="198" r="1.6" fill="#3A3D44"/><circle cx="764" cy="206" r="1.6" fill="#3A3D44"/><circle cx="771" cy="206" r="1.6" fill="#3A3D44"/><circle cx="764" cy="214" r="1.6" fill="#3A3D44"/><circle cx="771" cy="214" r="1.6" fill="#3A3D44"/>
       <text x="786" y="201" font-family="Geist Mono" font-size="12" fill="#A3A9B3">Hero</text>
-      <text x="786" y="220" font-family="Geist" font-weight="600" font-size="16" fill="#E8E9EC">The CMS is the easy part</text>
+      <text x="786" y="220" font-family="Geist" font-weight="600" font-size="16" fill="#E8E9EC">A CMS site is more than the CMS</text>
     </g><g>
       <rect x="744" y="242" width="380" height="52" rx="8" fill="#17181A" stroke="#2C2E33"/>
       <rect x="744" y="242" width="4" height="52" rx="2" fill="#F03E2F"/>
@@ -66,7 +66,7 @@
     <rect x="96" y="186" width="14" height="14" fill="#F03E2F"/>
     <text x="122" y="199" font-family="Geist Mono" font-weight="500" font-size="20" letter-spacing="2" fill="#A3A9B3">NEXT.JS + SANITY</text>
     <text x="91" y="312" font-family="Geist" font-weight="800" font-size="112" letter-spacing="-5.5" fill="#E8E9EC">Next <tspan fill="#F03E2F">Fold</tspan></text>
-    <text x="96" y="384" font-family="Geist" font-weight="500" font-size="32" fill="#E8E9EC">The CMS is the easy part.</text>
+    <text x="96" y="384" font-family="Geist" font-weight="500" font-size="32" fill="#E8E9EC">A CMS site is more than the CMS.</text>
     <text x="96" y="426" font-family="Geist" font-weight="400" font-size="26" fill="#A3A9B3">Schema, Studio, cache, security, releases:</text>
     <text x="96" y="460" font-family="Geist" font-weight="400" font-size="26" fill="#A3A9B3">the whole system, in public.</text>
   </g>

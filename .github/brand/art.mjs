@@ -25,7 +25,7 @@ const PALETTE = {
 };
 
 const ROWS = [
-  { type: "Hero", heading: "The CMS is the easy part" },
+  { type: "Hero", heading: "A CMS site is more than the CMS" },
   { type: "Feature grid", heading: "Pick your way in" },
   { type: "App block", heading: "Try to break a rule" },
   { type: "Call to action", heading: "The code is public" },
@@ -98,7 +98,7 @@ function art(p, { width, height, label }) {
     <rect x="${x0}" y="${og ? 186 : 186}" width="14" height="14" fill="${p.accent}"/>
     <text x="${x0 + 26}" y="${og ? 199 : 199}" font-family="Geist Mono" font-weight="500" font-size="20" letter-spacing="2" fill="${p.muted}">NEXT.JS + SANITY</text>
     <text x="${x0 - 5}" y="${og ? 318 : 312}" font-family="Geist" font-weight="800" font-size="${og ? 120 : 112}" letter-spacing="-5.5" fill="${p.text}">Next <tspan fill="${p.accent}">Fold</tspan></text>
-    <text x="${x0}" y="${og ? 392 : 384}" font-family="Geist" font-weight="500" font-size="${tag}" fill="${p.text}">The CMS is the easy part.</text>
+    <text x="${x0}" y="${og ? 392 : 384}" font-family="Geist" font-weight="500" font-size="${tag}" fill="${p.text}">A CMS site is more than the CMS.</text>
     <text x="${x0}" y="${og ? 438 : 426}" font-family="Geist" font-weight="400" font-size="${tag - 6}" fill="${p.muted}">Schema, Studio, cache, security, releases:</text>
     <text x="${x0}" y="${og ? 474 : 460}" font-family="Geist" font-weight="400" font-size="${tag - 6}" fill="${p.muted}">the whole system, in public.</text>`;
 
