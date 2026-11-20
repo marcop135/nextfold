@@ -8,8 +8,8 @@
 
 ### Changed
 
-- Brand: Redraw the README header as the name beside a Studio list of the demo pages, with a folded corner ([#90](https://github.com/marcop135/nextfold/pull/90)) ([#89](https://github.com/marcop135/nextfold/issues/89)).
-- Brand: Name Sanity a CMS in the Open Graph image line, and encode it without blurring the red ([#90](https://github.com/marcop135/nextfold/pull/90)) ([#89](https://github.com/marcop135/nextfold/issues/89)).
+- Brand: Redraw the README header around the demo pages ([#90](https://github.com/marcop135/nextfold/pull/90)) ([#89](https://github.com/marcop135/nextfold/issues/89)).
+- Brand: Add CMS to the Open Graph line and sharpen its red heading ([#90](https://github.com/marcop135/nextfold/pull/90)) ([#89](https://github.com/marcop135/nextfold/issues/89)).
 
 ## [0.7.0] - 2026-11-20
 
