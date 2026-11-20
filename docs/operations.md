@@ -56,4 +56,4 @@ node .github/brand/art.mjs
 node scripts/round-readme-images.mjs
 ```
 
-The PNG and JPG outputs (`public/og.jpg`, `.github/brand/social.png`) are rendered from those SVGs with a headless browser and committed.
+The PNG and JPG outputs (`public/og.jpg`, `.github/brand/social.png`, `.github/brand/readme-{light,dark}.png`) are rendered from those SVGs with a headless browser and committed.
