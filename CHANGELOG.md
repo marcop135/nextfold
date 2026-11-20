@@ -18,6 +18,8 @@
 - Site: Add German under /de, with a language switch, hreflang links, German Markdown twins, and German Open Graph cards.
 - Studio: Give pages and site settings a language, with one desk list and one settings document per language.
 - Studio: Add a migration that marks pages saved before the language field as English, dry run first.
+- Security: Publish `/.well-known/security.txt` and a security policy with a private reporting route.
+- CI: Run CodeQL on every pull request and an OpenSSF Scorecard on `main`.
 
 ### Changed
 
@@ -26,6 +28,8 @@
 - Pages: Rewrite the home page around three ways in for leads, developers, and agents.
 - Pages: End Guardrails on a link to How it's run instead of a source file on GitHub.
 - Studio: Read every text limit and its message from one rules file shared with the site.
+- Security: Add Cross-Origin-Opener-Policy, X-Frame-Options, and a wider Permissions-Policy to site pages.
+- Hosting: Run server functions in Frankfurt (`fra1`), next to the EU audience and analytics.
 - Site: Cache pages, Markdown, `llms.txt`, and the sitemap with Next.js Cache Components until a publish expires them.
 
 ### Fixed
