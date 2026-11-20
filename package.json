@@ -1,6 +1,6 @@
 {
   "name": "nextfold",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "private": true,
   "description": "Next.js App Router and Sanity demo: typed sections, schema guardrails, and Studio",
   "scripts": {
