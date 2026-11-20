@@ -9,31 +9,31 @@
 ### Added
 
 - Pages: Add How it's run, a page on hosting, DNS, security headers, analytics, CI, and the release flow.
-- Studio: Let a feature card link to a page or an https:// address.
-- Studio: Add an app block section that places an interactive widget on a page.
-- Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages.
-- Site: Reorder the home hero's sections with up and down buttons and watch the page follow.
-- CI: Check the bundled seed content against the schema's rules on every pull request.
 - Pages: Add Caching, with a live inspector that shows when the page was cached and the headers of a fresh request.
+- Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages.
 - Site: Add German under /de, with a language switch, hreflang links, German Markdown twins, and German Open Graph cards.
+- Site: Reorder the home hero's sections with up and down buttons and watch the page follow.
 - Studio: Give pages and site settings a language, with one desk list and one settings document per language.
+- Studio: Add an app block section that places an interactive widget on a page.
+- Studio: Let a feature card link to a page or an https:// address.
 - Studio: Add a migration that marks pages saved before the language field as English, dry run first.
 - Security: Publish `/.well-known/security.txt` and a security policy with a private reporting route.
-- CI: Run CodeQL on every pull request and an OpenSSF Scorecard on `main`.
-- CI: Lint the changelog format on every pull request.
 - Docs: Add pages on caching, adding a language, the translation glossary, security, and operations.
+- CI: Run CodeQL on every pull request and an OpenSSF Scorecard on `main`.
 - CI: Smoke-test production weekly for status, headers, hreflang, and Markdown twins; open an issue on failure.
+- CI: Check the bundled seed content against the schema's rules on every pull request.
+- CI: Lint the changelog format on every pull request.
 
 ### Changed
 
-- Brand: Replace the README header and Open Graph image with a Studio pane folding back to show its page.
-- Docs: Drop the hidden command table from the README.
 - Pages: Rewrite the home page around three ways in for leads, developers, and agents.
 - Pages: End Guardrails on a link to How it's run instead of a source file on GitHub.
+- Site: Cache pages, Markdown, `llms.txt`, and the sitemap with Next.js Cache Components until a publish expires them.
 - Studio: Read every text limit and its message from one rules file shared with the site.
+- Brand: Replace the README header and Open Graph image with a Studio pane folding back to show its page.
 - Security: Add Cross-Origin-Opener-Policy, X-Frame-Options, and a wider Permissions-Policy to site pages.
 - Hosting: Run server functions in Frankfurt (`fra1`), next to the EU audience and analytics.
-- Site: Cache pages, Markdown, `llms.txt`, and the sitemap with Next.js Cache Components until a publish expires them.
+- Docs: Show the npm commands in the README quick start instead of a collapsed block.
 
 ### Fixed
 
