@@ -2,7 +2,15 @@ import type { CallToActionSection, FeatureGridSection, HeroSection, Page, SiteSe
 
 type Feature = NonNullable<FeatureGridSection["items"]>[number];
 
-const feature = (key: string, title: string, body: string): Feature => ({ _key: key, _type: "feature", title, body });
+const feature = (key: string, title: string, body: string, link?: { label: string; href: string }): Feature => ({
+  _key: key,
+  _type: "feature",
+  title,
+  body,
+  ...(link ? { link: { _type: "link", ...link } } : {}),
+});
+
+const REPO = "https://github.com/marcop135/nextfold";
 
 /** '"Inside", 6 of 40 characters', or only the count when the text would not fit on a card. */
 function filled(value: string, max: number, required: boolean): string {
@@ -40,56 +48,50 @@ const insideCta: CallToActionSection = {
 /** Shown until the Sanity dataset publishes a page with the same slug. */
 export const seedPages: Page[] = [
   {
-    title: "Next Fold: pages built from sections that hold their shape",
+    title: "Next Fold: a Next.js and Sanity site, run end to end",
     slug: "home",
     description:
-      "Next Fold is a Next.js and Sanity demo. Editors build pages from sections in Sanity Studio, and each section has rules that keep the page in shape.",
+      "Next Fold is a Next.js and Sanity site run like a product: schema, Studio, caching, security, analytics, and releases, all in a public repo.",
     sections: [
       {
         _type: "hero",
         _key: "hero",
         eyebrow: "Next.js + Sanity",
-        heading: "Editors build the page. The schema keeps it in shape.",
-        body: "Every page on this site is a stack of sections. Editors write and arrange them in Sanity Studio, and each kind of section has rules, so what they publish still fits the design.",
-        link: { _type: "link", label: "See how a page is built", href: "/inside-a-page" },
+        heading: "The CMS is the easy part",
+        body: "Next Fold is a Next.js and Sanity site I run like a product: schema, Studio, caching, security, analytics, and releases. Editors can change every page, and every part of it is in a public repo.",
+        link: { _type: "link", label: "See how it's run", href: "/system" },
       },
       {
         _type: "featureGrid",
-        _key: "owners",
-        heading: "Who does what",
+        _key: "ways-in",
+        heading: "Pick your way in",
         items: [
-          feature("editors", "Editors", "Write the copy, choose the sections, and publish without waiting for a developer or a deploy."),
-          feature("developers", "Developers", "Decide which sections exist, what each one may hold, and how it looks on the page."),
           feature(
-            "readers",
-            "Readers and agents",
-            "Read the same page in a browser or as plain Markdown, which AI assistants can fetch directly.",
+            "leads",
+            "Leading a team or hiring",
+            "A two-minute read on how the site is hosted, secured, measured, and released, with a link to check each part.",
+            { label: "How it's run", href: "/system" },
+          ),
+          feature(
+            "builders",
+            "Building with Sanity",
+            "One page taken apart field by field, and the rules the Studio checks before anything goes live.",
+            { label: "Inside a page", href: "/inside-a-page" },
+          ),
+          feature(
+            "agents",
+            "An AI assistant or agent",
+            "Every page is also plain Markdown, listed in llms.txt, with no login or API key.",
+            { label: "For agents", href: "/for-agents" },
           ),
         ],
       },
       {
-        _type: "steps",
-        _key: "flow",
-        heading: "How a page gets here",
-        items: [
-          { _key: "define", _type: "step", title: "Design the pieces", body: "A developer defines each kind of section once: a hero, a grid of cards, a call to action." },
-          { _key: "edit", _type: "step", title: "Compose", body: "An editor stacks those sections into a page in the Studio and fills in the text." },
-          {
-            _key: "check",
-            _type: "step",
-            title: "Check",
-            body: "The Studio checks every field before publishing, so an empty heading or a broken link never goes live.",
-          },
-          { _key: "publish", _type: "step", title: "Publish", body: "One click puts the page live. Pages already open in a browser refresh on their own." },
-          { _key: "render", _type: "step", title: "Read", body: "Visitors get a fast page. Agents get the same words as Markdown." },
-        ],
-      },
-      {
         _type: "callToAction",
-        _key: "inside",
-        heading: "See where each section comes from",
-        body: "The next page takes itself apart, one section at a time.",
-        link: { _type: "link", label: "Look inside a page", href: "/inside-a-page" },
+        _key: "source",
+        heading: "The code is public",
+        body: "Schema, components, CI, and release notes, MIT licensed.",
+        link: { _type: "link", label: "Source on GitHub", href: REPO },
       },
     ],
   },
@@ -100,6 +102,23 @@ export const seedPages: Page[] = [
       "Each section on this page, followed by the fields an editor filled in to make it: a hero, a feature grid, and a call to action.",
     sections: [
       insideHero,
+      {
+        _type: "steps",
+        _key: "flow",
+        heading: "How a page gets here",
+        items: [
+          { _key: "define", _type: "step", title: "Define", body: "A developer defines each kind of section once: a hero, a grid of cards, a call to action." },
+          { _key: "compose", _type: "step", title: "Compose", body: "An editor stacks those sections into a page in the Studio and fills in the text." },
+          {
+            _key: "check",
+            _type: "step",
+            title: "Check",
+            body: "The Studio checks every field before publishing, so an empty heading or a broken link never goes live.",
+          },
+          { _key: "publish", _type: "step", title: "Publish", body: "One click puts the page live. Pages already open in a browser refresh on their own." },
+          { _key: "read", _type: "step", title: "Read", body: "Visitors get the HTML page. Agents get the same words as Markdown." },
+        ],
+      },
       {
         _type: "featureGrid",
         _key: "hero-fields",
@@ -184,10 +203,105 @@ export const seedPages: Page[] = [
       },
       {
         _type: "callToAction",
-        _key: "source",
-        heading: "Read the full schema",
-        body: "Every section type and its rules live in one file on GitHub.",
-        link: { _type: "link", label: "View the schema on GitHub", href: "https://github.com/marcop135/nextfold/blob/main/src/sanity/schemaTypes/sections.ts" },
+        _key: "next",
+        heading: "The schema is one layer",
+        body: "Hosting, caching, security, and releases have rules of their own.",
+        link: { _type: "link", label: "How it's run", href: "/system" },
+      },
+    ],
+  },
+  {
+    title: "How Next Fold is run: hosting, security, and releases",
+    slug: "system",
+    description:
+      "What keeps Next Fold running, from DNS and hosting to security headers, analytics, CI, and releases, with a link to check each part.",
+    sections: [
+      {
+        _type: "hero",
+        _key: "hero",
+        eyebrow: "How it's run",
+        heading: "Everything around the CMS",
+        body: "This page lists what keeps Next Fold running, from DNS to release notes, and where to check each part yourself.",
+      },
+      {
+        _type: "featureGrid",
+        _key: "stack",
+        heading: "The stack, and where to check it",
+        items: [
+          feature(
+            "content",
+            "Content: Sanity",
+            "Editors work in Sanity Studio. The site reads published content through Sanity's CDN, and open pages refresh when something is published.",
+            { label: "Architecture", href: `${REPO}/blob/main/docs/architecture.md` },
+          ),
+          feature(
+            "hosting",
+            "Hosting: Vercel",
+            "Production is built from the main branch and deployed with the Vercel CLI. Preview builds stay out of search.",
+          ),
+          feature(
+            "dns",
+            "DNS: Cloudflare",
+            "DNS only, with no proxy, so visitors reach Vercel directly and its cache and firewall see real traffic.",
+          ),
+          feature(
+            "headers",
+            "Security headers",
+            "A Content Security Policy, HSTS, and a strict referrer policy on every page. The Studio gets its own set.",
+            { label: "See the headers", href: `${REPO}/blob/main/next.config.ts` },
+          ),
+          feature(
+            "analytics",
+            "Analytics: Matomo",
+            "Self-hosted and cookieless, so there is no consent banner. Page fetches by AI assistants are counted on the server.",
+            { label: "Privacy notice", href: "/privacy" },
+          ),
+          feature(
+            "checks",
+            "Checks on every change",
+            "Each pull request runs lint, type checks, a check that the generated Sanity types are current, and a production build.",
+            { label: "CI workflow", href: `${REPO}/blob/main/.github/workflows/ci.yml` },
+          ),
+        ],
+      },
+      {
+        _type: "steps",
+        _key: "ship",
+        heading: "How a change ships",
+        items: [
+          { _key: "issue", _type: "step", title: "Issue", body: "Each change starts as a GitHub issue." },
+          {
+            _key: "branch",
+            _type: "step",
+            title: "Branch and pull request",
+            body: "Work happens on a feature branch. It merges into develop only when CI passes.",
+          },
+          {
+            _key: "changelog",
+            _type: "step",
+            title: "Changelog",
+            body: "The pull request adds its own changelog line, written for the people who read it.",
+          },
+          {
+            _key: "release",
+            _type: "step",
+            title: "Release",
+            body: "A release branch puts the changelog under a version number, then a promotion pull request takes it to main.",
+          },
+          {
+            _key: "deploy",
+            _type: "step",
+            title: "Deploy and tag",
+            body: "Production deploys from a clean main checkout. The commit gets a version tag and a GitHub release with the same notes.",
+          },
+        ],
+      },
+      {
+        _type: "callToAction",
+        _key: "releases",
+        heading: "Every release, line by line",
+        body: "What changed in each version, with the pull request and issue behind every line.",
+        link: { _type: "link", label: "Release history", href: `${REPO}/releases` },
       },
     ],
   },
@@ -198,6 +312,7 @@ export const seedSettings: SiteSettings = {
   nav: [
     { _key: "inside", _type: "link", label: "Inside a page", href: "/inside-a-page" },
     { _key: "guardrails", _type: "link", label: "Guardrails", href: "/guardrails" },
+    { _key: "system", _type: "link", label: "How it's run", href: "/system" },
   ],
   footerNote: "Next Fold Headless CMS",
   projectLinks: [

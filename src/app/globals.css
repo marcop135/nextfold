@@ -602,9 +602,21 @@
       margin-block-end: var(--space-1);
     }
 
+    & li {
+      display: flex;
+      flex-direction: column;
+    }
+
     & p {
       color: var(--color-muted);
     }
+  }
+
+  .feature-grid__link {
+    align-self: flex-start;
+    margin-block-start: auto;
+    padding-block-start: var(--space-2);
+    font-weight: 600;
   }
 
   .steps {
@@ -983,11 +995,10 @@
   }
 
   .hero-visual__heading {
-    overflow: hidden;
     font-size: 0.8125rem;
     font-weight: 600;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
   }
 
   .hero-visual__status {

@@ -25,9 +25,10 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
 
 | Page | What it shows |
 | --- | --- |
-| [Home](https://nextfold.marcopontili.com/) | Who does what, and the page's own sections as an editor sees them in the Studio |
-| [Inside a page](https://nextfold.marcopontili.com/inside-a-page) | Each section followed by the fields an editor filled in to make it |
+| [Home](https://nextfold.marcopontili.com/) | Three ways in, and the page's own sections as an editor sees them in the Studio |
+| [Inside a page](https://nextfold.marcopontili.com/inside-a-page) | How a page gets built, then each section followed by the fields an editor filled in |
 | [Guardrails](https://nextfold.marcopontili.com/guardrails) | The rules the Studio checks before a page can publish |
+| [How it's run](https://nextfold.marcopontili.com/system) | Hosting, DNS, security headers, analytics, CI, and the release flow, with a link to check each |
 | [For agents](https://nextfold.marcopontili.com/for-agents) | Markdown versions, `llms.txt`, sitemap |
 
 ## How content flows

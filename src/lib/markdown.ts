@@ -51,7 +51,14 @@ export function cmsPageMarkdown(page: Page, path: string): string {
         if (section.link) out.push(`[${section.link.label}](${absolute(section.link.href)})`);
         break;
       case "featureGrid":
-        out.push((section.items ?? []).map((item) => `- **${item.title}**${item.body ? `: ${item.body}` : ""}`).join("\n"));
+        out.push(
+          (section.items ?? [])
+            .map((item) => {
+              const link = item.link ? ` [${item.link.label}](${absolute(item.link.href)})` : "";
+              return `- **${item.title}**${item.body ? `: ${item.body}` : ""}${link}`;
+            })
+            .join("\n"),
+        );
         break;
       case "steps":
         out.push(

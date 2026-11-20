@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://nextfold.marcopontili.com").replace(/\/$/, "");
 export const SITE_NAME = "Next Fold";
 export const SITE_DESCRIPTION =
-  "A Next.js and Sanity demo: typed sections, the schema that limits them, and Studio. Editors fill the fields. Developers own the types.";
+  "A Next.js and Sanity site run end to end in public: typed sections, Studio, caching, security, analytics, and releases.";
 export const AUTHOR = { name: "Marco Pontili", url: "https://marcopontili.com" } as const;
 export const REPO_URL = "https://github.com/marcop135/nextfold";
-export const OG_IMAGE = { url: "/og.jpg", width: 1200, height: 630, alt: "Next Fold: define a section once, editors compose pages from it" };
+export const OG_IMAGE = { url: "/og.jpg", width: 1200, height: 630, alt: "Next Fold: the CMS is the easy part" };
 
 /** Preview deployments stay out of search; production and local builds are indexable. */
 export const IS_INDEXABLE = process.env.VERCEL_ENV !== "preview";

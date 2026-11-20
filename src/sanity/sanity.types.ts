@@ -59,6 +59,7 @@ export type FeatureGrid = {
   items?: Array<{
     title: string;
     body?: string;
+    link?: Link;
     _type: "feature";
     _key: string;
   }>;
@@ -318,6 +319,7 @@ export type PAGE_QUERY_RESULT = {
         items?: Array<{
           title: string;
           body?: string;
+          link?: Link;
           _type: "feature";
           _key: string;
         }>;

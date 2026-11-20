@@ -75,6 +75,7 @@ export const featureGrid = defineType({
           fields: [
             defineField({ name: "title", type: "string", validation: (rule) => rule.required().max(60) }),
             defineField({ name: "body", type: "text", rows: 2, validation: (rule) => rule.max(200) }),
+            defineField({ name: "link", type: "link", description: "Optional. Where the card leads." }),
           ],
         }),
       ],
