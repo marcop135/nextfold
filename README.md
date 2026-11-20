@@ -2,7 +2,7 @@
   <a href="https://nextfold.marcopontili.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark-rounded.svg" />
-      <img src=".github/brand/readme-light-rounded.svg" alt="Next Fold: Next.js + Sanity, run end to end" width="100%" />
+      <img src=".github/brand/readme-light-rounded.svg" alt="Next Fold, Next.js + Sanity: a CMS site is more than the CMS. A Studio page list for Inside a page, Guardrails, Caching, and How it's run, in English and German" width="100%" />
     </picture>
   </a>
 </p>

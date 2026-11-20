@@ -4,6 +4,13 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
+## [Unreleased]
+
+### Changed
+
+- Brand: Redraw the README header as the name beside a Studio list of the demo pages, with a folded corner ([#89](https://github.com/marcop135/nextfold/issues/89)).
+- Brand: Name Sanity a CMS in the Open Graph image line, and encode it without blurring the red ([#89](https://github.com/marcop135/nextfold/issues/89)).
+
 ## [0.7.0] - 2026-11-20
 
 ### Added
