@@ -58,7 +58,7 @@ export const pages: Page[] = [
         _type: "hero",
         _key: "hero",
         eyebrow: "Next.js + Sanity",
-        heading: "Das CMS ist der einfache Teil",
+        heading: "Eine CMS-Website ist mehr als das CMS",
         body: "Next Fold ist eine Next.js- und Sanity-Website, die ich wie ein Produkt betreibe: Schema, Studio, Caching, Sicherheit, Analytics und Releases. Die Redaktion kann jede Seite ändern, und jeder Teil liegt in einem öffentlichen Repository.",
         link: { _type: "link", label: "So läuft der Betrieb", href: "/system" },
       },
