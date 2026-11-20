@@ -176,7 +176,7 @@ const forAgentsDe: StaticPage = {
       parts: [
         "Diese Ressourcen liefern nur veröffentlichte Inhalte. Das Sanity Studio unter ",
         { code: "/studio" },
-        " ist für Projektmitglieder und bleibt aus Suchmaschinen heraus.",
+        " ist für Projektmitglieder und wird von Suchmaschinen nicht indexiert.",
       ],
     },
   ],
@@ -187,7 +187,7 @@ const privacyDe: StaticPage = {
   title: "Datenschutzhinweis für Next Fold",
   heading: "Datenschutz",
   description:
-    "Next Fold nutzt ein selbst gehostetes Matomo ohne Cookies und Hosting bei Vercel. Öffentliche Seiten setzen keine Cookies, daher gibt es kein Consent-Banner.",
+    "Next Fold nutzt ein selbst gehostetes Matomo ohne Cookies und Hosting bei Vercel. Öffentliche Seiten setzen keine Cookies, daher gibt es kein Cookie-Banner.",
   blocks: [
     { type: "p", parts: [`Dieser Hinweis gilt für ${host}. Stand: 19.11.2026.`] },
     { type: "h2", text: "Verantwortlicher" },
@@ -238,7 +238,7 @@ const privacyDe: StaticPage = {
       parts: [
         "Das Sanity Studio unter ",
         { code: "/studio" },
-        " ist für Projektmitglieder. Wer sich dort anmeldet, speichert eine Sanity-Sitzung im Browser.",
+        " ist für Projektmitglieder. Bei der Anmeldung dort wird eine Sanity-Sitzung im Browser gespeichert.",
       ],
     },
     { type: "h2", text: "Zwecke und Rechtsgrundlage" },
@@ -249,7 +249,7 @@ const privacyDe: StaticPage = {
       ],
     },
     { type: "h2", text: "Cookies" },
-    { type: "p", parts: ["Öffentliche Seiten setzen keine Cookies, daher gibt es kein Consent-Banner."] },
+    { type: "p", parts: ["Öffentliche Seiten setzen keine Cookies, daher gibt es kein Cookie-Banner."] },
     { type: "h2", text: "Speicherdauer" },
     { type: "p", parts: ["Daten werden nur so lange gespeichert, wie diese Zwecke es erfordern. Analytics-Berichte enthalten nur aggregierte Daten."] },
     { type: "h2", text: "Ihre Rechte" },

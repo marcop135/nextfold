@@ -33,7 +33,7 @@ const insideGrid: FeatureGridSection = {
   items: [
     feature("heading", "Eine Überschrift", "Pflichtfeld, höchstens 80 Zeichen."),
     feature("count", "Zwei bis sechs Kacheln", "Das Studio akzeptiert nicht weniger als zwei und nicht mehr als sechs Kacheln."),
-    feature("fields", "Titel und Text pro Kachel", "Titel enden nach 60 Zeichen, Texte nach 200."),
+    feature("fields", "Titel und Text pro Kachel", "Titel sind auf 60 Zeichen begrenzt, Texte auf 200."),
   ],
 };
 
@@ -70,7 +70,7 @@ export const pages: Page[] = [
           feature(
             "leads",
             "Sie leiten ein Team oder stellen ein",
-            "In zwei Minuten: wie die Website gehostet, abgesichert, gemessen und veröffentlicht wird, mit einem Link zur Prüfung jedes Teils.",
+            "Zwei Minuten Lesezeit: wie die Website gehostet, abgesichert, gemessen und veröffentlicht wird, mit einem Link zur Prüfung jedes Teils.",
             { label: "So läuft der Betrieb", href: "/system" },
           ),
           feature(
@@ -175,7 +175,7 @@ export const pages: Page[] = [
         items: [
           feature("heading", "Überschrift", filled(insideCta.heading, 80, true)),
           feature("body", "Text", filled(insideCta.body ?? "", 200, false)),
-          feature("link", "Link", `„${insideCta.link.label}“, verweist auf ${insideCta.link.href}. Pflichtfeld.`),
+          feature("link", "Link", `„${insideCta.link.label}“ verweist auf ${insideCta.link.href}. Pflichtfeld.`),
         ],
       },
       insideCta,
@@ -186,7 +186,7 @@ export const pages: Page[] = [
     slug: "guardrails",
     language: "de",
     description:
-      "Die Regeln, die Sanity Studio prüft, bevor eine Seite veröffentlicht werden kann: Pflichtfelder, Längengrenzen, erlaubte Abschnitte und Linkformate.",
+      "Die Regeln, die das Sanity Studio prüft, bevor eine Seite veröffentlicht werden kann: Pflichtfelder, Längengrenzen, erlaubte Abschnitte und Linkformate.",
     sections: [
       {
         _type: "hero",
@@ -194,13 +194,13 @@ export const pages: Page[] = [
         eyebrow: "Leitplanken",
         heading: "Regeln, die jede Seite vor dem Veröffentlichen erfüllt",
         body: "Das Schema entscheidet, was die Redaktion veröffentlichen kann. Seine Grenzen sind auf das Design abgestimmt: Text, der ins Studio passt, passt auch auf die Seite.",
-        link: { _type: "link", label: "Eine Regel brechen", href: "/guardrails#playground" },
+        link: { _type: "link", label: "Versuchen Sie, eine Regel zu brechen", href: "/guardrails#playground" },
       },
       {
         _type: "appBlock",
         _key: "playground",
         heading: "Versuchen Sie, eine Regel zu brechen",
-        body: "Ein Hero mit denselben Regeln wie im Studio. Die Vorschau ändert sich erst, wenn alle Felder gültig sind und Sie veröffentlichen.",
+        body: "Ein Hero mit denselben Regeln und Meldungen wie im Studio. Die Vorschau ändert sich erst, wenn alle Felder gültig sind und Sie veröffentlichen.",
         kind: "guardrailsPlayground",
         theme: "surface",
       },
@@ -213,12 +213,12 @@ export const pages: Page[] = [
           feature(
             "length",
             "Längengrenzen",
-            "Überschriften enden nach 80 Zeichen. Seitenbeschreibungen für Suchmaschinen haben 70 bis 160 Zeichen.",
+            "Überschriften sind auf 80 Zeichen begrenzt. Seitenbeschreibungen für Suchmaschinen umfassen 70 bis 160 Zeichen.",
           ),
           feature(
             "allowed",
             "Erlaubte Abschnitte",
-            "Eine Seite nimmt nur die Abschnittstypen an, die das Entwicklungsteam freigibt. Andere erscheinen gar nicht erst im Menü.",
+            "Eine Seite nimmt nur die Abschnittstypen an, die das Entwicklungsteam freigibt. Andere erscheinen gar nicht erst im Add-Menü.",
           ),
           feature(
             "links",
@@ -241,7 +241,7 @@ export const pages: Page[] = [
           {
             _key: "block",
             _type: "step",
-            title: "Das Veröffentlichen wartet",
+            title: "Die Veröffentlichung wartet",
             body: "Der Button „Veröffentlichen“ bleibt gesperrt, solange ein Feld eine Regel verletzt.",
           },
           {
@@ -255,18 +255,18 @@ export const pages: Page[] = [
       {
         _type: "callToAction",
         _key: "next",
-        heading: "Das Schema ist nur eine Ebene",
+        heading: "Das Schema ist eine Ebene",
         body: "Hosting, Caching, Sicherheit und Releases folgen eigenen Regeln.",
         link: { _type: "link", label: "So läuft der Betrieb", href: "/system" },
       },
     ],
   },
   {
-    title: "Caching bei Next Fold: was gecacht wird und was es leert",
+    title: "Caching bei Next Fold: was im Cache liegt und was ihn leert",
     slug: "caching",
     language: "de",
     description:
-      "Wie Next Fold jede Seite mit Next.js Cache Components und Sanity-Tags cacht, und was diesen Cache leert, wenn die Redaktion veröffentlicht.",
+      "Wie Next Fold jede Seite mit Next.js Cache Components und Sanity-Tags cacht und was diesen Cache leert, wenn die Redaktion veröffentlicht.",
     sections: [
       {
         _type: "hero",
@@ -280,7 +280,7 @@ export const pages: Page[] = [
         _type: "appBlock",
         _key: "inspector",
         heading: "Diese Seite, genau jetzt",
-        body: "Wann diese Kopie der Seite in den Cache kam, welche Tags sie ablaufen lassen können, und die Header einer neuen Anfrage an sie.",
+        body: "Wann diese Kopie der Seite in den Cache kam, welche Tags sie ablaufen lassen können und mit welchen Headern eine neue Anfrage beantwortet wird.",
         kind: "cacheInspector",
         theme: "surface",
       },
@@ -299,7 +299,7 @@ export const pages: Page[] = [
             _key: "serve",
             _type: "step",
             title: "Ausliefern",
-            body: "Besucher bekommen die gespeicherte Kopie. Das CDN von Vercel hält sie in ihrer Nähe, der Server hat nichts zu tun.",
+            body: "Besucher bekommen die gespeicherte Kopie. Das CDN von Vercel hält sie in der Nähe der Besucher, sodass der Server nichts zu tun hat.",
           },
           {
             _key: "publish",
@@ -334,7 +334,7 @@ export const pages: Page[] = [
           feature(
             "next",
             "Der Next.js-Cache",
-            "Jede Seite und jedes Abfrageergebnis liegt mit 'use cache' unter Tags. Die Tags bestimmen, was abläuft, eine Veröffentlichung leert also nie die ganze Website.",
+            "Jede Seite und jedes Abfrageergebnis liegt mit „use cache“ unter Tags. Die Tags bestimmen, was abläuft, daher leert eine Veröffentlichung nie die ganze Website.",
           ),
           feature(
             "vercel",
@@ -374,13 +374,13 @@ export const pages: Page[] = [
           feature(
             "content",
             "Inhalte: Sanity",
-            "Die Redaktion arbeitet in Sanity Studio. Die Website liest veröffentlichte Inhalte über das CDN von Sanity, und offene Seiten aktualisieren sich beim Veröffentlichen.",
+            "Die Redaktion arbeitet im Sanity Studio. Die Website liest veröffentlichte Inhalte über das CDN von Sanity, und offene Seiten aktualisieren sich beim Veröffentlichen.",
             { label: "Architektur", href: `${REPO}/blob/main/docs/architecture.md` },
           ),
           feature(
             "hosting",
             "Hosting: Vercel",
-            "Die Produktion wird aus dem main-Branch gebaut und mit der Vercel CLI deployt. Preview-Builds bleiben aus Suchmaschinen heraus.",
+            "Der Produktions-Build entsteht aus dem main-Branch und wird mit der Vercel CLI deployt. Preview-Builds erscheinen nicht in Suchmaschinen.",
           ),
           feature(
             "dns",
@@ -396,7 +396,7 @@ export const pages: Page[] = [
           feature(
             "analytics",
             "Analytics: Matomo",
-            "Selbst gehostet und ohne Cookies, daher ohne Consent-Banner. Abrufe durch KI-Assistenten zählt der Server.",
+            "Selbst gehostet und ohne Cookies, daher ohne Cookie-Banner. Seitenabrufe durch KI-Assistenten zählt der Server.",
             { label: "Datenschutzhinweis", href: "/privacy" },
           ),
           feature(
@@ -435,7 +435,7 @@ export const pages: Page[] = [
             _key: "deploy",
             _type: "step",
             title: "Deploy und Tag",
-            body: "Die Produktion wird aus einem sauberen main-Checkout deployt. Der Commit bekommt ein Versions-Tag und ein GitHub-Release mit denselben Notes.",
+            body: "Der Deploy in die Produktion läuft aus einem sauberen main-Checkout. Der Commit bekommt ein Versions-Tag und ein GitHub-Release mit denselben Notes.",
           },
         ],
       },
