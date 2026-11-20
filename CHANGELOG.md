@@ -21,7 +21,7 @@
 - Security: Publish `/.well-known/security.txt` and a security policy with a private reporting route.
 - CI: Run CodeQL on every pull request and an OpenSSF Scorecard on `main`.
 - CI: Lint the changelog format on every pull request.
-- CI: Smoke-test production weekly for status, security headers, hreflang, and Markdown twins, and open an issue on failure.
+- CI: Smoke-test production weekly for status, headers, hreflang, and Markdown twins; open an issue on failure.
 
 ### Changed
 
