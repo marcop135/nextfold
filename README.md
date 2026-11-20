@@ -47,17 +47,14 @@ Every page also exists in German under [`/de`](https://nextfold.marcopontili.com
 
 | Layer | Tools |
 | --- | --- |
-| Language | TypeScript 5 |
-| Framework | Next.js 16 App Router, React 19 |
+| Framework | Next.js 16 App Router, React 19, TypeScript 5 |
 | Styling | Plain CSS with cascade layers and `light-dark()` |
-| Content | Sanity Studio 6 at `/studio`, GROQ, Presentation and Visual Editing, Live Content API |
-| Caching | Next.js Cache Components, tags expired by Sanity Live and a signed publish webhook |
-| Languages | English and German, one Sanity document per language |
-| Quality | ESLint, TypeScript, Sanity TypeGen drift check, seed content and changelog checks, GitHub Actions CI, Dependabot |
-| Security | CSP and security headers, `security.txt`, CodeQL, OpenSSF Scorecard, weekly production smoke test |
+| Content | Sanity Studio 6, GROQ, Visual Editing, English and German |
+| Caching | Next.js Cache Components, expired on publish |
+| Quality | ESLint, Sanity TypeGen, GitHub Actions CI, Dependabot |
+| Security | Security headers, CodeQL, OpenSSF Scorecard |
 | Analytics | Self-hosted Matomo, cookieless |
-| Hosting | Vercel, functions in Frankfurt (`fra1`) |
-| DNS | Cloudflare, `nextfold` CNAME, DNS only |
+| Hosting | Vercel, Cloudflare DNS |
 
 ## Quick start
 
