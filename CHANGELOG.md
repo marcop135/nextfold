@@ -11,33 +11,23 @@
 - Pages: Add How it's run, a page on hosting, DNS, security headers, analytics, CI, and the release flow.
 - Pages: Add Caching, with a live inspector that shows when the page was cached and the headers of a fresh request.
 - Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages.
-- Pages: Add a "Things to try" section and a closing link to Inside a page on the home page.
 - Site: Add German under /de, with a language switch, hreflang links, German Markdown twins, and German Open Graph cards.
 - Site: Reorder the home hero's Studio rows as a draft, then publish to update the page beside them.
-- Studio: Give pages and site settings a language, with one desk list and one settings document per language.
-- Studio: Add an app block section that places an interactive widget on a page.
-- Studio: Let a feature card link to a page or an https:// address.
-- Studio: Add a migration that marks pages saved before the language field as English, dry run first.
-- Security: Publish `/.well-known/security.txt` and a security policy with a private reporting route.
+- Studio: Give pages and site settings a language, with a desk list per language and a migration for older pages.
+- Studio: Add an app block section for interactive widgets, and optional links on feature cards.
+- Security: Add `security.txt`, a security policy, Cross-Origin-Opener-Policy, X-Frame-Options, and Permissions-Policy.
 - Docs: Add pages on caching, languages, translation, security, operations, Vercel, and Cloudflare.
-- CI: Run CodeQL on every pull request and an OpenSSF Scorecard on `main`.
-- CI: Smoke-test production weekly for status, headers, hreflang, and Markdown twins; open an issue on failure.
-- CI: Check the bundled seed content against the schema's rules on every pull request.
-- CI: Lint the changelog format on every pull request.
+- CI: Run CodeQL, OpenSSF Scorecard, and changelog and seed content checks; smoke-test production weekly.
 
 ### Changed
 
-- Pages: Rewrite the home page around three ways in for leads, developers, and agents.
+- Pages: Rewrite the home page around three ways in, things to try, and a closing link to Inside a page.
 - Pages: End Guardrails on a link to How it's run instead of a source file on GitHub.
-- Pages: Link How it's run to the Vercel and Cloudflare docs, and mark English-only links on German pages.
 - Site: Cache pages, Markdown, `llms.txt`, and the sitemap with Next.js Cache Components until a publish expires them.
-- Site: Set headings smaller with a tighter line height.
-- Site: Show the version beside the footer mark, linked to its release notes.
+- Site: Set headings smaller and tighter, and link the footer version to its release notes.
 - Studio: Read every text limit and its message from one rules file shared with the site.
 - Brand: Replace the README header and Open Graph image with a Studio pane folding back to show its page.
-- Security: Add Cross-Origin-Opener-Policy, X-Frame-Options, and a wider Permissions-Policy to site pages.
 - Hosting: Run server functions in Frankfurt (`fra1`), next to the EU audience and analytics.
-- Docs: Show the npm commands in the README quick start instead of a collapsed block.
 
 ### Fixed
 

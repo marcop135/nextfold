@@ -229,6 +229,10 @@
     color: inherit;
   }
 
+  .site-footer .footer-credit {
+    font-size: 0.8125rem;
+  }
+
   .footer-mark__ink {
     fill: var(--color-text);
   }

@@ -35,7 +35,7 @@ export async function SiteChrome({ children, locale }: { children: ReactNode; lo
             <p className="footer-note">
               {settings.footerNote}
             </p>
-            <p>
+            <p className="footer-credit">
               {t.footer.builtBy}{" "}
               <a className="footer-author" href={AUTHOR.url} title={AUTHOR.name}>
                 {AUTHOR.name}
