@@ -31,8 +31,8 @@ Set in [`next.config.ts`](../next.config.ts).
 
 ## Edge and DNS
 
-- **Vercel firewall.** Bot Protection and a rule that allows only `POST` on `/api/revalidate` are set in the Vercel dashboard. AI crawlers stay allowed, since the site publishes Markdown for them.
-- **Cloudflare.** The `nextfold` CNAME is DNS only. Vercel advises against a proxy in front of it: a second cache, lost firewall signals, and a Bot Protection ruleset that does not work behind a proxy ([vercel.com/guides/cloudflare-with-vercel](https://vercel.com/guides/cloudflare-with-vercel), read 2026-11-20). DNSSEC and CAA records are set in Cloudflare.
+- **Vercel firewall.** Bot Protection and a rule that denies anything but `POST` on `/api/revalidate`, with AI crawlers allowed. [Vercel: set up the firewall](vercel.md#set-up-the-firewall) has the steps.
+- **Cloudflare.** The `nextfold` CNAME is DNS only, with DNSSEC and CAA on the zone. [Cloudflare](cloudflare.md) explains why it is not proxied and how both are set up.
 
 ## Repository
 

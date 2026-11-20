@@ -39,25 +39,9 @@ How a change reaches production, and where each service around the site is confi
 
 Additive features raise the minor version; fixes raise the patch version.
 
-## Vercel
+## Vercel and Cloudflare
 
-| Setting | Value | Where |
-| --- | --- | --- |
-| Framework | Next.js | [`vercel.json`](../vercel.json) |
-| Function region | `fra1` (Frankfurt) | `vercel.json` |
-| Production environment variables | `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_MATOMO_SITE_ID`, `NEXT_PUBLIC_MATOMO_CONTAINER_ID`, `SANITY_REVALIDATE_SECRET`, `SANITY_API_READ_TOKEN` | Dashboard, **Settings > Environment Variables** |
-| Firewall | Bot Protection on; custom rule: deny requests to `/api/revalidate` whose method is not `POST`; AI bots allowed | Dashboard, **Firewall** |
-
-Check the region and firewall after a deploy:
-
-```bash
-vercel inspect <deployment url> --scope <team>
-vercel firewall status --project nextfold --scope <team>
-```
-
-## Cloudflare
-
-The `nextfold` record is a CNAME to Vercel, **DNS only**. [Security: edge and DNS](security.md#edge-and-dns) explains why it is not proxied. DNSSEC is on for the zone, and CAA records allow the certificate authorities Vercel uses.
+[Vercel](vercel.md) covers the project settings, region, environment variables, and firewall. [Cloudflare](cloudflare.md) covers the DNS record, why it is not proxied, DNSSEC, and CAA.
 
 ## Matomo
 

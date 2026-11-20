@@ -53,6 +53,8 @@ const SHARED_ROOTS = new Set(["studio", "api", "og", "md"]);
 /** A page path inside this site gets the locale prefix; external URLs, files, and shared routes stay as they are. */
 export function localizeHref(href: string, locale: Locale): string {
   if (!href.startsWith("/") || href.startsWith("//") || localeForPathname(href) !== defaultLocale) return href;
+  // An explicit /en path names the English page; the proxy redirects it to the unprefixed URL.
+  if (href === `/${defaultLocale}` || href.startsWith(`/${defaultLocale}/`) || href.startsWith(`/${defaultLocale}#`)) return href;
   const pathOnly = href.split(/[?#]/)[0];
   if (pathOnly.includes(".") || SHARED_ROOTS.has(pathOnly.split("/")[1] ?? "")) return href;
   const [path, hash] = href.split("#");

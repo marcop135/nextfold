@@ -9,31 +9,26 @@
 ### Added
 
 - Pages: Add How it's run, a page on hosting, DNS, security headers, analytics, CI, and the release flow.
-- Pages: Add Caching, with a live inspector that shows when the page was cached and the headers of a fresh request.
+- Pages: Add Caching, with a live inspector that requests any page and shows its cache result, headers, and timing.
 - Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages.
 - Site: Add German under /de, with a language switch, hreflang links, German Markdown twins, and German Open Graph cards.
-- Site: Reorder the home hero's sections with up and down buttons and watch the page follow.
-- Studio: Give pages and site settings a language, with one desk list and one settings document per language.
-- Studio: Add an app block section that places an interactive widget on a page.
-- Studio: Let a feature card link to a page or an https:// address.
-- Studio: Add a migration that marks pages saved before the language field as English, dry run first.
-- Security: Publish `/.well-known/security.txt` and a security policy with a private reporting route.
-- Docs: Add pages on caching, adding a language, the translation glossary, security, and operations.
-- CI: Run CodeQL on every pull request and an OpenSSF Scorecard on `main`.
-- CI: Smoke-test production weekly for status, headers, hreflang, and Markdown twins; open an issue on failure.
-- CI: Check the bundled seed content against the schema's rules on every pull request.
-- CI: Lint the changelog format on every pull request.
+- Site: Reorder the home hero's Studio rows as a draft, then publish to update the page beside them.
+- Studio: Give pages and site settings a language, with a desk list per language and a migration for older pages.
+- Studio: Add an app block section for interactive widgets, and optional links on feature cards.
+- Security: Add `security.txt`, a security policy, Cross-Origin-Opener-Policy, X-Frame-Options, and Permissions-Policy.
+- Docs: Add pages on caching, languages, translation, security, operations, Vercel, and Cloudflare.
+- CI: Run CodeQL, OpenSSF Scorecard, and changelog and seed content checks; smoke-test production weekly.
 
 ### Changed
 
-- Pages: Rewrite the home page around three ways in for leads, developers, and agents.
+- Pages: Rewrite the home page around three ways in, things to try, and a closing link to Inside a page.
 - Pages: End Guardrails on a link to How it's run instead of a source file on GitHub.
 - Site: Cache pages, Markdown, `llms.txt`, and the sitemap with Next.js Cache Components until a publish expires them.
+- Site: Set headings smaller and tighter, and link the footer version to its release notes.
 - Studio: Read every text limit and its message from one rules file shared with the site.
-- Brand: Replace the README header and Open Graph image with a Studio pane folding back to show its page.
-- Security: Add Cross-Origin-Opener-Policy, X-Frame-Options, and a wider Permissions-Policy to site pages.
+- Brand: Replace the README header and Open Graph image with the Next Fold mark, name, and one line.
 - Hosting: Run server functions in Frankfurt (`fra1`), next to the EU audience and analytics.
-- Docs: Show the npm commands in the README quick start instead of a collapsed block.
+- Privacy: Shorten the privacy notice and state that the browser connects to Sanity for live updates.
 
 ### Fixed
 

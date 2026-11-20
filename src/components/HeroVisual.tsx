@@ -76,14 +76,18 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
   const id = useId();
   const figure = useRef<HTMLElement>(null);
   const [ready, setReady] = useState(false);
+  // The Studio rows show the editor's draft order; the page shows the published one until Publish.
   const [order, setOrder] = useState(() => sections.map((section) => section.key));
+  const [liveOrder, setLiveOrder] = useState(() => sections.map((section) => section.key));
   const [active, setActive] = useState<string | null>(null);
   const [announcement, setAnnouncement] = useState("");
   const focusAfterMove = useRef<{ key: string; direction: "up" | "down" } | null>(null);
 
   const byKey = new Map(sections.map((section) => [section.key, section]));
-  const ordered = order.map((key) => byKey.get(key)).filter((section): section is VisualSection => !!section);
-  const moved = order.some((key, index) => key !== sections[index]?.key);
+  const toSections = (keys: string[]) => keys.map((key) => byKey.get(key)).filter((section): section is VisualSection => !!section);
+  const ordered = toSections(order);
+  const live = toSections(liveOrder);
+  const moved = order.some((key, index) => key !== liveOrder[index]);
 
   useEffect(() => {
     const element = figure.current;
@@ -153,10 +157,16 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
     });
   };
 
-  const reset = () =>
+  const publish = () =>
     withTransition(() => {
-      setOrder(sections.map((section) => section.key));
-      setAnnouncement(t.restored);
+      setLiveOrder(order);
+      setAnnouncement(t.publishedNow);
+    });
+
+  const discard = () =>
+    withTransition(() => {
+      setOrder(liveOrder);
+      setAnnouncement(t.discarded);
     });
 
   return (
@@ -175,7 +185,7 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
       <div className="hero-visual__panes">
         <div className="hero-visual__studio">
           <p className="hero-visual__label" aria-hidden="true">
-            {t.studio}
+            {t.studio} <span className="hero-visual__demo">{t.demo}</span>
           </p>
           <p className="hero-visual__doc" id={`${id}-doc`}>
             {t.doc}
@@ -230,15 +240,27 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
               );
             })}
           </ol>
-          <p className="hero-visual__status">
-            <span className="hero-visual__status-dot" />
-            {t.published}
-          </p>
+          <div className="hero-visual__footer">
+            <p className="hero-visual__status" data-state={moved ? "draft" : "published"}>
+              <span className="hero-visual__status-dot" />
+              {moved ? t.draft : t.published}
+            </p>
+            {ready && moved ? (
+              <>
+                <button type="button" className="hero-visual__publish" onClick={publish}>
+                  {t.publish}
+                </button>
+                <button type="button" className="hero-visual__reset" onClick={discard}>
+                  {t.discard}
+                </button>
+              </>
+            ) : null}
+          </div>
         </div>
         <div className="hero-visual__page" aria-hidden="true">
           <p className="hero-visual__address">{SITE_URL.replace("https://", "")}</p>
           <div className="hero-visual__blocks">
-            {ordered.map((section, index) => (
+            {live.map((section, index) => (
               <span
                 key={section.key}
                 className={`hero-visual__block hero-visual__block--${section.type}`}
@@ -254,14 +276,6 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
       <figcaption>
         {t.caption}
         {ready ? t.hint : null}
-        {ready && moved ? (
-          <>
-            {" "}
-            <button type="button" className="hero-visual__reset" onClick={reset}>
-              {t.reset}
-            </button>
-          </>
-        ) : null}
       </figcaption>
       <p className="visually-hidden" role="status">
         {announcement}

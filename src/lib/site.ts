@@ -10,7 +10,7 @@ export const SITE_DESCRIPTIONS: Record<Locale, string> = {
 export const SITE_DESCRIPTION = SITE_DESCRIPTIONS.en;
 export const AUTHOR = { name: "Marco Pontili", url: "https://marcopontili.com" } as const;
 export const REPO_URL = "https://github.com/marcop135/nextfold";
-export const OG_IMAGE = { url: "/og.jpg", width: 1200, height: 630, alt: "Next Fold: a CMS site is more than the CMS" };
+export const OG_IMAGE = { url: "/og.jpg", width: 1200, height: 630, alt: "Next Fold: Next.js + Sanity, run end to end" };
 
 /** Preview deployments stay out of search; production and local builds are indexable. */
 export const IS_INDEXABLE = process.env.VERCEL_ENV !== "preview";
