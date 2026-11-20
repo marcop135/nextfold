@@ -32,7 +32,8 @@ export function PageView({ loaded, path, locale }: { loaded: LoadedPage; path: s
             path === "/" ? (
               <HeroVisual
                 locale={locale}
-                sections={sections.map((section) => ({
+                // The first three sections keep the Studio pane short enough to read at a glance.
+                sections={sections.slice(0, 3).map((section) => ({
                   key: section._key,
                   type: stegaClean(section._type),
                   heading: stegaClean(section.heading),

@@ -9,7 +9,7 @@
 ### Added
 
 - Pages: Add How it's run, a page on hosting, DNS, security headers, analytics, CI, and the release flow.
-- Pages: Add Caching, with a live inspector that shows when the page was cached and the headers of a fresh request.
+- Pages: Add Caching, with a live inspector that requests any page and shows its cache result, headers, and timing.
 - Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages.
 - Site: Add German under /de, with a language switch, hreflang links, German Markdown twins, and German Open Graph cards.
 - Site: Reorder the home hero's Studio rows as a draft, then publish to update the page beside them.
@@ -28,6 +28,7 @@
 - Studio: Read every text limit and its message from one rules file shared with the site.
 - Brand: Replace the README header and Open Graph image with the Next Fold mark, name, and one line.
 - Hosting: Run server functions in Frankfurt (`fra1`), next to the EU audience and analytics.
+- Privacy: Shorten the privacy notice and state that the browser connects to Sanity for live updates.
 
 ### Fixed
 

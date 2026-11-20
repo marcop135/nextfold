@@ -88,8 +88,6 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
   const ordered = toSections(order);
   const live = toSections(liveOrder);
   const moved = order.some((key, index) => key !== liveOrder[index]);
-  // Published in the demo, so the sketch differs from the real page below.
-  const simulated = liveOrder.some((key, index) => key !== sections[index]?.key);
 
   useEffect(() => {
     const element = figure.current;
@@ -278,12 +276,6 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
       <figcaption>
         {t.caption}
         {ready ? t.hint : null}
-        {simulated ? (
-          <strong className="hero-visual__notice">
-            {" "}
-            {t.simulated}
-          </strong>
-        ) : null}
       </figcaption>
       <p className="visually-hidden" role="status">
         {announcement}
