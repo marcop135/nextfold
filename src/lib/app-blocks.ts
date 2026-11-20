@@ -8,6 +8,11 @@ export const APP_BLOCKS = {
     fallback:
       "An interactive form with the hero's fields and the rules the Studio checks: required heading, length limits, and link format. It runs in the browser on the HTML page.",
   },
+  cacheInspector: {
+    title: "Cache inspector",
+    fallback:
+      "On the HTML page: when this copy of the page entered the cache, the cache tags that can expire it, and the cache headers of a fresh request for the same URL.",
+  },
 } as const;
 
 export type AppBlockKind = keyof typeof APP_BLOCKS;

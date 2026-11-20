@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { SiteHeader, type NavItem } from "@/components/SiteHeader";
 import { AUTHOR, REPO_URL, SITE_NAME } from "@/lib/site";
 import { getSiteSettings } from "@/sanity/lib/fetch-page";
+import { getFetchOptions } from "@/sanity/lib/live";
 import type { SiteSettings } from "@/sanity/types";
 import { version } from "../../package.json";
 
@@ -12,7 +13,7 @@ function SiteLink({ link }: { link: SiteSettings["nav"][number] }) {
 
 /** Header and footer from the siteSettings document, with the seed settings as fallback. */
 export async function SiteChrome({ children }: { children: ReactNode }) {
-  const settings = await getSiteSettings();
+  const settings = await getSiteSettings(await getFetchOptions());
   const nav: NavItem[] = settings.nav.map(({ href, label }) => ({ href, label }));
   return (
     <>

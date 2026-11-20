@@ -33,7 +33,7 @@ export type AppBlock = {
   _type: "appBlock";
   heading: string;
   body?: string;
-  kind: "guardrailsPlayground";
+  kind: "guardrailsPlayground" | "cacheInspector";
   theme?: "bg" | "surface" | "band";
   spacing?: "space-3" | "space-4" | "space-5";
 };
@@ -311,7 +311,7 @@ export type PAGE_QUERY_RESULT = {
         _type: "appBlock";
         heading: string;
         body?: string;
-        kind: "guardrailsPlayground";
+        kind: "cacheInspector" | "guardrailsPlayground";
         theme?: "band" | "bg" | "surface";
         spacing?: "space-3" | "space-4" | "space-5";
       }
