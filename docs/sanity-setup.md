@@ -33,7 +33,7 @@ The pricing page lists no card requirement for Free. A public dataset is enough:
    npm run seed:import
    ```
 
-   This creates the `home`, `inside-a-page`, and `guardrails` pages and the site settings. Documents that already exist stay as they are, so a second run never overwrites edits.
+   This creates the `home`, `inside-a-page`, `guardrails`, `caching`, and `system` pages in English and German, and the site settings for both languages. Documents that already exist stay as they are, so a second run never overwrites edits.
 7. Open http://localhost:3100. The line above the footer reads "This page comes from the Sanity dataset."
 8. For Presentation and Visual Editing, create a viewer token. It reads drafts, so it stays on the server:
 
@@ -58,7 +58,7 @@ The pricing page lists no card requirement for Free. A public dataset is enough:
 
     The route checks the signature, then expires the page, the page list behind the sitemap and `llms.txt`, or the site settings.
 
-Until Sanity has a published page for a slug, the seed page with that slug from [`seed.ts`](../src/content/seed.ts) renders instead: `home`, `inside-a-page`, and `guardrails`. Published changes reach open pages through the Live Content API.
+Until Sanity has a published page for a slug and language, the seed page from [`src/content/seed`](../src/content/seed) renders instead: `home`, `inside-a-page`, `guardrails`, `caching`, and `system`, in English and German. Published changes reach open pages through the Live Content API.
 
 ## Rename a field
 

@@ -17,7 +17,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Sanity](https://img.shields.io/badge/Sanity-Studio_6-F03E2F?logo=sanity&logoColor=white)](https://www.sanity.io/)
 
-A [Next.js](https://nextjs.org/) App Router and [Sanity](https://www.sanity.io/) demo of typed sections. Editors fill those sections in Studio. Developers own the schema, the GROQ queries, and the React components.
+A [Next.js](https://nextjs.org/) App Router and [Sanity](https://www.sanity.io/) site, run end to end in public: typed sections and the rules behind them, Studio with Presentation, tag-based caching, English and German, security headers, cookieless analytics, CI, and a release flow. Editors fill the sections in Studio. Developers own the schema, the queries, and the components.
 
 ## Explore the demo
 
@@ -27,9 +27,12 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
 | --- | --- |
 | [Home](https://nextfold.marcopontili.com/) | Three ways in, and the page's own sections as an editor sees them in the Studio |
 | [Inside a page](https://nextfold.marcopontili.com/inside-a-page) | How a page gets built, then each section followed by the fields an editor filled in |
-| [Guardrails](https://nextfold.marcopontili.com/guardrails) | The rules the Studio checks before a page can publish |
+| [Guardrails](https://nextfold.marcopontili.com/guardrails) | The rules the Studio checks before a page can publish, and a playground to break them |
+| [Caching](https://nextfold.marcopontili.com/caching) | When this page entered the cache, what expires it, and the headers of a fresh request |
 | [How it's run](https://nextfold.marcopontili.com/system) | Hosting, DNS, security headers, analytics, CI, and the release flow, with a link to check each |
 | [For agents](https://nextfold.marcopontili.com/for-agents) | Markdown versions, `llms.txt`, sitemap |
+
+Every page also exists in German under [`/de`](https://nextfold.marcopontili.com/de).
 
 ## How content flows
 
@@ -47,10 +50,13 @@ Live demo: **[nextfold.marcopontili.com](https://nextfold.marcopontili.com)**
 | Language | TypeScript 5 |
 | Framework | Next.js 16 App Router, React 19 |
 | Styling | Plain CSS with cascade layers and `light-dark()` |
-| Content | Sanity Studio 6 at `/studio`, GROQ |
-| Quality | ESLint, TypeScript, Sanity TypeGen, GitHub Actions CI, Dependabot |
+| Content | Sanity Studio 6 at `/studio`, GROQ, Presentation and Visual Editing, Live Content API |
+| Caching | Next.js Cache Components, tags expired by Sanity Live and a signed publish webhook |
+| Languages | English and German, one Sanity document per language |
+| Quality | ESLint, TypeScript, Sanity TypeGen drift check, seed content and changelog checks, GitHub Actions CI, Dependabot |
+| Security | CSP and security headers, `security.txt`, CodeQL, OpenSSF Scorecard, weekly production smoke test |
 | Analytics | Self-hosted Matomo, cookieless |
-| Hosting | Vercel |
+| Hosting | Vercel, functions in Frankfurt (`fra1`) |
 | DNS | Cloudflare, `nextfold` CNAME, DNS only |
 
 ## Quick start

@@ -21,6 +21,7 @@
 - Security: Publish `/.well-known/security.txt` and a security policy with a private reporting route.
 - CI: Run CodeQL on every pull request and an OpenSSF Scorecard on `main`.
 - CI: Lint the changelog format on every pull request.
+- Docs: Add pages on caching, adding a language, the translation glossary, security, and operations.
 - CI: Smoke-test production weekly for status, headers, hreflang, and Markdown twins; open an issue on failure.
 
 ### Changed
