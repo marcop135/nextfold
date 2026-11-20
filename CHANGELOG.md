@@ -21,6 +21,8 @@
 
 ### Changed
 
+- Brand: Replace the README header and Open Graph image with a Studio pane folding back to show its page.
+- Docs: Drop the hidden command table from the README.
 - Pages: Rewrite the home page around three ways in for leads, developers, and agents.
 - Pages: End Guardrails on a link to How it's run instead of a source file on GitHub.
 - Studio: Read every text limit and its message from one rules file shared with the site.

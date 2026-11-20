@@ -2,7 +2,7 @@
   <a href="https://nextfold.marcopontili.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark-rounded.svg" />
-      <img src=".github/brand/readme-light-rounded.svg" alt="Next Fold: a hero section type defined in code, overlapped by the hero section it renders" width="100%" />
+      <img src=".github/brand/readme-light-rounded.svg" alt="Next Fold: the Sanity Studio pane for the home page, its corner folded back to show the page it renders" width="100%" />
     </picture>
   </a>
 </p>
@@ -64,21 +64,6 @@ npm run dev
 ```
 
 Open http://localhost:3100. Without `NEXT_PUBLIC_SANITY_PROJECT_ID`, the bundled seed pages render.
-
-<details>
-<summary>Commands</summary>
-
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Dev server on port 3100 |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | TypeScript, no output files |
-| `npm run build` | Production build |
-| `npm run typegen` | Regenerate the Sanity schema and types after a schema or query change |
-| `npm run seed:import` | Copy the seed pages and site settings into your Sanity dataset |
-| `npm start` | Serve the production build on port 3100 |
-
-</details>
 
 ## Sanity setup
 
