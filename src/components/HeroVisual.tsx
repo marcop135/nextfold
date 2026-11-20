@@ -230,13 +230,16 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
               );
             })}
           </ol>
-          <p className="hero-visual__status">
+          <p className="hero-visual__status" data-state={moved ? "draft" : "published"}>
             <span className="hero-visual__status-dot" />
-            {t.published}
+            {moved ? t.draft : t.published}
           </p>
         </div>
         <div className="hero-visual__page" aria-hidden="true">
-          <p className="hero-visual__address">{SITE_URL.replace("https://", "")}</p>
+          <p className="hero-visual__address">
+            {moved ? `${t.preview} · ` : null}
+            {SITE_URL.replace("https://", "")}
+          </p>
           <div className="hero-visual__blocks">
             {ordered.map((section, index) => (
               <span
@@ -253,7 +256,7 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
       </div>
       <figcaption>
         {t.caption}
-        {ready ? t.hint : null}
+        {ready ? (moved ? t.notLive : t.hint) : null}
         {ready && moved ? (
           <>
             {" "}

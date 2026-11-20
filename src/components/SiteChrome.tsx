@@ -33,7 +33,7 @@ export async function SiteChrome({ children, locale }: { children: ReactNode; lo
         <div className="wrap site-footer__inner">
           <div>
             <p className="footer-note">
-              {settings.footerNote} <span className="footer-version">v{version}</span>
+              {settings.footerNote}
             </p>
             <p>
               {t.footer.builtBy}{" "}
@@ -52,6 +52,7 @@ export async function SiteChrome({ children, locale }: { children: ReactNode; lo
                 <rect className="footer-mark__band" x="8" y="17" width="16" height="5" />
               </svg>
             </Link>
+            <span className="footer-version">v{version}</span>
           </div>
           <div className="footer-links">
             <nav className="footer-nav" aria-labelledby="footer-explore">

@@ -11,4 +11,6 @@ Start with Sanity setup to load your own content, then read Architecture to find
 | [Translation glossary](translation-glossary.md) | Reference | Look up the German terms, address form, and review passes |
 | [Security](security.md) | Reference | See what is public, the response headers, and the edge and repository controls |
 | [Operations](operations.md) | How-to | Ship a change, cut a release, deploy, and find each service's settings |
+| [Vercel](vercel.md) | How-to | Check the project settings and region, and set up the firewall |
+| [Cloudflare](cloudflare.md) | How-to | See why DNS is not proxied, and turn on DNSSEC and CAA |
 | [Changelog](../CHANGELOG.md) | Reference | See what changed in each release |
