@@ -1,6 +1,7 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { languageField } from "./language";
 
-/** One document, id `siteSettings`, opened from the Studio desk; never created from the New document menu. */
+/** One document per language (ids `siteSettings`, `siteSettings-de`), opened from the Studio desk only. */
 export const siteSettings = defineType({
   name: "siteSettings",
   title: "Site settings",
@@ -10,6 +11,7 @@ export const siteSettings = defineType({
     { name: "footer", title: "Footer" },
   ],
   fields: [
+    { ...languageField, group: "header" },
     defineField({
       name: "nav",
       title: "Main navigation",
@@ -46,5 +48,8 @@ export const siteSettings = defineType({
       validation: (rule) => rule.max(5),
     }),
   ],
-  preview: { prepare: () => ({ title: "Site settings" }) },
+  preview: {
+    select: { language: "language" },
+    prepare: ({ language }) => ({ title: "Site settings", subtitle: language === "de" ? "Deutsch" : "English" }),
+  },
 });

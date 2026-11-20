@@ -3,7 +3,8 @@
  * so copy that would fail in the Studio fails CI first. Run with `npm run content:check`.
  * Node strips the TypeScript types on import; the imported files have no runtime imports of their own.
  */
-import { seedPages, seedSettings } from "../src/content/seed.ts";
+import * as de from "../src/content/seed/de.ts";
+import * as en from "../src/content/seed/en.ts";
 import { APP_BLOCKS } from "../src/lib/app-blocks.ts";
 import {
   COUNT_RULES,
@@ -25,8 +26,11 @@ function checkLink(where, link, required = false) {
   report(`${where} href`, checkLinkUrl(link.href));
 }
 
-for (const page of seedPages) {
-  const at = `/${page.slug}`;
+const languages = { en, de };
+
+for (const [language, seed] of Object.entries(languages)) for (const page of seed.pages) {
+  const at = `${language} /${page.slug}`;
+  report(`${at} language`, page.language === language ? null : `Language is "${page.language}", expected "${language}".`);
   report(`${at} title`, checkText(page.title, PAGE_RULES.title));
   report(`${at} description`, checkText(page.description, PAGE_RULES.description));
   for (const section of page.sections ?? []) {
@@ -76,12 +80,18 @@ for (const page of seedPages) {
   }
 }
 
-for (const [group, links] of Object.entries({ nav: seedSettings.nav, projectLinks: seedSettings.projectLinks, siteInfoLinks: seedSettings.siteInfoLinks })) {
-  for (const link of links ?? []) checkLink(`settings ${group} ${link._key}`, link, true);
+for (const [language, { settings }] of Object.entries(languages)) {
+  for (const [group, links] of Object.entries({ nav: settings.nav, projectLinks: settings.projectLinks, siteInfoLinks: settings.siteInfoLinks })) {
+    for (const link of links ?? []) checkLink(`${language} settings ${group} ${link._key}`, link, true);
+  }
 }
+
+// Every page exists in every language, so the language switch never lands on a fallback.
+const slugs = Object.fromEntries(Object.entries(languages).map(([language, seed]) => [language, seed.pages.map((page) => page.slug).sort().join(",")]));
+if (new Set(Object.values(slugs)).size > 1) report("languages", `Seed pages differ: ${JSON.stringify(slugs)}`);
 
 if (failures.length) {
   console.error(`${failures.length} content rule failures:\n${failures.map((line) => `  ${line}`).join("\n")}`);
   process.exit(1);
 }
-console.log(`Seed content passes every rule: ${seedPages.length} pages.`);
+console.log(`Seed content passes every rule: ${Object.values(languages).reduce((sum, seed) => sum + seed.pages.length, 0)} pages in ${Object.keys(languages).length} languages.`);

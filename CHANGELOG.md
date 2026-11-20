@@ -15,6 +15,9 @@
 - Site: Reorder the home hero's sections with up and down buttons and watch the page follow.
 - CI: Check the bundled seed content against the schema's rules on every pull request.
 - Pages: Add Caching, with a live inspector that shows when the page was cached and the headers of a fresh request.
+- Site: Add German under /de, with a language switch, hreflang links, German Markdown twins, and German Open Graph cards.
+- Studio: Give pages and site settings a language, with one desk list and one settings document per language.
+- Studio: Add a migration that marks pages saved before the language field as English, dry run first.
 
 ### Changed
 

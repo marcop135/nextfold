@@ -107,6 +107,7 @@ export type SiteSettings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  language: "en" | "de";
   nav: Array<
     {
       _key: string;
@@ -131,6 +132,7 @@ export type Page = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  language: "en" | "de";
   title: string;
   slug: Slug;
   description: string;
@@ -300,10 +302,11 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current == $slug][0]{    title,    "slug": slug.current,    description,    sections[]{      ...,      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },      _type == "hero" && defined(image.asset) => {        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }      }    }  }
+// Query: *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{    title,    "slug": slug.current,    "language": coalesce(language, "en"),    description,    sections[]{      ...,      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },      _type == "hero" && defined(image.asset) => {        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }      }    }  }
 export type PAGE_QUERY_RESULT = {
   title: string;
   slug: string;
+  language: "de" | "en";
   description: string;
   sections: Array<
     | {
@@ -412,7 +415,7 @@ export type PAGE_QUERY_RESULT = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SITEMAP_QUERY
-// Query: *[_type == "page" && defined(slug.current)]{ "slug": slug.current, "updatedAt": _updatedAt }
+// Query: *[_type == "page" && defined(slug.current) && coalesce(language, "en") == $language]{    "slug": slug.current,    "updatedAt": _updatedAt  }
 export type SITEMAP_QUERY_RESULT = Array<{
   slug: string;
   updatedAt: string;
@@ -420,7 +423,7 @@ export type SITEMAP_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SETTINGS_QUERY
-// Query: *[_type == "siteSettings" && _id == "siteSettings"][0]{ nav, footerNote, projectLinks, siteInfoLinks }
+// Query: *[_type == "siteSettings" && _id == $id][0]{ nav, footerNote, projectLinks, siteInfoLinks }
 export type SETTINGS_QUERY_RESULT = {
   nav: Array<
     {
@@ -443,9 +446,9 @@ export type SETTINGS_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "page" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    description,\n    sections[]{\n      ...,\n      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },\n      _type == "hero" && defined(image.asset) => {\n        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
-    '\n  *[_type == "page" && defined(slug.current)]{ "slug": slug.current, "updatedAt": _updatedAt }\n': SITEMAP_QUERY_RESULT;
-    '\n  *[_type == "siteSettings" && _id == "siteSettings"][0]{ nav, footerNote, projectLinks, siteInfoLinks }\n': SETTINGS_QUERY_RESULT;
+    '\n  *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{\n    title,\n    "slug": slug.current,\n    "language": coalesce(language, "en"),\n    description,\n    sections[]{\n      ...,\n      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },\n      _type == "hero" && defined(image.asset) => {\n        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
+    '\n  *[_type == "page" && defined(slug.current) && coalesce(language, "en") == $language]{\n    "slug": slug.current,\n    "updatedAt": _updatedAt\n  }\n': SITEMAP_QUERY_RESULT;
+    '\n  *[_type == "siteSettings" && _id == $id][0]{ nav, footerNote, projectLinks, siteInfoLinks }\n': SETTINGS_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

@@ -2,18 +2,11 @@
 
 import { flushSync } from "react-dom";
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import type { Locale } from "@/lib/i18n";
+import { getMessages } from "@/lib/messages";
 import { SITE_URL } from "@/lib/site";
 
 export type VisualSection = { key: string; type: string; heading: string };
-
-const TYPE_TITLES: Record<string, string> = {
-  hero: "Hero",
-  featureGrid: "Feature grid",
-  steps: "Steps",
-  codeSample: "Code sample",
-  appBlock: "App block",
-  callToAction: "Call to action",
-};
 
 /** A sketch of how each section type looks on the page, small enough for the preview pane. */
 function Wireframe({ type }: { type: string }) {
@@ -77,7 +70,9 @@ function withTransition(update: () => void) {
  * holds the finished state under reduced motion. Once finished, the rows can be reordered
  * and the page blocks follow, the way a drag in the Studio reorders the page.
  */
-export function HeroVisual({ sections }: { sections: VisualSection[] }) {
+export function HeroVisual({ sections, locale }: { sections: VisualSection[]; locale: Locale }) {
+  const t = getMessages(locale).heroVisual;
+  const TYPE_TITLES = t.types;
   const id = useId();
   const figure = useRef<HTMLElement>(null);
   const [ready, setReady] = useState(false);
@@ -154,14 +149,14 @@ export function HeroVisual({ sections }: { sections: VisualSection[] }) {
     const title = TYPE_TITLES[byKey.get(key)?.type ?? ""] ?? "Section";
     withTransition(() => {
       setOrder(next);
-      setAnnouncement(`${title} moved to position ${to + 1} of ${next.length}.`);
+      setAnnouncement(t.moved(title, to + 1, next.length));
     });
   };
 
   const reset = () =>
     withTransition(() => {
       setOrder(sections.map((section) => section.key));
-      setAnnouncement("Original order restored.");
+      setAnnouncement(t.restored);
     });
 
   return (
@@ -180,10 +175,10 @@ export function HeroVisual({ sections }: { sections: VisualSection[] }) {
       <div className="hero-visual__panes">
         <div className="hero-visual__studio">
           <p className="hero-visual__label" aria-hidden="true">
-            Sanity Studio
+            {t.studio}
           </p>
           <p className="hero-visual__doc" id={`${id}-doc`}>
-            Home page
+            {t.doc}
           </p>
           <ol className="hero-visual__rows" aria-labelledby={`${id}-doc`}>
             {ordered.map((section, index) => {
@@ -210,7 +205,7 @@ export function HeroVisual({ sections }: { sections: VisualSection[] }) {
                       <button
                         type="button"
                         id={`${id}-${section.key}-up`}
-                        aria-label={`Move ${title} up`}
+                        aria-label={t.moveUp(title)}
                         disabled={index === 0}
                         onClick={() => move(section.key, "up")}
                       >
@@ -221,7 +216,7 @@ export function HeroVisual({ sections }: { sections: VisualSection[] }) {
                       <button
                         type="button"
                         id={`${id}-${section.key}-down`}
-                        aria-label={`Move ${title} down`}
+                        aria-label={t.moveDown(title)}
                         disabled={index === ordered.length - 1}
                         onClick={() => move(section.key, "down")}
                       >
@@ -237,7 +232,7 @@ export function HeroVisual({ sections }: { sections: VisualSection[] }) {
           </ol>
           <p className="hero-visual__status">
             <span className="hero-visual__status-dot" />
-            Published
+            {t.published}
           </p>
         </div>
         <div className="hero-visual__page" aria-hidden="true">
@@ -257,13 +252,13 @@ export function HeroVisual({ sections }: { sections: VisualSection[] }) {
         </div>
       </div>
       <figcaption>
-        This page as an editor sees it in Sanity Studio, next to what the site builds from it.
-        {ready ? " Move a section up or down and the page follows." : null}
+        {t.caption}
+        {ready ? t.hint : null}
         {ready && moved ? (
           <>
             {" "}
             <button type="button" className="hero-visual__reset" onClick={reset}>
-              Reset order
+              {t.reset}
             </button>
           </>
         ) : null}

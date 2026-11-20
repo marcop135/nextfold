@@ -1,10 +1,15 @@
 import { defineQuery } from "next-sanity";
 
-/** Heroes saved before the rename-hero-cta-to-link migration still store their link as `cta`; drop that line once it has run. */
+/**
+ * One language at a time: the fallback to English happens in fetch-page.ts, after the seed copy in the
+ * requested language. `coalesce` counts pages saved before the language field as English.
+ * Heroes saved before the rename-hero-cta-to-link migration still store their link as `cta`; drop that line once it has run.
+ */
 export const PAGE_QUERY = defineQuery(`
-  *[_type == "page" && slug.current == $slug][0]{
+  *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{
     title,
     "slug": slug.current,
+    "language": coalesce(language, "en"),
     description,
     sections[]{
       ...,
@@ -17,9 +22,12 @@ export const PAGE_QUERY = defineQuery(`
 `);
 
 export const SITEMAP_QUERY = defineQuery(`
-  *[_type == "page" && defined(slug.current)]{ "slug": slug.current, "updatedAt": _updatedAt }
+  *[_type == "page" && defined(slug.current) && coalesce(language, "en") == $language]{
+    "slug": slug.current,
+    "updatedAt": _updatedAt
+  }
 `);
 
 export const SETTINGS_QUERY = defineQuery(`
-  *[_type == "siteSettings" && _id == "siteSettings"][0]{ nav, footerNote, projectLinks, siteInfoLinks }
+  *[_type == "siteSettings" && _id == $id][0]{ nav, footerNote, projectLinks, siteInfoLinks }
 `);

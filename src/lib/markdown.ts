@@ -1,12 +1,21 @@
 import type { Block, Inline, StaticPage } from "@/content/static-pages";
 import type { Page } from "@/sanity/types";
 import { APP_BLOCKS, isAppBlockKind } from "./app-blocks";
+import { LOCALE_NAMES, localizeHref, localizedPath, type Locale } from "./i18n";
 import { SITE_URL } from "./site";
 
 const absolute = (href: string) => (href.startsWith("/") ? `${SITE_URL}${href}` : href);
 
-function frontmatter(title: string, description: string, path: string): string {
-  return `---\ntitle: ${JSON.stringify(title)}\ndescription: ${JSON.stringify(description)}\nurl: ${SITE_URL}${path}\n---`;
+/** `path` is locale-neutral; the url in the front matter carries the locale. */
+function frontmatter(title: string, description: string, path: string, locale: Locale): string {
+  return [
+    "---",
+    `title: ${JSON.stringify(title)}`,
+    `description: ${JSON.stringify(description)}`,
+    `url: ${SITE_URL}${localizedPath(path, locale)}`,
+    `lang: ${LOCALE_NAMES[locale].hreflang}`,
+    "---",
+  ].join("\n");
 }
 
 function inline(parts: Inline[]): string {
@@ -32,12 +41,17 @@ function block(item: Block): string {
   }
 }
 
-export function staticPageMarkdown(page: StaticPage): string {
-  return [frontmatter(page.title, page.description, page.path), `# ${page.heading}`, ...page.blocks.map(block)].join("\n\n") + "\n";
+export function staticPageMarkdown(page: StaticPage, locale: Locale): string {
+  return (
+    [frontmatter(page.title, page.description, page.path, locale), `# ${page.heading}`, ...page.blocks.map(block)].join("\n\n") +
+    "\n"
+  );
 }
 
-export function cmsPageMarkdown(page: Page, path: string): string {
-  const out = [frontmatter(page.title, page.description, path)];
+/** `path` is locale-neutral. Links inside the page point at the same language. */
+export function cmsPageMarkdown(page: Page, path: string, locale: Locale): string {
+  const link = (href: string) => absolute(localizeHref(href, locale));
+  const out = [frontmatter(page.title, page.description, path, locale)];
   const sections = page.sections ?? [];
   if (sections[0]?._type !== "hero") out.push(`# ${page.title}`);
   sections.forEach((section, index) => {
@@ -49,14 +63,14 @@ export function cmsPageMarkdown(page: Page, path: string): string {
         if (section.image?.asset && "url" in section.image.asset) {
           out.push(`![${section.image.alt ?? ""}](${section.image.asset.url})`);
         }
-        if (section.link) out.push(`[${section.link.label}](${absolute(section.link.href)})`);
+        if (section.link) out.push(`[${section.link.label}](${link(section.link.href)})`);
         break;
       case "featureGrid":
         out.push(
           (section.items ?? [])
             .map((item) => {
-              const link = item.link ? ` [${item.link.label}](${absolute(item.link.href)})` : "";
-              return `- **${item.title}**${item.body ? `: ${item.body}` : ""}${link}`;
+              const more = item.link ? ` [${item.link.label}](${link(item.link.href)})` : "";
+              return `- **${item.title}**${item.body ? `: ${item.body}` : ""}${more}`;
             })
             .join("\n"),
         );
@@ -77,7 +91,7 @@ export function cmsPageMarkdown(page: Page, path: string): string {
       }
       case "callToAction":
         if (section.body) out.push(section.body);
-        out.push(`[${section.link.label}](${absolute(section.link.href)})`);
+        out.push(`[${section.link.label}](${link(section.link.href)})`);
         break;
     }
   });

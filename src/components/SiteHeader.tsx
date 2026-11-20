@@ -3,12 +3,48 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { LOCALE_NAMES, localizedPath, locales, switchLocalePath, type Locale } from "@/lib/i18n";
 import { SITE_NAME } from "@/lib/site";
 
 export type NavItem = { href: string; label: string };
 
-export function SiteHeader({ nav }: { nav: NavItem[] }) {
-  const pathname = usePathname();
+/** EN, DE: the current language as text, the other as a full-page link to the same page in it. */
+function LanguageSwitch({ locale, pathname, label }: { locale: Locale; pathname: string; label: string }) {
+  return (
+    <ul className="lang-switch" aria-label={label}>
+      {locales.map((item) => {
+        const { short, name } = LOCALE_NAMES[item];
+        return (
+          <li key={item}>
+            {item === locale ? (
+              <span aria-current="true" lang={item} title={name}>
+                <span aria-hidden="true">{short}</span>
+                <span className="visually-hidden">{name}</span>
+              </span>
+            ) : (
+              // A plain link: each language has its own root layout, which a client-side navigation cannot swap.
+              <a href={switchLocalePath(pathname, item)} hrefLang={item} lang={item} title={name}>
+                <span aria-hidden="true">{short}</span>
+                <span className="visually-hidden">{name}</span>
+              </a>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+export function SiteHeader({
+  nav,
+  locale,
+  labels,
+}: {
+  nav: NavItem[];
+  locale: Locale;
+  labels: { menu: string; main: string; language: string };
+}) {
+  const pathname = usePathname() ?? "/";
   const [open, setOpen] = useState(false);
   const [previousPathname, setPreviousPathname] = useState(pathname);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -33,9 +69,10 @@ export function SiteHeader({ nav }: { nav: NavItem[] }) {
   return (
     <header className="site-header">
       <div className="wrap site-header__inner">
-        <Link href="/" className="brand">
+        <Link href={localizedPath("/", locale)} className="brand">
           {SITE_NAME}
         </Link>
+        <LanguageSwitch locale={locale} pathname={pathname} label={labels.language} />
         <button
           ref={toggle}
           type="button"
@@ -45,9 +82,9 @@ export function SiteHeader({ nav }: { nav: NavItem[] }) {
           onClick={() => setOpen(!open)}
         >
           <span className="menu-toggle__icon" aria-hidden="true" />
-          <span className="visually-hidden">Menu</span>
+          <span className="visually-hidden">{labels.menu}</span>
         </button>
-        <nav id="site-nav" className="site-nav" data-open={open} aria-label="Main">
+        <nav id="site-nav" className="site-nav" data-open={open} aria-label={labels.main}>
           <ul className="nav-list">
             {nav.map((item) => (
               <li key={item.href}>

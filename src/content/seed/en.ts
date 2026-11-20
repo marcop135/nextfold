@@ -45,11 +45,12 @@ const insideCta: CallToActionSection = {
   link: { _type: "link", label: "See the guardrails", href: "/guardrails" },
 };
 
-/** Shown until the Sanity dataset publishes a page with the same slug. */
-export const seedPages: Page[] = [
+/** English seed pages, shown until the Sanity dataset publishes a page with the same slug and language. */
+export const pages: Page[] = [
   {
     title: "Next Fold: a Next.js and Sanity site, run end to end",
     slug: "home",
+    language: "en",
     description:
       "Next Fold is a Next.js and Sanity site run like a product: schema, Studio, caching, security, analytics, and releases, all in a public repo.",
     sections: [
@@ -98,6 +99,7 @@ export const seedPages: Page[] = [
   {
     title: "Inside a page: each section and what the editor typed",
     slug: "inside-a-page",
+    language: "en",
     description:
       "Each section on this page, followed by the fields an editor filled in to make it: a hero, a feature grid, and a call to action.",
     sections: [
@@ -158,6 +160,7 @@ export const seedPages: Page[] = [
   {
     title: "Guardrails: what the Next Fold schema checks",
     slug: "guardrails",
+    language: "en",
     description:
       "The rules Sanity Studio checks before a page can be published: required fields, length limits, allowed sections, and link formats.",
     sections: [
@@ -210,6 +213,7 @@ export const seedPages: Page[] = [
   {
     title: "Caching in Next Fold: what is cached and what clears it",
     slug: "caching",
+    language: "en",
     description:
       "How Next Fold caches each page with Next.js Cache Components and Sanity tags, and what clears that cache when an editor publishes.",
     sections: [
@@ -300,6 +304,7 @@ export const seedPages: Page[] = [
   {
     title: "How Next Fold is run: hosting, security, and releases",
     slug: "system",
+    language: "en",
     description:
       "What keeps Next Fold running, from DNS and hosting to security headers, analytics, CI, and releases, with a link to check each part.",
     sections: [
@@ -394,8 +399,8 @@ export const seedPages: Page[] = [
   },
 ];
 
-/** Shown until the Sanity dataset publishes the siteSettings document. */
-export const seedSettings: SiteSettings = {
+/** English header and footer, shown until the Sanity dataset publishes the siteSettings document. */
+export const settings: SiteSettings = {
   nav: [
     { _key: "inside", _type: "link", label: "Inside a page", href: "/inside-a-page" },
     { _key: "guardrails", _type: "link", label: "Guardrails", href: "/guardrails" },

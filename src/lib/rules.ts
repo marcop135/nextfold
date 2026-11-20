@@ -41,20 +41,32 @@ export const COUNT_RULES = {
 
 export const LINK_URL_LABEL = "Link URL";
 
-export const MESSAGES = {
+export const MESSAGES: Messages & { count: (label: string, min: number, max: number) => string } = {
   required: (label: string) => `${label} is required.`,
   tooLong: (label: string, max: number) => `${label} stops at ${max} characters.`,
   tooShort: (label: string, min: number) => `${label} needs at least ${min} characters.`,
   count: (label: string, min: number, max: number) => `${label}: between ${min} and ${max}.`,
   href: "Start with / or https://",
-} as const;
+};
 
-/** The message the Studio shows for a text field, or null when it passes. */
-export function checkText(value: string | null | undefined, rule: TextRule): string | null {
-  const value_ = value ?? "";
-  if (rule.required && value_.trim() === "") return MESSAGES.required(rule.label);
-  if (value_ && rule.min !== undefined && value_.length < rule.min) return MESSAGES.tooShort(rule.label, rule.min);
-  if (value_.length > rule.max) return MESSAGES.tooLong(rule.label, rule.max);
+export type Messages = {
+  required: (label: string) => string;
+  tooLong: (label: string, max: number) => string;
+  tooShort: (label: string, min: number) => string;
+  href: string;
+};
+
+/** The message for a text field, or null when it passes. The Studio uses the English MESSAGES and labels. */
+export function checkText(
+  value: string | null | undefined,
+  rule: TextRule,
+  messages: Messages = MESSAGES,
+  label: string = rule.label,
+): string | null {
+  const text = value ?? "";
+  if (rule.required && text.trim() === "") return messages.required(label);
+  if (text && rule.min !== undefined && text.length < rule.min) return messages.tooShort(label, rule.min);
+  if (text.length > rule.max) return messages.tooLong(label, rule.max);
   return null;
 }
 
@@ -64,12 +76,16 @@ export function checkCount(items: unknown[] | null | undefined, rule: CountRule)
 }
 
 /** A link target is a path on this site or an https:// address. */
-export function checkHref(value: string | null | undefined): string | null {
+export function checkHref(value: string | null | undefined, messages: Messages = MESSAGES): string | null {
   if (!value) return null;
-  return value.startsWith("/") || value.startsWith("https://") ? null : MESSAGES.href;
+  return value.startsWith("/") || value.startsWith("https://") ? null : messages.href;
 }
 
 /** The link target as the Studio checks it: required, then the format. */
-export function checkLinkUrl(value: string | null | undefined): string | null {
-  return (value ?? "").trim() === "" ? MESSAGES.required(LINK_URL_LABEL) : checkHref(value);
+export function checkLinkUrl(
+  value: string | null | undefined,
+  messages: Messages = MESSAGES,
+  label: string = LINK_URL_LABEL,
+): string | null {
+  return (value ?? "").trim() === "" ? messages.required(label) : checkHref(value, messages);
 }
