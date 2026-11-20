@@ -41,18 +41,22 @@ export async function SiteChrome({ children, locale }: { children: ReactNode; lo
                 {AUTHOR.name}
               </a>
             </p>
-            <Link className="footer-mark" href={home} aria-label={t.footer.homeLabel}>
-              {/* Inline, so the ink follows the page colors rather than the SVG's own color scheme. */}
-              <svg viewBox="0 0 32 32" width="48" height="48" aria-hidden="true">
-                <path
-                  className="footer-mark__ink"
-                  d="M6.5 2H20l8 8v17.5a2.5 2.5 0 0 1-2.5 2.5h-19A2.5 2.5 0 0 1 4 27.5v-23A2.5 2.5 0 0 1 6.5 2z"
-                />
-                <path className="footer-mark__fold" d="M20 2v5.5a2.5 2.5 0 0 0 2.5 2.5H28z" />
-                <rect className="footer-mark__band" x="8" y="17" width="16" height="5" />
-              </svg>
-            </Link>
-            <span className="footer-version">v{version}</span>
+            <div className="footer-brand">
+              <Link className="footer-mark" href={home} aria-label={t.footer.homeLabel}>
+                {/* Inline, so the ink follows the page colors rather than the SVG's own color scheme. */}
+                <svg viewBox="0 0 32 32" width="48" height="48" aria-hidden="true">
+                  <path
+                    className="footer-mark__ink"
+                    d="M6.5 2H20l8 8v17.5a2.5 2.5 0 0 1-2.5 2.5h-19A2.5 2.5 0 0 1 4 27.5v-23A2.5 2.5 0 0 1 6.5 2z"
+                  />
+                  <path className="footer-mark__fold" d="M20 2v5.5a2.5 2.5 0 0 0 2.5 2.5H28z" />
+                  <rect className="footer-mark__band" x="8" y="17" width="16" height="5" />
+                </svg>
+              </Link>
+              <a className="footer-version" href={`${REPO_URL}/releases/tag/v${version}`} title={t.footer.releaseNotes}>
+                v{version}
+              </a>
+            </div>
           </div>
           <div className="footer-links">
             <nav className="footer-nav" aria-labelledby="footer-explore">

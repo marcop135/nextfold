@@ -13,7 +13,7 @@
 - Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages.
 - Pages: Add a "Things to try" section and a closing link to Inside a page on the home page.
 - Site: Add German under /de, with a language switch, hreflang links, German Markdown twins, and German Open Graph cards.
-- Site: Reorder the home hero's sections as an unpublished preview and watch the page follow.
+- Site: Reorder the home hero's Studio rows as a draft, then publish to update the page beside them.
 - Studio: Give pages and site settings a language, with one desk list and one settings document per language.
 - Studio: Add an app block section that places an interactive widget on a page.
 - Studio: Let a feature card link to a page or an https:// address.
@@ -32,7 +32,7 @@
 - Pages: Link How it's run to the Vercel and Cloudflare docs, and mark English-only links on German pages.
 - Site: Cache pages, Markdown, `llms.txt`, and the sitemap with Next.js Cache Components until a publish expires them.
 - Site: Set headings smaller with a tighter line height.
-- Site: Move the version number next to the footer mark.
+- Site: Show the version beside the footer mark, linked to its release notes.
 - Studio: Read every text limit and its message from one rules file shared with the site.
 - Brand: Replace the README header and Open Graph image with a Studio pane folding back to show its page.
 - Security: Add Cross-Origin-Opener-Policy, X-Frame-Options, and a wider Permissions-Policy to site pages.

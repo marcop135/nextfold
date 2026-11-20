@@ -493,7 +493,7 @@ export const settings: SiteSettings = {
   ],
   footerNote: "Next Fold Headless-CMS-Demo",
   projectLinks: [
-    { _key: "docs", _type: "link", label: "Dokumentation (auf Englisch)", href: "https://github.com/marcop135/nextfold/tree/main/docs" },
+    { _key: "docs", _type: "link", label: "Dokumentation (EN)", href: "https://github.com/marcop135/nextfold/tree/main/docs" },
     { _key: "license", _type: "link", label: "MIT-Lizenz", href: "https://github.com/marcop135/nextfold/blob/main/LICENSE" },
   ],
   siteInfoLinks: [
