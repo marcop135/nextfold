@@ -167,6 +167,15 @@ export const seedPages: Page[] = [
         eyebrow: "Guardrails",
         heading: "Rules every page passes before it publishes",
         body: "The schema decides what an editor can publish. Its limits are set next to the design, so copy that fits the Studio also fits the page.",
+        link: { _type: "link", label: "Try to break a rule", href: "/guardrails#playground" },
+      },
+      {
+        _type: "appBlock",
+        _key: "playground",
+        heading: "Try to break a rule",
+        body: "A hero with the same rules and messages the Studio uses. The preview changes only when every field passes and you publish.",
+        kind: "guardrailsPlayground",
+        theme: "surface",
       },
       {
         _type: "featureGrid",
@@ -187,18 +196,6 @@ export const seedPages: Page[] = [
           { _key: "mark", _type: "step", title: "The Studio flags the field", body: "The field turns red and the message says which rule it broke." },
           { _key: "block", _type: "step", title: "Publishing waits", body: "The Publish button stays off while any field fails." },
           { _key: "fix", _type: "step", title: "The fix goes live", body: "Once every field passes, the page publishes and open pages refresh." },
-        ],
-      },
-      {
-        _type: "featureGrid",
-        _key: "hero-rules",
-        heading: "The hero's rules, in plain words",
-        theme: "surface",
-        items: [
-          feature("heading", "Heading", "Required. Up to 80 characters."),
-          feature("text", "Eyebrow and body", "Optional. The eyebrow stops at 40 characters, the body at 240, about two sentences."),
-          feature("image", "Image", "Optional. Once an image is added, it needs a description for screen readers."),
-          feature("link", "Call to action", "Optional. A label and a path on this site or an https:// address."),
         ],
       },
       {

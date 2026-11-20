@@ -29,6 +29,15 @@ export type CallToAction = {
   spacing?: "space-3" | "space-4" | "space-5";
 };
 
+export type AppBlock = {
+  _type: "appBlock";
+  heading: string;
+  body?: string;
+  kind: "guardrailsPlayground";
+  theme?: "bg" | "surface" | "band";
+  spacing?: "space-3" | "space-4" | "space-5";
+};
+
 export type CodeSample = {
   _type: "codeSample";
   heading: string;
@@ -138,6 +147,9 @@ export type Page = {
     | ({
         _key: string;
       } & CodeSample)
+    | ({
+        _key: string;
+      } & AppBlock)
     | ({
         _key: string;
       } & CallToAction)
@@ -266,6 +278,7 @@ export type Geopoint = {
 export type AllSanitySchemaTypes =
   | Link
   | CallToAction
+  | AppBlock
   | CodeSample
   | Steps
   | FeatureGrid
@@ -293,6 +306,15 @@ export type PAGE_QUERY_RESULT = {
   slug: string;
   description: string;
   sections: Array<
+    | {
+        _key: string;
+        _type: "appBlock";
+        heading: string;
+        body?: string;
+        kind: "guardrailsPlayground";
+        theme?: "band" | "bg" | "surface";
+        spacing?: "space-3" | "space-4" | "space-5";
+      }
     | {
         _key: string;
         _type: "callToAction";

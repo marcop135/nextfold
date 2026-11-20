@@ -3,7 +3,10 @@ import { Image } from "next-sanity/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CodeBlock } from "@/components/CodeBlock";
+import { GuardrailsPlayground } from "@/components/app-blocks/GuardrailsPlayground";
+import { isAppBlockKind } from "@/lib/app-blocks";
 import type {
+  AppBlockSection,
   CallToActionSection,
   CodeSampleSection,
   FeatureGridSection,
@@ -127,6 +130,25 @@ function CodeSample({ section }: { section: CodeSampleSection }) {
   );
 }
 
+function AppBlock({ section }: { section: AppBlockSection }) {
+  const kind = stegaClean(section.kind);
+  if (!isAppBlockKind(kind)) return null;
+  return (
+    <section
+      id={stegaClean(section._key)}
+      className="section app-block"
+      {...styleAttributes(section)}
+      aria-labelledby={`${section._key}-title`}
+    >
+      <div className="wrap">
+        <h2 id={`${section._key}-title`}>{section.heading}</h2>
+        {section.body ? <p className="lead section-lead">{section.body}</p> : null}
+        {kind === "guardrailsPlayground" ? <GuardrailsPlayground /> : null}
+      </div>
+    </section>
+  );
+}
+
 function CallToAction({ section }: { section: CallToActionSection }) {
   return (
     <section className="section cta" {...styleAttributes(section)} aria-labelledby={`${section._key}-title`}>
@@ -158,6 +180,8 @@ export function SectionRenderer({ sections, heroVisual }: { sections: Section[];
         return <Steps key={section._key} section={section} />;
       case "codeSample":
         return <CodeSample key={section._key} section={section} />;
+      case "appBlock":
+        return <AppBlock key={section._key} section={section} />;
       case "callToAction":
         return <CallToAction key={section._key} section={section} />;
       default:

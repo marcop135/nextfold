@@ -1,5 +1,6 @@
 import type { Block, Inline, StaticPage } from "@/content/static-pages";
 import type { Page } from "@/sanity/types";
+import { APP_BLOCKS, isAppBlockKind } from "./app-blocks";
 import { SITE_URL } from "./site";
 
 const absolute = (href: string) => (href.startsWith("/") ? `${SITE_URL}${href}` : href);
@@ -69,6 +70,11 @@ export function cmsPageMarkdown(page: Page, path: string): string {
         if (section.body) out.push(section.body);
         out.push(`\`${section.filename}\``, "```" + section.language + "\n" + section.code + "\n```");
         break;
+      case "appBlock": {
+        if (section.body) out.push(section.body);
+        if (isAppBlockKind(section.kind)) out.push(`_${APP_BLOCKS[section.kind].fallback}_`);
+        break;
+      }
       case "callToAction":
         if (section.body) out.push(section.body);
         out.push(`[${section.link.label}](${absolute(section.link.href)})`);

@@ -3,6 +3,7 @@
  * Regenerate with `npm run typegen` after a schema or query change; CI fails when the output drifts.
  */
 import type {
+  AppBlock,
   CallToAction,
   CodeSample,
   FeatureGrid,
@@ -18,6 +19,7 @@ type Keyed<T> = T & { _key: string };
 export type FeatureGridSection = Keyed<FeatureGrid>;
 export type StepsSection = Keyed<Steps>;
 export type CodeSampleSection = Keyed<CodeSample>;
+export type AppBlockSection = Keyed<AppBlock>;
 export type CallToActionSection = Keyed<CallToAction>;
 
 export type Page = NonNullable<PAGE_QUERY_RESULT>;
