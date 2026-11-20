@@ -4,38 +4,38 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
-## [Unreleased]
+## [0.7.0] - 2026-11-20
 
 ### Added
 
-- Pages: Add How it's run, a page on hosting, DNS, security headers, analytics, CI, and the release flow.
-- Pages: Add Caching, with a live inspector that requests any page and shows its cache result, headers, and timing.
-- Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages.
-- Site: Add German under /de, with a language switch, hreflang links, German Markdown twins, and German Open Graph cards.
-- Site: Reorder the home hero's Studio rows as a draft, then publish to update the page beside them.
-- Studio: Give pages and site settings a language, with a desk list per language and a migration for older pages.
-- Studio: Add an app block section for interactive widgets, and optional links on feature cards.
-- Security: Add `security.txt`, a security policy, Cross-Origin-Opener-Policy, X-Frame-Options, and Permissions-Policy.
-- Docs: Add pages on caching, languages, translation, security, operations, Vercel, and Cloudflare.
-- CI: Run CodeQL, OpenSSF Scorecard, and changelog and seed content checks; smoke-test production weekly.
+- Pages: Add How it's run, a page on hosting, DNS, security headers, analytics, CI, and the release flow ([#76](https://github.com/marcop135/nextfold/pull/76)) ([#65](https://github.com/marcop135/nextfold/issues/65)).
+- Pages: Add Caching, with a live inspector for a page's cache result, headers, and timing ([#78](https://github.com/marcop135/nextfold/pull/78)) ([#67](https://github.com/marcop135/nextfold/issues/67)).
+- Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages ([#77](https://github.com/marcop135/nextfold/pull/77)) ([#66](https://github.com/marcop135/nextfold/issues/66)).
+- Site: Add German under /de, with a language switch, hreflang, Markdown twins, and Open Graph cards ([#79](https://github.com/marcop135/nextfold/pull/79)) ([#68](https://github.com/marcop135/nextfold/issues/68)).
+- Site: Reorder the home hero's Studio rows as a draft, then publish to update the page beside them ([#77](https://github.com/marcop135/nextfold/pull/77)) ([#66](https://github.com/marcop135/nextfold/issues/66)).
+- Studio: Give pages and site settings a language, with a per-language desk list and a migration ([#79](https://github.com/marcop135/nextfold/pull/79)) ([#68](https://github.com/marcop135/nextfold/issues/68)).
+- Studio: Add an app block section for interactive widgets, and optional links on feature cards ([#77](https://github.com/marcop135/nextfold/pull/77)) ([#66](https://github.com/marcop135/nextfold/issues/66)).
+- Security: Add `security.txt`, a security policy, COOP, X-Frame-Options, and Permissions-Policy ([#81](https://github.com/marcop135/nextfold/pull/81)) ([#70](https://github.com/marcop135/nextfold/issues/70)).
+- Docs: Add pages on caching, languages, translation, security, operations, Vercel, and Cloudflare ([#85](https://github.com/marcop135/nextfold/pull/85)) ([#74](https://github.com/marcop135/nextfold/issues/74)).
+- CI: Run CodeQL, OpenSSF Scorecard, and changelog and seed content checks; smoke-test production weekly ([#82](https://github.com/marcop135/nextfold/pull/82)) ([#71](https://github.com/marcop135/nextfold/issues/71)).
 
 ### Changed
 
-- Pages: Rewrite the home page around three ways in, things to try, and a closing link to Inside a page.
-- Pages: End Guardrails on a link to How it's run instead of a source file on GitHub.
-- Site: Cache pages, Markdown, `llms.txt`, and the sitemap with Next.js Cache Components until a publish expires them.
-- Site: Set headings smaller and tighter, and link the footer version to its release notes.
-- Studio: Read every text limit and its message from one rules file shared with the site.
-- Brand: Replace the README header and Open Graph image with the Next Fold mark, name, and one line.
-- Hosting: Run server functions in Frankfurt (`fra1`), next to the EU audience and analytics.
-- Privacy: Shorten the privacy notice and state that the browser connects to Sanity for live updates.
+- Pages: Rewrite the home page around three ways in, things to try, and a closing link to Inside a page ([#76](https://github.com/marcop135/nextfold/pull/76)) ([#65](https://github.com/marcop135/nextfold/issues/65)).
+- Pages: End Guardrails on a link to How it's run instead of a source file on GitHub ([#76](https://github.com/marcop135/nextfold/pull/76)) ([#65](https://github.com/marcop135/nextfold/issues/65)).
+- Site: Cache pages, Markdown, `llms.txt`, and the sitemap with Cache Components until a publish expires them ([#78](https://github.com/marcop135/nextfold/pull/78)) ([#67](https://github.com/marcop135/nextfold/issues/67)).
+- Site: Set headings smaller and tighter, and link the footer version to its release notes ([#85](https://github.com/marcop135/nextfold/pull/85)) ([#74](https://github.com/marcop135/nextfold/issues/74)).
+- Studio: Read every text limit and its message from one rules file shared with the site ([#77](https://github.com/marcop135/nextfold/pull/77)) ([#66](https://github.com/marcop135/nextfold/issues/66)).
+- Brand: Replace the README header and Open Graph image with the Next Fold mark, name, and one line ([#80](https://github.com/marcop135/nextfold/pull/80)) ([#69](https://github.com/marcop135/nextfold/issues/69)).
+- Hosting: Run server functions in Frankfurt (`fra1`), next to the EU audience and analytics ([#81](https://github.com/marcop135/nextfold/pull/81)) ([#70](https://github.com/marcop135/nextfold/issues/70)).
+- Privacy: Shorten the privacy notice and state that the browser connects to Sanity for live updates ([#85](https://github.com/marcop135/nextfold/pull/85)) ([#74](https://github.com/marcop135/nextfold/issues/74)).
 
 ### Fixed
 
-- Site: Wrap long section headings in the home hero visual instead of cutting them off.
-- A11y: Keep keyboard focus in the hero visual, Guardrails playground, and cache inspector when their buttons change.
-- Site: Keep query strings and anchors on links that switch language.
-- SEO: Use one form of the home URL across canonical, sitemap, Markdown links, and JSON-LD.
+- Site: Wrap long section headings in the home hero visual instead of cutting them off ([#76](https://github.com/marcop135/nextfold/pull/76)) ([#65](https://github.com/marcop135/nextfold/issues/65)).
+- A11y: Keep keyboard focus in the hero visual, playground, and cache inspector when buttons change ([#86](https://github.com/marcop135/nextfold/pull/86)) ([#75](https://github.com/marcop135/nextfold/issues/75)).
+- Site: Keep query strings and anchors on links that switch language ([#86](https://github.com/marcop135/nextfold/pull/86)) ([#75](https://github.com/marcop135/nextfold/issues/75)).
+- SEO: Use one form of the home URL across canonical, sitemap, Markdown links, and JSON-LD ([#86](https://github.com/marcop135/nextfold/pull/86)) ([#75](https://github.com/marcop135/nextfold/issues/75)).
 
 ## [0.6.0] - 2026-11-19
 
