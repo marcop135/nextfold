@@ -208,6 +208,96 @@ export const seedPages: Page[] = [
     ],
   },
   {
+    title: "Caching in Next Fold: what is cached and what clears it",
+    slug: "caching",
+    description:
+      "How Next Fold caches each page with Next.js Cache Components and Sanity tags, and what clears that cache when an editor publishes.",
+    sections: [
+      {
+        _type: "hero",
+        _key: "hero",
+        eyebrow: "Caching",
+        heading: "Cached until something changes",
+        body: "Every page here is built once and served from the cache until its content changes. Publishing in Sanity expires only the pages that used the changed document.",
+        link: { _type: "link", label: "Inspect this page", href: "/caching#inspector" },
+      },
+      {
+        _type: "appBlock",
+        _key: "inspector",
+        heading: "This page, right now",
+        body: "When this copy of the page entered the cache, the tags that can expire it, and the headers of a fresh request for it.",
+        kind: "cacheInspector",
+        theme: "surface",
+      },
+      {
+        _type: "steps",
+        _key: "publish",
+        heading: "What happens when an editor publishes",
+        items: [
+          {
+            _key: "build",
+            _type: "step",
+            title: "Build",
+            body: "The build renders every known page and stores it with tags: one for the page, plus one for each Sanity document it read.",
+          },
+          {
+            _key: "serve",
+            _type: "step",
+            title: "Serve",
+            body: "Visitors get the stored copy. Vercel's CDN keeps it close to them, so the server does no work.",
+          },
+          {
+            _key: "publish",
+            _type: "step",
+            title: "Publish",
+            body: "An editor publishes in the Studio, and Sanity's Live Content API tells the site which documents changed.",
+          },
+          {
+            _key: "expire",
+            _type: "step",
+            title: "Expire",
+            body: "The site expires the tags for those documents. A signed webhook does the same when no browser has the site open.",
+          },
+          {
+            _key: "render",
+            _type: "step",
+            title: "Render again",
+            body: "The next request renders a fresh copy and stores it. Pages that did not use the document stay cached.",
+          },
+        ],
+      },
+      {
+        _type: "featureGrid",
+        _key: "layers",
+        heading: "Where a page can come from",
+        items: [
+          feature(
+            "sanity",
+            "Sanity's CDN",
+            "Queries for published content go to Sanity's API CDN, so even a fresh render is quick.",
+          ),
+          feature(
+            "next",
+            "The Next.js cache",
+            "Each page and query result is stored with 'use cache' under tags. Tags decide what expires, so a publish never clears the whole site.",
+          ),
+          feature(
+            "vercel",
+            "Vercel's CDN",
+            "Finished pages are served from the edge. The x-vercel-cache header says whether a response was a hit.",
+          ),
+        ],
+      },
+      {
+        _type: "callToAction",
+        _key: "next",
+        heading: "The rest of the system",
+        body: "Hosting, DNS, security headers, and the release flow around this cache.",
+        link: { _type: "link", label: "How it's run", href: "/system" },
+      },
+    ],
+  },
+  {
     title: "How Next Fold is run: hosting, security, and releases",
     slug: "system",
     description:
@@ -309,6 +399,7 @@ export const seedSettings: SiteSettings = {
   nav: [
     { _key: "inside", _type: "link", label: "Inside a page", href: "/inside-a-page" },
     { _key: "guardrails", _type: "link", label: "Guardrails", href: "/guardrails" },
+    { _key: "caching", _type: "link", label: "Caching", href: "/caching" },
     { _key: "system", _type: "link", label: "How it's run", href: "/system" },
   ],
   footerNote: "Next Fold Headless CMS",

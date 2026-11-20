@@ -6,7 +6,7 @@ import { JsonLd } from "./JsonLd";
 import { SectionRenderer } from "./SectionRenderer";
 
 export function PageView({ loaded, path }: { loaded: LoadedPage; path: string }) {
-  const { page, source } = loaded;
+  const { page, source, cachedAt } = loaded;
   const sections = page.sections ?? [];
   const startsWithHero = sections[0]?._type === "hero";
   // Draft mode encodes field paths into strings; structured data gets the plain text.
@@ -20,6 +20,7 @@ export function PageView({ loaded, path }: { loaded: LoadedPage; path: string })
       )}
       <SectionRenderer
         sections={sections}
+        context={{ path, slug: path === "/" ? "home" : path.slice(1), cachedAt, source }}
         heroVisual={
           path === "/" ? (
             <HeroVisual

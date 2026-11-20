@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { sanity } from "next-sanity/live/cache-life";
 import { DISCOVERY_LINK } from "./src/lib/site";
 import { projectId } from "./src/sanity/env";
 
@@ -37,6 +38,10 @@ const shared = [
 const nextConfig: NextConfig = {
   // next dev would otherwise write AGENTS.md and CLAUDE.md into the repo root.
   agentRules: false,
+  // 'use cache' everywhere; cached entries live until a Sanity Live event or the publish webhook expires their tags.
+  cacheComponents: true,
+  cacheLife: { default: sanity },
+  partialPrefetching: false,
   devIndicators: false,
   async redirects() {
     return [

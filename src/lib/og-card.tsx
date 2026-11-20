@@ -62,7 +62,7 @@ export function ogCard({ eyebrow, title, description }: { eyebrow?: string | nul
 
 /** A CMS page's card: the opening hero's eyebrow and heading, then the meta description. */
 export async function cmsPageOgCard(slug: string) {
-  const loaded = await getPage(slug, "published");
+  const loaded = await getPage(slug);
   if (!loaded) return null;
   const { page } = loaded;
   const hero = page.sections?.[0]?._type === "hero" ? page.sections[0] : null;

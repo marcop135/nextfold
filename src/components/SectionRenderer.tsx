@@ -3,6 +3,7 @@ import { Image } from "next-sanity/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CodeBlock } from "@/components/CodeBlock";
+import { CacheInspector, type CacheContext } from "@/components/app-blocks/CacheInspector";
 import { GuardrailsPlayground } from "@/components/app-blocks/GuardrailsPlayground";
 import { isAppBlockKind } from "@/lib/app-blocks";
 import type {
@@ -130,7 +131,7 @@ function CodeSample({ section }: { section: CodeSampleSection }) {
   );
 }
 
-function AppBlock({ section }: { section: AppBlockSection }) {
+function AppBlock({ section, context }: { section: AppBlockSection; context?: CacheContext }) {
   const kind = stegaClean(section.kind);
   if (!isAppBlockKind(kind)) return null;
   return (
@@ -144,6 +145,7 @@ function AppBlock({ section }: { section: AppBlockSection }) {
         <h2 id={`${section._key}-title`}>{section.heading}</h2>
         {section.body ? <p className="lead section-lead">{section.body}</p> : null}
         {kind === "guardrailsPlayground" ? <GuardrailsPlayground /> : null}
+        {kind === "cacheInspector" && context ? <CacheInspector context={context} /> : null}
       </div>
     </section>
   );
@@ -161,8 +163,16 @@ function CallToAction({ section }: { section: CallToActionSection }) {
   );
 }
 
-/** `heroVisual` sits beside the opening hero only. */
-export function SectionRenderer({ sections, heroVisual }: { sections: Section[]; heroVisual?: ReactNode }) {
+/** `heroVisual` sits beside the opening hero only; `context` feeds app blocks that describe the page itself. */
+export function SectionRenderer({
+  sections,
+  heroVisual,
+  context,
+}: {
+  sections: Section[];
+  heroVisual?: ReactNode;
+  context?: CacheContext;
+}) {
   return sections.map((section, index) => {
     switch (section._type) {
       case "hero":
@@ -181,7 +191,7 @@ export function SectionRenderer({ sections, heroVisual }: { sections: Section[];
       case "codeSample":
         return <CodeSample key={section._key} section={section} />;
       case "appBlock":
-        return <AppBlock key={section._key} section={section} />;
+        return <AppBlock key={section._key} section={section} context={context} />;
       case "callToAction":
         return <CallToAction key={section._key} section={section} />;
       default:
