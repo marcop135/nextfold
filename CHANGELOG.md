@@ -11,7 +11,7 @@
 - Pages: Add How it's run, a page on hosting, DNS, security headers, analytics, CI, and the release flow.
 - Pages: Add Caching, with a live inspector that shows when the page was cached and the headers of a fresh request.
 - Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages.
-- Pages: Add a "Things to try" section and a release history call to action to the home page.
+- Pages: Add a "Things to try" section and a closing link to Inside a page on the home page.
 - Site: Add German under /de, with a language switch, hreflang links, German Markdown twins, and German Open Graph cards.
 - Site: Reorder the home hero's sections as an unpublished preview and watch the page follow.
 - Studio: Give pages and site settings a language, with one desk list and one settings document per language.
