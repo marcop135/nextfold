@@ -4,6 +4,22 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
+## [Unreleased]
+
+### Added
+
+- Pages: Add How it's run, a page on hosting, DNS, security headers, analytics, CI, and the release flow.
+- Studio: Let a feature card link to a page or an https:// address.
+
+### Changed
+
+- Pages: Rewrite the home page around three ways in for leads, developers, and agents.
+- Pages: End Guardrails on a link to How it's run instead of a source file on GitHub.
+
+### Fixed
+
+- Site: Wrap long section headings in the home hero visual instead of cutting them off.
+
 ## [0.6.0] - 2026-11-19
 
 ### Added

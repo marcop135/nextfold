@@ -83,6 +83,7 @@ function FeatureGrid({ section }: { section: FeatureGridSection }) {
             <li key={item._key}>
               <h3>{item.title}</h3>
               {item.body ? <p>{item.body}</p> : null}
+              {item.link ? <SectionLink className="feature-grid__link" link={item.link} /> : null}
             </li>
           ))}
         </ul>

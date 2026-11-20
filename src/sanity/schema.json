@@ -349,6 +349,14 @@
                   },
                   "optional": true
                 },
+                "link": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "inline",
+                    "name": "link"
+                  },
+                  "optional": true
+                },
                 "_type": {
                   "type": "objectAttribute",
                   "value": {
