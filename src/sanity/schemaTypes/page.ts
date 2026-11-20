@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { PAGE_RULES } from "../../lib/rules";
+import { isUniqueInLanguage, languageField } from "./language";
 import { textRules } from "./text-rules";
 
 export const page = defineType({
@@ -7,12 +8,13 @@ export const page = defineType({
   title: "Page",
   type: "document",
   fields: [
+    languageField,
     defineField({ name: "title", type: "string", validation: (rule) => textRules(rule, PAGE_RULES.title) }),
     defineField({
       name: "slug",
       type: "slug",
       description: "Use home for the front page.",
-      options: { source: "title", maxLength: 64 },
+      options: { source: "title", maxLength: 64, isUnique: isUniqueInLanguage },
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -36,7 +38,10 @@ export const page = defineType({
     }),
   ],
   preview: {
-    select: { title: "title", slug: "slug.current" },
-    prepare: ({ title, slug }) => ({ title, subtitle: slug === "home" ? "/" : `/${slug ?? ""}` }),
+    select: { title: "title", slug: "slug.current", language: "language" },
+    prepare: ({ title, slug, language }) => {
+      const prefix = language && language !== "en" ? `/${language}` : "";
+      return { title, subtitle: slug === "home" ? prefix || "/" : `${prefix}/${slug ?? ""}` };
+    },
   },
 });

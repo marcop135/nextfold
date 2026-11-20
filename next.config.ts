@@ -38,6 +38,7 @@ const shared = [
 const nextConfig: NextConfig = {
   // next dev would otherwise write AGENTS.md and CLAUDE.md into the repo root.
   agentRules: false,
+  experimental: { globalNotFound: true },
   // 'use cache' everywhere; cached entries live until a Sanity Live event or the publish webhook expires their tags.
   cacheComponents: true,
   cacheLife: { default: sanity },

@@ -720,6 +720,23 @@
           "type": "string"
         }
       },
+      "language": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "en"
+            },
+            {
+              "type": "string",
+              "value": "de"
+            }
+          ]
+        },
+        "optional": false
+      },
       "nav": {
         "type": "objectAttribute",
         "value": {
@@ -829,6 +846,23 @@
         "value": {
           "type": "string"
         }
+      },
+      "language": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "en"
+            },
+            {
+              "type": "string",
+              "value": "de"
+            }
+          ]
+        },
+        "optional": false
       },
       "title": {
         "type": "objectAttribute",

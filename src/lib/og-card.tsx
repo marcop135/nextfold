@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 import { stegaClean } from "next-sanity";
+import { staticPagesFor } from "@/content/static-pages";
+import { defaultLocale, type Locale } from "@/lib/i18n";
 import { getPage } from "@/sanity/lib/fetch-page";
 import { SITE_NAME, SITE_URL } from "./site";
 
@@ -61,8 +63,8 @@ export function ogCard({ eyebrow, title, description }: { eyebrow?: string | nul
 }
 
 /** A CMS page's card: the opening hero's eyebrow and heading, then the meta description. */
-export async function cmsPageOgCard(slug: string) {
-  const loaded = await getPage(slug);
+export async function cmsPageOgCard(slug: string, locale: Locale = defaultLocale) {
+  const loaded = await getPage(slug, locale);
   if (!loaded) return null;
   const { page } = loaded;
   const hero = page.sections?.[0]?._type === "hero" ? page.sections[0] : null;
@@ -71,4 +73,12 @@ export async function cmsPageOgCard(slug: string) {
     title: stegaClean(hero?.heading ?? page.title),
     description: stegaClean(page.description),
   });
+}
+
+/** The card for /og/<slug> or /og/de/<slug>: a fixed page, a CMS page, or 404. */
+export async function ogResponse(slug: string, locale: Locale) {
+  const fixed = staticPagesFor(locale).find((page) => page.path === `/${slug}`);
+  if (fixed) return ogCard({ title: fixed.heading, description: fixed.description });
+  const card = await cmsPageOgCard(slug, locale);
+  return card ?? new Response("Not found.\n", { status: 404, headers: { "Content-Type": "text/plain; charset=utf-8" } });
 }

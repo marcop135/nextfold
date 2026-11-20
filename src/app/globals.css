@@ -1623,3 +1623,82 @@
     white-space: nowrap;
   }
 }
+
+@layer components {
+  /* Header: brand, then the main nav, then the language switch; on small screens the switch sits before the menu button. */
+  .site-header__inner {
+    justify-content: flex-start;
+  }
+
+  .brand {
+    margin-inline-end: auto;
+  }
+
+  .site-nav {
+    order: 2;
+  }
+
+  .lang-switch {
+    order: 3;
+    display: flex;
+    gap: 0.125rem;
+    margin: 0;
+    padding: 0.1875rem;
+    list-style: none;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+
+    & :is(a, span[aria-current]) {
+      display: inline-grid;
+      place-items: center;
+      min-inline-size: 2.25rem;
+      min-block-size: 1.75rem;
+      padding-inline: 0.5rem;
+      border-radius: 999px;
+      color: var(--color-muted);
+      text-decoration: none;
+    }
+
+    & span[aria-current] {
+      background: var(--color-text);
+      color: var(--color-surface);
+    }
+
+    & a:hover {
+      color: var(--color-text);
+      background: var(--color-bg);
+    }
+
+    & a:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: 0.125rem;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .lang-switch {
+      order: 2;
+    }
+
+    .menu-toggle {
+      order: 3;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .lang-switch span[aria-current] {
+      border: 1px solid CanvasText;
+    }
+  }
+}
+
+@layer base {
+  /* German compounds run long: let the browser hyphenate them with the page language's dictionary. */
+  :lang(de) {
+    hyphens: auto;
+    hyphenate-limit-chars: 10 4 4;
+  }
+}

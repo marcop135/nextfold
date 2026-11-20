@@ -1,51 +1,39 @@
 "use client";
 
 import { useId, useState } from "react";
-import { HERO_RULES, LINK_RULES, LINK_URL_LABEL, checkLinkUrl, checkText, type TextRule } from "@/lib/rules";
+import type { Locale } from "@/lib/i18n";
+import { getMessages, type UiMessages } from "@/lib/messages";
+import { HERO_RULES, LINK_RULES, checkLinkUrl, checkText, type TextRule } from "@/lib/rules";
 
 type Values = { eyebrow: string; heading: string; body: string; label: string; href: string };
-
-const START: Values = {
-  eyebrow: "Guardrails",
-  heading: "Rules every page passes before it publishes",
-  body: "Change any field. The Studio runs these same checks before an editor can publish.",
-  label: "How it's run",
-  href: "/system",
-};
-
-const BROKEN: Values = {
-  eyebrow: "A label far too long for the small line above a heading",
-  heading: "",
-  body: START.body,
-  label: START.label,
-  href: "www.example.com",
-};
-
 type FieldName = keyof Values;
 
-const FIELDS: { name: FieldName; rule?: TextRule; multiline?: boolean; hint?: string }[] = [
+const FIELDS: { name: FieldName; rule?: TextRule; multiline?: boolean }[] = [
   { name: "eyebrow", rule: HERO_RULES.eyebrow },
   { name: "heading", rule: HERO_RULES.heading },
   { name: "body", rule: HERO_RULES.body, multiline: true },
   { name: "label", rule: LINK_RULES.label },
-  { name: "href", hint: "A path such as /contact or a full https:// URL." },
+  { name: "href" },
 ];
 
-function problem(name: FieldName, values: Values): string | null {
-  if (name === "href") return checkLinkUrl(values.href);
+/** The limits come from src/lib/rules.ts, like the Studio's; only the wording follows the page language. */
+function problem(name: FieldName, values: Values, t: UiMessages["playground"], messages: UiMessages["rules"]): string | null {
+  if (name === "href") return checkLinkUrl(values.href, messages, t.labels.href);
   const field = FIELDS.find((item) => item.name === name);
-  return field?.rule ? checkText(values[name], field.rule) : null;
+  return field?.rule ? checkText(values[name], field.rule, messages, t.labels[name]) : null;
 }
 
 /** A hero's fields with the Studio's rules, checked as you type, next to the hero they would publish. */
-export function GuardrailsPlayground() {
+export function GuardrailsPlayground({ locale }: { locale: Locale }) {
+  const messages = getMessages(locale);
+  const t = messages.playground;
+  const start: Values = { ...t.start, href: "/system" };
+  const broken: Values = { ...start, eyebrow: t.broken.eyebrow, heading: "", href: "www.example.com" };
   const id = useId();
-  const [values, setValues] = useState<Values>(START);
+  const [values, setValues] = useState<Values>(start);
   const [published, setPublished] = useState<Values | null>(null);
-  const problems = FIELDS.map((field) => ({ name: field.name, message: problem(field.name, values) })).filter(
-    (item): item is { name: FieldName; message: string } => item.message !== null,
-  );
-  const shown = published ?? START;
+  const problems = FIELDS.map((field) => problem(field.name, values, t, messages.rules)).filter(Boolean);
+  const shown = published ?? start;
   const dirty = JSON.stringify(values) !== JSON.stringify(shown);
 
   const update = (name: FieldName, value: string) => setValues((current) => ({ ...current, [name]: value }));
@@ -61,13 +49,17 @@ export function GuardrailsPlayground() {
         }}
       >
         <p className="playground__title" id={`${id}-form`}>
-          Hero, as the editor sees it
+          {t.formTitle}
         </p>
         {FIELDS.map((field) => {
-          const message = problem(field.name, values);
-          const label = field.rule?.label ?? LINK_URL_LABEL;
+          const message = problem(field.name, values, t, messages.rules);
           const inputId = `${id}-${field.name}`;
-          const describedBy = [message ? `${inputId}-error` : "", field.rule ? `${inputId}-count` : "", field.hint ? `${inputId}-hint` : ""]
+          const required = field.rule?.required || field.name === "href";
+          const describedBy = [
+            message ? `${inputId}-error` : "",
+            field.rule ? `${inputId}-count` : "",
+            field.name === "href" ? `${inputId}-hint` : "",
+          ]
             .filter(Boolean)
             .join(" ");
           const common = {
@@ -81,8 +73,8 @@ export function GuardrailsPlayground() {
             <div key={field.name} className="playground__field" data-invalid={message ? "" : undefined}>
               <div className="playground__label-row">
                 <label htmlFor={inputId}>
-                  {label}
-                  {field.rule?.required || field.name === "href" ? <span className="playground__required"> (required)</span> : null}
+                  {t.labels[field.name]}
+                  {required ? <span className="playground__required">{t.required}</span> : null}
                 </label>
                 {field.rule ? (
                   <span className="playground__count" id={`${inputId}-count`}>
@@ -91,9 +83,9 @@ export function GuardrailsPlayground() {
                 ) : null}
               </div>
               {field.multiline ? <textarea rows={3} {...common} /> : <input type="text" autoComplete="off" {...common} />}
-              {field.hint ? (
+              {field.name === "href" ? (
                 <p className="playground__hint" id={`${inputId}-hint`}>
-                  {field.hint}
+                  {t.hrefHint}
                 </p>
               ) : null}
               {message ? (
@@ -106,39 +98,35 @@ export function GuardrailsPlayground() {
         })}
         <div className="playground__actions">
           <button className="button playground__publish" type="submit" disabled={problems.length > 0 || !dirty}>
-            Publish
+            {t.publish}
           </button>
-          <button className="playground__secondary" type="button" onClick={() => setValues(BROKEN)}>
-            Break three rules
+          <button className="playground__secondary" type="button" onClick={() => setValues(broken)}>
+            {t.breakRules}
           </button>
           <button
             className="playground__secondary"
             type="button"
             onClick={() => {
-              setValues(START);
+              setValues(start);
               setPublished(null);
             }}
           >
-            Reset
+            {t.reset}
           </button>
         </div>
         <p className="playground__status" role="status">
-          {problems.length > 0
-            ? `${problems.length === 1 ? "One field fails" : `${problems.length} fields fail`}, so Publish stays off.`
-            : dirty
-              ? "Every field passes. Publish puts this version live."
-              : "Live and unchanged."}
+          {problems.length > 0 ? t.statusFailing(problems.length) : dirty ? t.statusReady : t.statusLive}
         </p>
       </form>
       <div className="playground__preview">
-        <p className="playground__title">Live on the page</p>
+        <p className="playground__title">{t.previewTitle}</p>
         <div className="playground__hero">
           {shown.eyebrow ? <p className="eyebrow">{shown.eyebrow}</p> : null}
           <p className="playground__heading">{shown.heading}</p>
           {shown.body ? <p className="playground__body">{shown.body}</p> : null}
           <span className="playground__fake-button">{shown.label}</span>
         </div>
-        <p className="playground__note">The page changes only when every field passes and you publish.</p>
+        <p className="playground__note">{t.note}</p>
       </div>
     </div>
   );
