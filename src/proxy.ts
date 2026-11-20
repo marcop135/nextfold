@@ -1,14 +1,21 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
+import { defaultLocale, locales } from "@/lib/i18n";
 import { MATOMO_ENABLED, aiAssistantHitUrl, isAiAssistant, isTrackablePath } from "@/lib/matomo";
 import { preferredRepresentation } from "@/lib/negotiate";
 import { DISCOVERY_LINK, markdownPath } from "@/lib/site";
 
-const MARKDOWN_FILE = /^\/([a-z0-9-]+)\.md$/;
-const PAGE_PATH = /^\/(?:[a-z0-9-]+)?$/;
-const NOT_PAGES = new Set(["/studio", "/md", "/api", "/og"]);
+const PREFIXED = locales.filter((locale) => locale !== defaultLocale).join("|");
+/** /x.md, /index.md, /de/x.md, /de/index.md */
+const MARKDOWN_FILE = new RegExp(`^(?:/(${PREFIXED}))?/([a-z0-9-]+)\\.md$`);
+/** /, /x, /de, /de/x */
+const PAGE_PATH = new RegExp(`^(?:/(${PREFIXED}))?(?:/([a-z0-9-]+))?/?$`);
+/** /en and /en/x: the default language has no prefix, so these redirect to it. */
+const DEFAULT_PREFIX = new RegExp(`^/${defaultLocale}(/.*)?$`);
+const NOT_PAGES = new Set(["studio", "md", "api", "og"]);
 
 /**
- * - /index.md and /<slug>.md rewrite to the Markdown route.
+ * - /en/... redirects to the unprefixed URL; English pages render from /en internally.
+ * - /index.md, /<slug>.md, and their /de twins rewrite to the Markdown route.
  * - Page URLs negotiate on Accept: Markdown, HTML with a Link to its twin, or 406.
  * - AI-assistant fetches are reported to Matomo without changing the response.
  */
@@ -19,10 +26,23 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
     event.waitUntil(fetch(aiAssistantHitUrl(request.url, ua ?? "")).catch(() => undefined));
   }
 
-  const file = MARKDOWN_FILE.exec(pathname);
-  if (file) return NextResponse.rewrite(new URL(`/md/${file[1]}`, request.url));
+  const prefixed = DEFAULT_PREFIX.exec(pathname);
+  if (prefixed) {
+    const url = request.nextUrl.clone();
+    url.pathname = prefixed[1] || "/";
+    return NextResponse.redirect(url, 308);
+  }
 
-  if (!PAGE_PATH.test(pathname) || NOT_PAGES.has(pathname) || !negotiable(request)) return NextResponse.next();
+  const file = MARKDOWN_FILE.exec(pathname);
+  if (file) return NextResponse.rewrite(new URL(`/md/${file[1] ?? defaultLocale}/${file[2]}`, request.url));
+
+  const page = PAGE_PATH.exec(pathname);
+  if (!page || (page[2] && NOT_PAGES.has(page[2]))) return NextResponse.next();
+  const locale = page[1] ?? defaultLocale;
+  const slug = page[2];
+  const internal = new URL(`/${locale}${slug ? `/${slug}` : ""}${request.nextUrl.search}`, request.url);
+
+  if (!negotiable(request)) return NextResponse.rewrite(internal);
 
   const twin = markdownPath(pathname);
   const link = `<${twin}>; rel="alternate"; type="text/markdown", ${DISCOVERY_LINK}`;
@@ -34,11 +54,12 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
     });
   }
   if (representation === "markdown") {
-    const response = NextResponse.rewrite(new URL(`/md/${twin.slice(1, -3)}`, request.url));
+    const name = twin.split("/").pop()!.slice(0, -3);
+    const response = NextResponse.rewrite(new URL(`/md/${locale}/${name}`, request.url));
     response.headers.set("Vary", "Accept");
     return response;
   }
-  const response = NextResponse.next();
+  const response = NextResponse.rewrite(internal);
   response.headers.set("Vary", "Accept");
   response.headers.set("Link", link);
   return response;

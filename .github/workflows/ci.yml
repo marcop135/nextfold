@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
 
       - name: Setup Node
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
@@ -39,6 +41,12 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Check the changelog format
+        run: npm run changelog:lint
+
+      - name: Check seed content against the schema rules
+        run: npm run content:check
+
       - name: Check generated Sanity types
         run: |
           npm run typegen
@@ -52,5 +60,5 @@ jobs:
           SANITY_TELEMETRY_DISABLED: "1"
 
       - name: Build
-        # No Sanity env: pages render from the seed content in src/content/seed.ts.
+        # No Sanity env: pages render from the seed content in src/content/seed.
         run: npm run build

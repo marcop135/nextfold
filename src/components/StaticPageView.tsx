@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { Block, Inline, StaticPage } from "@/content/static-pages";
+import type { Locale } from "@/lib/i18n";
+import { getMessages } from "@/lib/messages";
 import { pageJsonLd } from "@/lib/site";
 import { CodeBlock } from "./CodeBlock";
 import { JsonLd } from "./JsonLd";
@@ -49,7 +51,7 @@ function BlockView({ block }: { block: Block }) {
   }
 }
 
-export function StaticPageView({ page }: { page: StaticPage }) {
+export function StaticPageView({ page, locale }: { page: StaticPage; locale: Locale }) {
   return (
     <article className="wrap prose">
       <h1>{page.heading}</h1>
@@ -62,6 +64,8 @@ export function StaticPageView({ page }: { page: StaticPage }) {
           title: page.title,
           description: page.description,
           crumbs: [{ name: page.heading, path: page.path }],
+          locale,
+          homeName: getMessages(locale).footer.home,
         })}
       />
     </article>

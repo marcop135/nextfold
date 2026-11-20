@@ -1,5 +1,8 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
 import { SECTION_SPACINGS, SECTION_THEMES } from "../../lib/design-tokens";
+import { APP_BLOCKS, APP_BLOCK_KINDS } from "../../lib/app-blocks";
+import { COUNT_RULES, HERO_RULES, SECTION_RULES } from "../../lib/rules";
+import { countRules, textRules } from "./text-rules";
 
 const STYLE = { name: "style", title: "Style", options: { collapsible: true, collapsed: true } };
 
@@ -25,9 +28,9 @@ export const hero = defineType({
   type: "object",
   fieldsets: [STYLE],
   fields: [
-    defineField({ name: "eyebrow", type: "string", validation: (rule) => rule.max(40) }),
-    defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
-    defineField({ name: "body", type: "text", rows: 3, validation: (rule) => rule.max(240) }),
+    defineField({ name: "eyebrow", type: "string", validation: (rule) => textRules(rule, HERO_RULES.eyebrow) }),
+    defineField({ name: "heading", type: "string", validation: (rule) => textRules(rule, HERO_RULES.heading) }),
+    defineField({ name: "body", type: "text", rows: 3, validation: (rule) => textRules(rule, HERO_RULES.body) }),
     defineField({ name: "link", title: "Call to action", type: "link" }),
     defineField({
       name: "image",
@@ -63,18 +66,19 @@ export const featureGrid = defineType({
   type: "object",
   fieldsets: [STYLE],
   fields: [
-    defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
+    defineField({ name: "heading", type: "string", validation: (rule) => textRules(rule, SECTION_RULES.heading) }),
     defineField({
       name: "items",
       type: "array",
-      validation: (rule) => rule.min(2).max(6),
+      validation: (rule) => countRules(rule, COUNT_RULES.cards),
       of: [
         defineArrayMember({
           name: "feature",
           type: "object",
           fields: [
-            defineField({ name: "title", type: "string", validation: (rule) => rule.required().max(60) }),
-            defineField({ name: "body", type: "text", rows: 2, validation: (rule) => rule.max(200) }),
+            defineField({ name: "title", type: "string", validation: (rule) => textRules(rule, SECTION_RULES.cardTitle) }),
+            defineField({ name: "body", type: "text", rows: 2, validation: (rule) => textRules(rule, SECTION_RULES.cardBody) }),
+            defineField({ name: "link", type: "link", description: "Optional. Where the card leads." }),
           ],
         }),
       ],
@@ -97,8 +101,8 @@ export const callToAction = defineType({
   type: "object",
   fieldsets: [STYLE],
   fields: [
-    defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
-    defineField({ name: "body", type: "text", rows: 2, validation: (rule) => rule.max(200) }),
+    defineField({ name: "heading", type: "string", validation: (rule) => textRules(rule, SECTION_RULES.heading) }),
+    defineField({ name: "body", type: "text", rows: 2, validation: (rule) => textRules(rule, SECTION_RULES.shortBody) }),
     defineField({ name: "link", type: "link", validation: (rule) => rule.required() }),
     spacing,
   ],
@@ -114,18 +118,18 @@ export const steps = defineType({
   type: "object",
   fieldsets: [STYLE],
   fields: [
-    defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
+    defineField({ name: "heading", type: "string", validation: (rule) => textRules(rule, SECTION_RULES.heading) }),
     defineField({
       name: "items",
       type: "array",
-      validation: (rule) => rule.min(2).max(8),
+      validation: (rule) => countRules(rule, COUNT_RULES.steps),
       of: [
         defineArrayMember({
           name: "step",
           type: "object",
           fields: [
-            defineField({ name: "title", type: "string", validation: (rule) => rule.required().max(60) }),
-            defineField({ name: "body", type: "text", rows: 2, validation: (rule) => rule.max(240) }),
+            defineField({ name: "title", type: "string", validation: (rule) => textRules(rule, SECTION_RULES.stepTitle) }),
+            defineField({ name: "body", type: "text", rows: 2, validation: (rule) => textRules(rule, SECTION_RULES.stepBody) }),
           ],
         }),
       ],
@@ -148,13 +152,13 @@ export const codeSample = defineType({
   type: "object",
   fieldsets: [STYLE],
   fields: [
-    defineField({ name: "heading", type: "string", validation: (rule) => rule.required().max(80) }),
-    defineField({ name: "body", type: "text", rows: 2, validation: (rule) => rule.max(240) }),
+    defineField({ name: "heading", type: "string", validation: (rule) => textRules(rule, SECTION_RULES.heading) }),
+    defineField({ name: "body", type: "text", rows: 2, validation: (rule) => textRules(rule, SECTION_RULES.longBody) }),
     defineField({
       name: "filename",
       title: "File name or label",
       type: "string",
-      validation: (rule) => rule.required().max(80),
+      validation: (rule) => textRules(rule, SECTION_RULES.filename),
     }),
     defineField({
       name: "language",
@@ -170,5 +174,33 @@ export const codeSample = defineType({
   preview: {
     select: { title: "heading", filename: "filename" },
     prepare: ({ title, filename }) => ({ title, subtitle: `Code sample, ${filename ?? ""}` }),
+  },
+});
+
+export const appBlock = defineType({
+  name: "appBlock",
+  title: "App block",
+  type: "object",
+  description: "An interactive widget built in code. Pick which one; the developers own how it works.",
+  fieldsets: [STYLE],
+  fields: [
+    defineField({ name: "heading", type: "string", validation: (rule) => textRules(rule, SECTION_RULES.heading) }),
+    defineField({ name: "body", type: "text", rows: 2, validation: (rule) => textRules(rule, SECTION_RULES.longBody) }),
+    defineField({
+      name: "kind",
+      title: "Widget",
+      type: "string",
+      options: { list: APP_BLOCK_KINDS.map((value) => ({ value, title: APP_BLOCKS[value].title })), layout: "radio" },
+      validation: (rule) => rule.required(),
+    }),
+    theme,
+    spacing,
+  ],
+  preview: {
+    select: { title: "heading", kind: "kind" },
+    prepare: ({ title, kind }) => ({
+      title,
+      subtitle: `App block, ${APP_BLOCKS[kind as keyof typeof APP_BLOCKS]?.title ?? "no widget"}`,
+    }),
   },
 });

@@ -1,16 +1,21 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { defaultLocale } from "../../lib/i18n";
+import { PAGE_RULES } from "../../lib/rules";
+import { isUniqueInLanguage, languageField } from "./language";
+import { textRules } from "./text-rules";
 
 export const page = defineType({
   name: "page",
   title: "Page",
   type: "document",
   fields: [
-    defineField({ name: "title", type: "string", validation: (rule) => rule.required().max(60) }),
+    languageField,
+    defineField({ name: "title", type: "string", validation: (rule) => textRules(rule, PAGE_RULES.title) }),
     defineField({
       name: "slug",
       type: "slug",
       description: "Use home for the front page.",
-      options: { source: "title", maxLength: 64 },
+      options: { source: "title", maxLength: 64, isUnique: isUniqueInLanguage },
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -18,7 +23,7 @@ export const page = defineType({
       title: "Meta description",
       type: "text",
       rows: 2,
-      validation: (rule) => rule.required().min(70).max(160),
+      validation: (rule) => textRules(rule, PAGE_RULES.description),
     }),
     defineField({
       name: "sections",
@@ -28,12 +33,16 @@ export const page = defineType({
         defineArrayMember({ type: "featureGrid" }),
         defineArrayMember({ type: "steps" }),
         defineArrayMember({ type: "codeSample" }),
+        defineArrayMember({ type: "appBlock" }),
         defineArrayMember({ type: "callToAction" }),
       ],
     }),
   ],
   preview: {
-    select: { title: "title", slug: "slug.current" },
-    prepare: ({ title, slug }) => ({ title, subtitle: slug === "home" ? "/" : `/${slug ?? ""}` }),
+    select: { title: "title", slug: "slug.current", language: "language" },
+    prepare: ({ title, slug, language }) => {
+      const prefix = language && language !== defaultLocale ? `/${language}` : "";
+      return { title, subtitle: slug === "home" ? prefix || "/" : `${prefix}/${slug ?? ""}` };
+    },
   },
 });

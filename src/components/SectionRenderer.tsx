@@ -3,7 +3,12 @@ import { Image } from "next-sanity/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { CodeBlock } from "@/components/CodeBlock";
+import { CacheInspector, type CacheContext } from "@/components/app-blocks/CacheInspector";
+import { GuardrailsPlayground } from "@/components/app-blocks/GuardrailsPlayground";
+import { isAppBlockKind } from "@/lib/app-blocks";
+import { localizeHref, type Locale } from "@/lib/i18n";
 import type {
+  AppBlockSection,
   CallToActionSection,
   CodeSampleSection,
   FeatureGridSection,
@@ -21,13 +26,14 @@ function styleAttributes(section: Section) {
   };
 }
 
-function SectionLink({ link, className }: { link: LinkValue; className: string }) {
-  return link.href.startsWith("/") ? (
-    <Link className={className} href={link.href}>
+function SectionLink({ link, className, locale }: { link: LinkValue; className: string; locale: Locale }) {
+  const href = localizeHref(stegaClean(link.href), locale);
+  return href.startsWith("/") ? (
+    <Link className={className} href={href}>
       {link.label}
     </Link>
   ) : (
-    <a className={className} href={link.href}>
+    <a className={className} href={href}>
       {link.label}
     </a>
   );
@@ -53,7 +59,17 @@ function HeroImage({ image, asset, preload }: { image: HeroImageValue; asset: Re
   );
 }
 
-function Hero({ section, isFirst, visual }: { section: HeroSection; isFirst: boolean; visual?: ReactNode }) {
+function Hero({
+  section,
+  isFirst,
+  visual,
+  locale,
+}: {
+  section: HeroSection;
+  isFirst: boolean;
+  visual?: ReactNode;
+  locale: Locale;
+}) {
   const Heading = isFirst ? "h1" : "h2";
   const asset = section.image?.asset && "url" in section.image.asset ? section.image.asset : null;
   // An editor's image takes the place of the built-in visual.
@@ -65,7 +81,7 @@ function Hero({ section, isFirst, visual }: { section: HeroSection; isFirst: boo
           {section.eyebrow ? <p className="eyebrow">{section.eyebrow}</p> : null}
           <Heading id={`${section._key}-title`}>{section.heading}</Heading>
           {section.body ? <p className="lead">{section.body}</p> : null}
-          {section.link ? <SectionLink className="button" link={section.link} /> : null}
+          {section.link ? <SectionLink className="button" link={section.link} locale={locale} /> : null}
         </div>
         {visual}
       </div>
@@ -73,7 +89,7 @@ function Hero({ section, isFirst, visual }: { section: HeroSection; isFirst: boo
   );
 }
 
-function FeatureGrid({ section }: { section: FeatureGridSection }) {
+function FeatureGrid({ section, locale }: { section: FeatureGridSection; locale: Locale }) {
   return (
     <section className="section" {...styleAttributes(section)} aria-labelledby={`${section._key}-title`}>
       <div className="wrap">
@@ -83,6 +99,7 @@ function FeatureGrid({ section }: { section: FeatureGridSection }) {
             <li key={item._key}>
               <h3>{item.title}</h3>
               {item.body ? <p>{item.body}</p> : null}
+              {item.link ? <SectionLink className="feature-grid__link" link={item.link} locale={locale} /> : null}
             </li>
           ))}
         </ul>
@@ -126,20 +143,50 @@ function CodeSample({ section }: { section: CodeSampleSection }) {
   );
 }
 
-function CallToAction({ section }: { section: CallToActionSection }) {
+function AppBlock({ section, context, locale }: { section: AppBlockSection; context?: CacheContext; locale: Locale }) {
+  const kind = stegaClean(section.kind);
+  if (!isAppBlockKind(kind)) return null;
   return (
-    <section className="section cta" {...styleAttributes(section)} aria-labelledby={`${section._key}-title`}>
-      <div className="wrap cta__inner">
+    <section
+      id={stegaClean(section._key)}
+      className="section app-block"
+      {...styleAttributes(section)}
+      aria-labelledby={`${section._key}-title`}
+    >
+      <div className="wrap">
         <h2 id={`${section._key}-title`}>{section.heading}</h2>
-        {section.body ? <p>{section.body}</p> : null}
-        <SectionLink className="button" link={section.link} />
+        {section.body ? <p className="lead section-lead">{section.body}</p> : null}
+        {kind === "guardrailsPlayground" ? <GuardrailsPlayground locale={locale} /> : null}
+        {kind === "cacheInspector" && context ? <CacheInspector context={context} locale={locale} /> : null}
       </div>
     </section>
   );
 }
 
-/** `heroVisual` sits beside the opening hero only. */
-export function SectionRenderer({ sections, heroVisual }: { sections: Section[]; heroVisual?: ReactNode }) {
+function CallToAction({ section, locale }: { section: CallToActionSection; locale: Locale }) {
+  return (
+    <section className="section cta" {...styleAttributes(section)} aria-labelledby={`${section._key}-title`}>
+      <div className="wrap cta__inner">
+        <h2 id={`${section._key}-title`}>{section.heading}</h2>
+        {section.body ? <p>{section.body}</p> : null}
+        <SectionLink className="button" link={section.link} locale={locale} />
+      </div>
+    </section>
+  );
+}
+
+/** `heroVisual` sits beside the opening hero only; `context` feeds app blocks that describe the page itself. */
+export function SectionRenderer({
+  sections,
+  heroVisual,
+  context,
+  locale,
+}: {
+  sections: Section[];
+  heroVisual?: ReactNode;
+  context?: CacheContext;
+  locale: Locale;
+}) {
   return sections.map((section, index) => {
     switch (section._type) {
       case "hero":
@@ -149,16 +196,19 @@ export function SectionRenderer({ sections, heroVisual }: { sections: Section[];
             section={section}
             isFirst={index === 0}
             visual={index === 0 ? heroVisual : undefined}
+            locale={locale}
           />
         );
       case "featureGrid":
-        return <FeatureGrid key={section._key} section={section} />;
+        return <FeatureGrid key={section._key} section={section} locale={locale} />;
       case "steps":
         return <Steps key={section._key} section={section} />;
       case "codeSample":
         return <CodeSample key={section._key} section={section} />;
+      case "appBlock":
+        return <AppBlock key={section._key} section={section} context={context} locale={locale} />;
       case "callToAction":
-        return <CallToAction key={section._key} section={section} />;
+        return <CallToAction key={section._key} section={section} locale={locale} />;
       default:
         return null;
     }

@@ -21,7 +21,7 @@ export function isAiAssistant(ua: string | null): boolean {
 }
 
 export function isTrackablePath(path: string): boolean {
-  return !path.startsWith("/_next/") && !path.startsWith("/studio") && !STATIC_ASSET.test(path);
+  return !path.startsWith("/_next/") && !/^\/(?:studio|api)(?:\/|$)/.test(path) && !STATIC_ASSET.test(path);
 }
 
 /** Server-side hit for an AI-assistant fetch: no browser, no cookies. */

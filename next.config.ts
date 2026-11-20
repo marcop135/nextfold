@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { sanity } from "next-sanity/live/cache-life";
 import { DISCOVERY_LINK } from "./src/lib/site";
 import { projectId } from "./src/sanity/env";
 
@@ -31,12 +32,27 @@ const shared = [
   { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  {
+    key: "Permissions-Policy",
+    value:
+      "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), midi=(), browsing-topics=()",
+  },
+];
+
+/** Site pages open no cross-origin windows that need a handle back, and are never framed by another origin. */
+const siteOnly = [
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
 ];
 
 const nextConfig: NextConfig = {
   // next dev would otherwise write AGENTS.md and CLAUDE.md into the repo root.
   agentRules: false,
+  experimental: { globalNotFound: true },
+  // 'use cache' everywhere; cached entries live until a Sanity Live event or the publish webhook expires their tags.
+  cacheComponents: true,
+  cacheLife: { default: sanity },
+  partialPrefetching: false,
   devIndicators: false,
   async redirects() {
     return [
@@ -50,6 +66,7 @@ const nextConfig: NextConfig = {
         source: "/((?!studio).*)",
         headers: [
           ...shared,
+          ...siteOnly,
           { key: "Content-Security-Policy", value: csp },
           { key: "No-Vary-Search", value: 'params=("utm_source" "utm_medium" "utm_campaign" "utm_term" "utm_content")' },
         ],
