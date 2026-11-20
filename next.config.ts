@@ -32,7 +32,17 @@ const shared = [
   { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  {
+    key: "Permissions-Policy",
+    value:
+      "camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), hid=(), bluetooth=(), midi=(), browsing-topics=()",
+  },
+];
+
+/** Site pages open no cross-origin windows that need a handle back, and are never framed by another origin. */
+const siteOnly = [
+  { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
 ];
 
 const nextConfig: NextConfig = {
@@ -56,6 +66,7 @@ const nextConfig: NextConfig = {
         source: "/((?!studio).*)",
         headers: [
           ...shared,
+          ...siteOnly,
           { key: "Content-Security-Policy", value: csp },
           { key: "No-Vary-Search", value: 'params=("utm_source" "utm_medium" "utm_campaign" "utm_term" "utm_content")' },
         ],
