@@ -77,7 +77,7 @@ function readmeArt(p, { width, height, label }) {
   const rows = PAGES.map(
     (page, i) => `<rect x="${px + 24}" y="${rowY(i)}" width="${pw - 48}" height="70" rx="10" fill="${p.surface}" stroke="${p.border}"/>
     <rect x="${px + 24}" y="${rowY(i)}" width="5" height="70" rx="2.5" fill="${p.accent}"/>
-    <text x="${px + 48}" y="${rowY(i) + 31}" font-family="Geist" font-weight="700" font-size="24" fill="${p.text}">${page.name.replace("'", "&#8217;")}</text>
+    <text x="${px + 48}" y="${rowY(i) + 31}" font-family="Geist" font-weight="700" font-size="24" fill="${p.text}">${page.name.replaceAll("'", "&#8217;")}</text>
     <text x="${px + 48}" y="${rowY(i) + 56}" font-family="Geist Mono" font-size="16" fill="${p.muted}">${page.shows}</text>`,
   ).join("\n    ");
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${label}">
