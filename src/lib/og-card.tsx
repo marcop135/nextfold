@@ -36,7 +36,9 @@ export function ogCard({ eyebrow, title, description }: { eyebrow?: string | nul
             <path fill="#8a8f9a" d="M20 2v5.5a2.5 2.5 0 0 0 2.5 2.5H28z" />
             <rect x="8" y="17" width="16" height="5" fill={ACCENT} />
           </svg>
-          {SITE_NAME}
+          <span style={{ display: "flex" }}>
+            {SITE_NAME.split(" ")[0]}&nbsp;<span style={{ color: ACCENT }}>{SITE_NAME.split(" ")[1]}</span>
+          </span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 1000 }}>
           {eyebrow ? (
