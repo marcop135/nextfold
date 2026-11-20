@@ -39,6 +39,9 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Check seed content against the schema rules
+        run: npm run content:check
+
       - name: Check generated Sanity types
         run: |
           npm run typegen

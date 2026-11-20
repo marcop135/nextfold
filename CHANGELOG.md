@@ -10,11 +10,16 @@
 
 - Pages: Add How it's run, a page on hosting, DNS, security headers, analytics, CI, and the release flow.
 - Studio: Let a feature card link to a page or an https:// address.
+- Studio: Add an app block section that places an interactive widget on a page.
+- Pages: Add a Guardrails playground that checks a hero's fields with the Studio's own rules and messages.
+- Site: Reorder the home hero's sections with up and down buttons and watch the page follow.
+- CI: Check the bundled seed content against the schema's rules on every pull request.
 
 ### Changed
 
 - Pages: Rewrite the home page around three ways in for leads, developers, and agents.
 - Pages: End Guardrails on a link to How it's run instead of a source file on GitHub.
+- Studio: Read every text limit and its message from one rules file shared with the site.
 
 ### Fixed
 

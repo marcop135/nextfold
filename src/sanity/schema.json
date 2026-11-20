@@ -89,6 +89,91 @@
     }
   },
   {
+    "name": "appBlock",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "appBlock"
+          }
+        },
+        "heading": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": false
+        },
+        "body": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "kind": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "guardrailsPlayground"
+              }
+            ]
+          },
+          "optional": false
+        },
+        "theme": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "bg"
+              },
+              {
+                "type": "string",
+                "value": "surface"
+              },
+              {
+                "type": "string",
+                "value": "band"
+              }
+            ]
+          },
+          "optional": true
+        },
+        "spacing": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "space-3"
+              },
+              {
+                "type": "string",
+                "value": "space-4"
+              },
+              {
+                "type": "string",
+                "value": "space-5"
+              }
+            ]
+          },
+          "optional": true
+        }
+      }
+    }
+  },
+  {
     "name": "codeSample",
     "type": "type",
     "value": {
@@ -828,6 +913,21 @@
                 "rest": {
                   "type": "inline",
                   "name": "codeSample"
+                }
+              },
+              {
+                "type": "object",
+                "attributes": {
+                  "_key": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "rest": {
+                  "type": "inline",
+                  "name": "appBlock"
                 }
               },
               {

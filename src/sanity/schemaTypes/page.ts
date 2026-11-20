@@ -1,11 +1,13 @@
 import { defineArrayMember, defineField, defineType } from "sanity";
+import { PAGE_RULES } from "../../lib/rules";
+import { textRules } from "./text-rules";
 
 export const page = defineType({
   name: "page",
   title: "Page",
   type: "document",
   fields: [
-    defineField({ name: "title", type: "string", validation: (rule) => rule.required().max(60) }),
+    defineField({ name: "title", type: "string", validation: (rule) => textRules(rule, PAGE_RULES.title) }),
     defineField({
       name: "slug",
       type: "slug",
@@ -18,7 +20,7 @@ export const page = defineType({
       title: "Meta description",
       type: "text",
       rows: 2,
-      validation: (rule) => rule.required().min(70).max(160),
+      validation: (rule) => textRules(rule, PAGE_RULES.description),
     }),
     defineField({
       name: "sections",
@@ -28,6 +30,7 @@ export const page = defineType({
         defineArrayMember({ type: "featureGrid" }),
         defineArrayMember({ type: "steps" }),
         defineArrayMember({ type: "codeSample" }),
+        defineArrayMember({ type: "appBlock" }),
         defineArrayMember({ type: "callToAction" }),
       ],
     }),
