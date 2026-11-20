@@ -45,7 +45,7 @@ export function GuardrailsPlayground({ locale }: { locale: Locale }) {
         aria-labelledby={`${id}-form`}
         onSubmit={(event) => {
           event.preventDefault();
-          if (problems.length === 0) setPublished(values);
+          if (problems.length === 0 && dirty) setPublished(values);
         }}
       >
         <p className="playground__title" id={`${id}-form`}>
@@ -97,7 +97,8 @@ export function GuardrailsPlayground({ locale }: { locale: Locale }) {
           );
         })}
         <div className="playground__actions">
-          <button className="button playground__publish" type="submit" disabled={problems.length > 0 || !dirty}>
+          {/* aria-disabled, not disabled: after Publish the button turns inert while it holds focus. */}
+          <button className="button playground__publish" type="submit" aria-disabled={problems.length > 0 || !dirty}>
             {t.publish}
           </button>
           <button className="playground__secondary" type="button" onClick={() => setValues(broken)}>

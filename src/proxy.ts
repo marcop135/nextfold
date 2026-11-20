@@ -37,7 +37,7 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
   if (file) return NextResponse.rewrite(new URL(`/md/${file[1] ?? defaultLocale}/${file[2]}`, request.url));
 
   const page = PAGE_PATH.exec(pathname);
-  if (!page || (page[2] && !page[1] && NOT_PAGES.has(page[2]))) return NextResponse.next();
+  if (!page || (page[2] && NOT_PAGES.has(page[2]))) return NextResponse.next();
   const locale = page[1] ?? defaultLocale;
   const slug = page[2];
   const internal = new URL(`/${locale}${slug ? `/${slug}` : ""}${request.nextUrl.search}`, request.url);

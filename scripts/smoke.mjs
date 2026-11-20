@@ -6,7 +6,11 @@ const failures = [];
 const fail = (where, message) => failures.push(`${where}: ${message}`);
 
 async function get(path, accept = "text/html") {
-  const response = await fetch(base + path, { redirect: "manual", headers: { accept, "user-agent": "nextfold-smoke" } });
+  const response = await fetch(base + path, {
+    redirect: "manual",
+    headers: { accept, "user-agent": "nextfold-smoke" },
+    signal: AbortSignal.timeout(20_000),
+  });
   return { response, body: await response.text() };
 }
 

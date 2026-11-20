@@ -37,8 +37,10 @@ async function llmsTxt(): Promise<string> {
     `> ${SITE_DESCRIPTIONS.en}`,
     "Every page is also available as Markdown: add .md to its path, use /index.md for the home page (/de/index.md in German), or send Accept: text/markdown. German pages live under /de.",
     ...sections.flat(),
-    "## Optional",
-    `- [Sitemap](${SITE_URL}/sitemap.xml): every public URL with its language versions`,
-    `- [Source code](${REPO_URL}): the Next.js and Sanity project behind this site`,
+    [
+      "## Optional",
+      `- [Sitemap](${SITE_URL}/sitemap.xml): every public URL with its language versions`,
+      `- [Source code](${REPO_URL}): the Next.js and Sanity project behind this site`,
+    ].join("\n"),
   ].join("\n\n");
 }

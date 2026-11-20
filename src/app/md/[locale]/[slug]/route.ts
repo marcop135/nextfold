@@ -1,7 +1,7 @@
 import { staticPagesFor } from "@/content/static-pages";
 import { LOCALE_NAMES, isLocale, locales, localizedPath } from "@/lib/i18n";
 import { cmsPageMarkdown, staticPageMarkdown } from "@/lib/markdown";
-import { DISCOVERY_LINK, IS_INDEXABLE, SITE_URL, markdownPath } from "@/lib/site";
+import { DISCOVERY_LINK, IS_INDEXABLE, SITE_URL, absoluteUrl, markdownPath } from "@/lib/site";
 import { getPage } from "@/sanity/lib/fetch-page";
 
 const text = (body: string, status: number) =>
@@ -39,7 +39,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ loc
       "Content-Type": "text/markdown; charset=utf-8",
       "Content-Language": LOCALE_NAMES[contentLocale].hreflang,
       "Cache-Control": "public, max-age=0, s-maxage=60, stale-while-revalidate=300",
-      Link: [`<${SITE_URL}${html}>; rel="canonical"; type="text/html"`, ...alternates, DISCOVERY_LINK].join(", "),
+      Link: [`<${absoluteUrl(html)}>; rel="canonical"; type="text/html"`, ...alternates, DISCOVERY_LINK].join(", "),
       Vary: "Accept",
       ...(IS_INDEXABLE ? {} : { "X-Robots-Tag": "noindex, nofollow" }),
     },
