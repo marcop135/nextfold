@@ -43,8 +43,8 @@ export async function SiteChrome({ children, locale }: { children: ReactNode; lo
             </p>
             <div className="footer-brand">
               <Link className="footer-mark" href={home} aria-label={t.footer.homeLabel}>
-                {/* Inline, so the ink follows the page colors rather than the SVG's own color scheme. */}
-                <svg viewBox="0 0 32 32" width="48" height="48" aria-hidden="true">
+                {/* Inline, so the ink follows the page colors. The viewBox crops the icon's padding so the mark lines up with the text above. */}
+                <svg viewBox="4 2 24 28" width="36" height="42" aria-hidden="true">
                   <path
                     className="footer-mark__ink"
                     d="M6.5 2H20l8 8v17.5a2.5 2.5 0 0 1-2.5 2.5h-19A2.5 2.5 0 0 1 4 27.5v-23A2.5 2.5 0 0 1 6.5 2z"
