@@ -30,6 +30,7 @@ npm run typecheck
 npm run content:check
 npm run changelog:lint
 npm run build
+npm run test:e2e   # Playwright and axe in your installed Chrome; reuses a running npm run dev
 ```
 
 - After a schema or GROQ query change, run `npm run typegen` and commit `src/sanity/schema.json` and `src/sanity/sanity.types.ts`.
