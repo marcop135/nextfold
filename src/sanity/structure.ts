@@ -6,8 +6,6 @@ import { LOCALE_NAMES, defaultLocale, locales, type Locale } from "../lib/i18n";
 export function settingsId(locale: Locale): string {
   return locale === defaultLocale ? "siteSettings" : `siteSettings-${locale}`;
 }
-export const SETTINGS_IDS = locales.map(settingsId);
-export const SETTINGS_ID = settingsId(defaultLocale);
 
 /** "Page, English" and "Page, Deutsch": the template sets the language, which stays fixed afterwards. */
 export const templates = (prev: Template[]): Template[] => [
