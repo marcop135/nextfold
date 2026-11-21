@@ -32,7 +32,7 @@
 
 ### Security
 
-- Deps: Patch minimatch under the Sanity CLI, and update Sanity and next-sanity within their majors.
+- Deps: Patch minimatch under the Sanity CLI, and update Sanity and next-sanity within their majors ([#111](https://github.com/marcop135/nextfold/pull/111)) ([#105](https://github.com/marcop135/nextfold/issues/105)).
 
 ## [0.7.2] - 2026-11-20
 
