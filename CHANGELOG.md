@@ -22,7 +22,7 @@
 - Pages: Simplify the home hero visual and shorten the home intro to a one-line Sanity CMS demo pitch ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 - Privacy: Open with site, controller, and contact; give each purpose a heading; date it last ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 - Site: Link Documentation to the docs index on GitHub ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
-- Brand: Simplify the README header for small screens and darken the Open Graph tagline.
+- Brand: Simplify the README header for small screens and darken the Open Graph tagline ([#109](https://github.com/marcop135/nextfold/pull/109)) ([#103](https://github.com/marcop135/nextfold/issues/103)).
 
 ### Fixed
 
