@@ -30,6 +30,10 @@
 - Site: Stop the hero intro from replaying, and content from flickering, on every client-side page change ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 - A11y: Move focus to the first invalid field when Publish is blocked in the guardrails playground ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 
+### Security
+
+- Deps: Patch minimatch under the Sanity CLI, and update Sanity and next-sanity within their majors.
+
 ## [0.7.2] - 2026-11-20
 
 ### Security
