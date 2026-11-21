@@ -10,7 +10,7 @@
 
 - Pages: Add a page anatomy widget to Inside a page: each section's fields against their Studio limits ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 - Site: Fade content in on scroll, except on For agents and Privacy, and never with reduced motion ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
-- Site: Add a web manifest and icons for saved shortcuts, with no install prompt.
+- Site: Add a web manifest and icons for saved shortcuts, with no install prompt ([#107](https://github.com/marcop135/nextfold/pull/107)) ([#101](https://github.com/marcop135/nextfold/issues/101)).
 - Site: Match the browser theme color to the header in light mode ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 
 ### Changed
