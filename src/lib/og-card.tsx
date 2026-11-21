@@ -6,7 +6,6 @@ import { getPage } from "@/sanity/lib/fetch-page";
 import { SITE_NAME, SITE_URL } from "./site";
 
 export const OG_SIZE = { width: 1200, height: 630 };
-export const OG_CONTENT_TYPE = "image/png";
 
 const INK = "#101112";
 const MUTED = "#4f5562";
