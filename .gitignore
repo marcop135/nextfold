@@ -28,3 +28,10 @@ next-env.d.ts
 docs/plan.md
 .artifacts/
 .playwriter*
+
+# local audit output (a11y-web-audit and similar)
+.audit/
+
+# playwright
+/test-results/
+/playwright-report/

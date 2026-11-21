@@ -7,7 +7,6 @@ export const SITE_DESCRIPTIONS: Record<Locale, string> = {
   en: "A Next.js and Sanity site run end to end in public: typed sections, Studio, caching, security, analytics, and releases.",
   de: "Eine Next.js- und Sanity-Website, öffentlich und von Anfang bis Ende betrieben: typisierte Abschnitte, Studio, Caching, Sicherheit, Analytics und Releases.",
 };
-export const SITE_DESCRIPTION = SITE_DESCRIPTIONS.en;
 export const AUTHOR = { name: "Marco Pontili", url: "https://marcopontili.com" } as const;
 export const REPO_URL = "https://github.com/marcop135/nextfold";
 export const OG_IMAGE = { url: "/og.jpg", width: 1200, height: 630, alt: "Next Fold: Next.js + Sanity CMS, run end to end" };

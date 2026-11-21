@@ -1,6 +1,6 @@
 {
   "name": "nextfold",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "private": true,
   "description": "Next.js App Router and Sanity demo: typed sections, schema guardrails, and Studio",
   "scripts": {
@@ -13,7 +13,8 @@
     "changelog:lint": "node scripts/changelog-lint.mjs",
     "smoke": "node scripts/smoke.mjs",
     "content:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/content-check.mjs",
-    "seed:import": "sanity exec scripts/import-seed.ts --with-user-token"
+    "seed:import": "sanity exec scripts/import-seed.ts --with-user-token",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@sanity/vision": "^6.23.0",
@@ -26,6 +27,8 @@
     "styled-components": "^6.6.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.1",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.1.9",
@@ -40,6 +43,9 @@
     "@vercel/frameworks": {
       "js-yaml": "^3.15.2",
       "smol-toml": "^1.9.1"
+    },
+    "@oclif/core": {
+      "minimatch": "^11.0.1"
     }
   }
 }

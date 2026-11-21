@@ -1,6 +1,13 @@
-// Checks a running Next Fold: status codes, security headers, hreflang, Markdown twins, and discovery files.
-// Usage: node scripts/smoke.mjs [base URL]   (default https://nextfold.marcopontili.com)
-// Exits 1 with a list of failures; the weekly prod-smoke workflow opens an issue from that output.
+/**
+ * Smoke test: checks a running Next Fold over HTTP. Read-only; it sends GET requests and nothing else.
+ *
+ * Run:    npm run smoke -- [base URL], or node scripts/smoke.mjs [base URL]
+ *         (default https://nextfold.marcopontili.com; pass http://localhost:3100 for a local `npm start`)
+ * Checks: status codes, security headers, html lang and hreflang links, the Link header and its Markdown twin,
+ *         the /en redirect, llms.txt, sitemap.xml, security.txt, and a 404 for an unknown path.
+ * Exit:   0 when every check passes; 1 with one line per failure on stderr. The weekly prod-smoke workflow
+ *         (.github/workflows/prod-smoke.yml) opens an issue from that output.
+ */
 const base = (process.argv[2] ?? "https://nextfold.marcopontili.com").replace(/\/$/, "");
 const failures = [];
 const fail = (where, message) => failures.push(`${where}: ${message}`);
@@ -24,6 +31,7 @@ const SECURITY_HEADERS = {
   "x-frame-options": /^SAMEORIGIN$/i,
 };
 
+/** [path, expected html lang, Markdown twin named in the Link header] */
 const PAGES = [
   ["/", "en", "/index.md"],
   ["/guardrails", "en", "/guardrails.md"],
@@ -55,11 +63,13 @@ for (const [path, lang, twin] of PAGES) {
   if (markdown.response.headers.get("content-language") !== lang) fail(twin, `Content-Language is not ${lang}`);
 }
 
+// English lives at unprefixed URLs: an /en path redirects permanently.
 const redirect = await get("/en/guardrails");
 if (redirect.response.status !== 308 || redirect.response.headers.get("location") !== "/guardrails") {
   fail("/en/guardrails", `expected 308 to /guardrails, got ${redirect.response.status} ${redirect.response.headers.get("location")}`);
 }
 
+// Discovery files and the not-found route.
 const llms = await get("/llms.txt", "text/plain");
 if (llms.response.status !== 200 || !llms.body.includes("/de/index.md")) fail("/llms.txt", "missing or without German pages");
 const sitemap = await get("/sitemap.xml", "application/xml");

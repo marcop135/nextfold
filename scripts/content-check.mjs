@@ -1,7 +1,15 @@
 /**
- * Checks the bundled seed content against the same rules the Sanity Studio enforces (src/lib/rules.ts),
- * so copy that would fail in the Studio fails CI first. Run with `npm run content:check`.
+ * Content check: validates the bundled seed copy against the rules the Sanity Studio enforces,
+ * so copy that would fail in the Studio fails CI first.
+ *
+ * Run:    npm run content:check (CI runs it on every pull request)
+ * Reads:  src/content/seed/{en,de}.ts, src/lib/rules.ts, src/lib/app-blocks.ts
+ * Checks: every text length, item count, and link per section type; each page's language field;
+ *         settings links; the same slugs in every language.
+ * Exit:   0 with a page count; 1 with one line per failure on stderr.
+ *
  * Node strips the TypeScript types on import; the imported files have no runtime imports of their own.
+ * A new language goes into `languages` below as well as into the seed index.
  */
 import * as de from "../src/content/seed/de.ts";
 import * as en from "../src/content/seed/en.ts";
@@ -18,8 +26,10 @@ import {
 } from "../src/lib/rules.ts";
 
 const failures = [];
+/** Records a failure; the check helpers return null when the value passes, so a pass records nothing. */
 const report = (where, message) => message && failures.push(`${where}: ${message}`);
 
+/** A missing optional link passes; a present one needs a valid label and URL. */
 function checkLink(where, link, required = false) {
   if (!link) return report(where, required ? "Link is required." : null);
   report(`${where} label`, checkText(link.label, LINK_RULES.label));
@@ -28,6 +38,7 @@ function checkLink(where, link, required = false) {
 
 const languages = { en, de };
 
+// Pages: page fields first, then each section against the rules for its type.
 for (const [language, seed] of Object.entries(languages)) for (const page of seed.pages) {
   const at = `${language} /${page.slug}`;
   report(`${at} language`, page.language === language ? null : `Language is "${page.language}", expected "${language}".`);
@@ -80,6 +91,7 @@ for (const [language, seed] of Object.entries(languages)) for (const page of see
   }
 }
 
+// Settings: every header and footer link is required to be complete.
 for (const [language, { settings }] of Object.entries(languages)) {
   for (const [group, links] of Object.entries({ nav: settings.nav, projectLinks: settings.projectLinks, siteInfoLinks: settings.siteInfoLinks })) {
     for (const link of links ?? []) checkLink(`${language} settings ${group} ${link._key}`, link, true);

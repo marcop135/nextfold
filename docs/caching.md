@@ -1,6 +1,6 @@
 # Caching
 
-Every public page is rendered once, stored, and served from storage until one of its cache tags expires, which happens when content it read changes. This page explains the three layers involved and what clears each one. The live [Caching page](https://nextfold.marcopontili.com/caching) shows the result for itself.
+Every public page is rendered once and served from the cache until one of its tags expires, which happens when content it read changes. The live [Caching page](https://nextfold.marcopontili.com/caching) shows the current entry and the headers of a fresh request.
 
 ## The three layers
 

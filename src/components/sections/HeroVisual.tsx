@@ -4,7 +4,6 @@ import { flushSync } from "react-dom";
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import type { Locale } from "@/lib/i18n";
 import { getMessages } from "@/lib/messages";
-import { SITE_URL } from "@/lib/site";
 
 export type VisualSection = { key: string; type: string; heading: string };
 
@@ -200,7 +199,7 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
           <p className="hero-visual__label">
             {t.studio} <span className="hero-visual__demo">{t.demo}</span>
           </p>
-          <p className="hero-visual__doc" id={`${id}-doc`}>
+          <p className="visually-hidden" id={`${id}-doc`}>
             {t.doc}
           </p>
           <ol className="hero-visual__rows" aria-labelledby={`${id}-doc`}>
@@ -215,9 +214,8 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
                   onMouseEnter={() => setActive(section.key)}
                   onMouseLeave={() => setActive(null)}
                 >
-                  <span className="hero-visual__text">
-                    <span className="hero-visual__type">{title}</span>
-                    <span className="hero-visual__heading">{section.heading}</span>
+                  <span className="hero-visual__heading" title={`${title}: ${section.heading}`}>
+                    {section.heading}
                   </span>
                   {ready && ordered.length > 1 ? (
                     <span
@@ -271,7 +269,6 @@ export function HeroVisual({ sections, locale }: { sections: VisualSection[]; lo
           </div>
         </div>
         <div className="hero-visual__page" aria-hidden="true">
-          <p className="hero-visual__address">{SITE_URL.replace("https://", "")}</p>
           <div className="hero-visual__blocks">
             {live.map((section, index) => (
               <span

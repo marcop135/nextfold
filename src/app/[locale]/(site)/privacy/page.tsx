@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { StaticPageView } from "@/components/StaticPageView";
+import { StaticPageView } from "@/components/pages/StaticPageView";
 import { privacy } from "@/content/static-pages";
 import { isLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/site";

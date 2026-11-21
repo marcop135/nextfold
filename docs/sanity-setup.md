@@ -62,22 +62,19 @@ Until Sanity has a published page for a slug and language, the seed page from [`
 
 ## Rename a field
 
-A field rename ships with a migration in [`migrations/`](../migrations). The hero's `cta` became `link` this way:
+Stored documents keep the old field name until a migration moves the data, so a rename ships in three steps:
 
-1. Rename the field in the schema and update the components that read it.
-2. Keep reading the old name in the query until the data moves. `PAGE_QUERY` maps a hero's `cta` to `link` when `link` is empty.
-3. Dry run, which lists the patches and writes nothing:
-
-   ```bash
-   npx sanity login
-   npx sanity migration run rename-hero-cta-to-link
-   ```
-
-4. Apply it, then drop the old name from the query:
+1. Rename the field in [`sections.ts`](../src/sanity/schemaTypes/sections.ts) and update the components that read it.
+2. Keep reading the old name in [`queries.ts`](../src/sanity/lib/queries.ts) until the data moves, for example `_type == "hero" && !defined(link) && defined(cta) => { "link": cta }`, then run `npm run typegen`.
+3. Create a migration, dry run it, then apply it:
 
    ```bash
-   npx sanity migration run rename-hero-cta-to-link --no-dry-run
+   npx sanity migrations create "<title>"
+   npx sanity migrations run <id>
+   npx sanity migrations run <id> --no-dry-run
    ```
+
+   `<title>` describes the change. The CLI prompts for options and writes `migrations/<id>/index.ts`; `<id>` is that folder name. The dry run lists the patches and writes nothing. After the apply, drop the old name from the query and run `npm run typegen` again.
 
 ## Troubleshooting
 

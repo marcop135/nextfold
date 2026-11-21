@@ -3,7 +3,6 @@ import { defineQuery } from "next-sanity";
 /**
  * One language at a time: the fallback to English happens in fetch-page.ts, after the seed copy in the
  * requested language. `coalesce` counts pages saved before the language field as English.
- * Heroes saved before the rename-hero-cta-to-link migration still store their link as `cta`; drop that line once it has run.
  */
 export const PAGE_QUERY = defineQuery(`
   *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{
@@ -13,7 +12,6 @@ export const PAGE_QUERY = defineQuery(`
     description,
     sections[]{
       ...,
-      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },
       _type == "hero" && defined(image.asset) => {
         image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }
       }

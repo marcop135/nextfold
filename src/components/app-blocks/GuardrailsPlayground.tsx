@@ -45,7 +45,12 @@ export function GuardrailsPlayground({ locale }: { locale: Locale }) {
         aria-labelledby={`${id}-form`}
         onSubmit={(event) => {
           event.preventDefault();
-          if (problems.length === 0 && dirty) setPublished(values);
+          if (problems.length === 0 && dirty) {
+            setPublished(values);
+            return;
+          }
+          // A blocked Publish takes the user to the first field that fails, where its error is read out.
+          event.currentTarget.querySelector<HTMLElement>("[aria-invalid='true']")?.focus();
         }}
       >
         <p className="playground__title" id={`${id}-form`}>

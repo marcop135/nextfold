@@ -3,9 +3,9 @@ import { localizedPath, type Locale } from "@/lib/i18n";
 import { getMessages } from "@/lib/messages";
 import { pageJsonLd } from "@/lib/site";
 import type { LoadedPage } from "@/sanity/lib/fetch-page";
-import { HeroVisual } from "./HeroVisual";
-import { JsonLd } from "./JsonLd";
-import { SectionRenderer } from "./SectionRenderer";
+import { HeroVisual } from "@/components/sections/HeroVisual";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { SectionRenderer } from "@/components/sections/SectionRenderer";
 
 /** `path` is locale-neutral; `locale` is the URL's language, `loaded.locale` the language the content is in. */
 export function PageView({ loaded, path, locale }: { loaded: LoadedPage; path: string; locale: Locale }) {

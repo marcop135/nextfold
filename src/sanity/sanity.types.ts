@@ -33,7 +33,7 @@ export type AppBlock = {
   _type: "appBlock";
   heading: string;
   body?: string;
-  kind: "guardrailsPlayground" | "cacheInspector";
+  kind: "guardrailsPlayground" | "pageAnatomy" | "cacheInspector";
   theme?: "bg" | "surface" | "band";
   spacing?: "space-3" | "space-4" | "space-5";
 };
@@ -302,7 +302,7 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{    title,    "slug": slug.current,    "language": coalesce(language, "en"),    description,    sections[]{      ...,      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },      _type == "hero" && defined(image.asset) => {        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }      }    }  }
+// Query: *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{    title,    "slug": slug.current,    "language": coalesce(language, "en"),    description,    sections[]{      ...,      _type == "hero" && defined(image.asset) => {        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }      }    }  }
 export type PAGE_QUERY_RESULT = {
   title: string;
   slug: string;
@@ -314,7 +314,7 @@ export type PAGE_QUERY_RESULT = {
         _type: "appBlock";
         heading: string;
         body?: string;
-        kind: "cacheInspector" | "guardrailsPlayground";
+        kind: "cacheInspector" | "guardrailsPlayground" | "pageAnatomy";
         theme?: "band" | "bg" | "surface";
         spacing?: "space-3" | "space-4" | "space-5";
       }
@@ -446,7 +446,7 @@ export type SETTINGS_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{\n    title,\n    "slug": slug.current,\n    "language": coalesce(language, "en"),\n    description,\n    sections[]{\n      ...,\n      _type == "hero" && !defined(link) && defined(cta) => { "link": cta },\n      _type == "hero" && defined(image.asset) => {\n        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
+    '\n  *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{\n    title,\n    "slug": slug.current,\n    "language": coalesce(language, "en"),\n    description,\n    sections[]{\n      ...,\n      _type == "hero" && defined(image.asset) => {\n        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
     '\n  *[_type == "page" && defined(slug.current) && coalesce(language, "en") == $language]{\n    "slug": slug.current,\n    "updatedAt": _updatedAt\n  }\n': SITEMAP_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == $id][0]{ nav, footerNote, projectLinks, siteInfoLinks }\n': SETTINGS_QUERY_RESULT;
   }

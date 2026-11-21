@@ -4,6 +4,36 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
+## [0.8.0] - 2026-11-21
+
+### Added
+
+- Pages: Add a page anatomy widget to Inside a page: each section's fields against their Studio limits ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Site: Fade content in on scroll, except on For agents and Privacy, and never with reduced motion ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Site: Add a web manifest and icons for saved shortcuts, with no install prompt ([#107](https://github.com/marcop135/nextfold/pull/107)) ([#101](https://github.com/marcop135/nextfold/issues/101)).
+- Site: Match the browser theme color to the header in light mode ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Repo: Add a contributing guide, code of conduct, issue forms, a pull request template, and code owners ([#108](https://github.com/marcop135/nextfold/pull/108)) ([#102](https://github.com/marcop135/nextfold/issues/102)).
+- CI: Test every page and the three widgets in Chrome with Playwright and axe, in English and German ([#110](https://github.com/marcop135/nextfold/pull/110)) ([#104](https://github.com/marcop135/nextfold/issues/104)).
+- Docs: Add a how-to for new section types, and index the docs by reader need ([#108](https://github.com/marcop135/nextfold/pull/108)) ([#102](https://github.com/marcop135/nextfold/issues/102)).
+
+### Changed
+
+- Pages: Redraw the cache inspector as stat tiles, a page list, and per-page timing bars ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Pages: Make whole feature cards clickable, with a hover lift, and set their links in regular weight ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Pages: Simplify the home hero visual and shorten the home intro to a one-line Sanity CMS demo pitch ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Privacy: Open with site, controller, and contact; give each purpose a heading; date it last ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Site: Link Documentation to the docs index on GitHub ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Brand: Simplify the README header for small screens and darken the Open Graph tagline ([#109](https://github.com/marcop135/nextfold/pull/109)) ([#103](https://github.com/marcop135/nextfold/issues/103)).
+
+### Fixed
+
+- Site: Stop the hero intro from replaying, and content from flickering, on every client-side page change ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- A11y: Move focus to the first invalid field when Publish is blocked in the guardrails playground ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+
+### Security
+
+- Deps: Patch minimatch under the Sanity CLI, and update Sanity and next-sanity within their majors ([#111](https://github.com/marcop135/nextfold/pull/111)) ([#105](https://github.com/marcop135/nextfold/issues/105)).
+
 ## [0.7.2] - 2026-11-20
 
 ### Security
