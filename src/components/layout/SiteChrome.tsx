@@ -1,13 +1,14 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { SiteHeader, type NavItem } from "@/components/SiteHeader";
+import { ScrollReveal } from "@/components/layout/ScrollReveal";
+import { SiteHeader, type NavItem } from "@/components/layout/SiteHeader";
 import { localizeHref, localizedPath, type Locale } from "@/lib/i18n";
 import { getMessages } from "@/lib/messages";
-import { AUTHOR, REPO_URL, SITE_NAME } from "@/lib/site";
+import { AUTHOR, REPO_URL } from "@/lib/site";
 import { getSiteSettings } from "@/sanity/lib/fetch-page";
 import { getFetchOptions } from "@/sanity/lib/live";
 import type { SiteSettings } from "@/sanity/types";
-import { version } from "../../package.json";
+import { version } from "../../../package.json";
 
 function SiteLink({ link, locale }: { link: SiteSettings["nav"][number]; locale: Locale }) {
   const href = localizeHref(link.href, locale);
@@ -29,15 +30,19 @@ export async function SiteChrome({ children, locale }: { children: ReactNode; lo
       <main id="main" tabIndex={-1}>
         {children}
       </main>
+      <ScrollReveal />
       <footer className="site-footer">
         <div className="wrap site-footer__inner">
           <div>
             <p className="footer-note">
-              {settings.footerNote}
+              {settings.footerNote}{" "}
+              <a className="footer-version" href={`${REPO_URL}/releases/tag/v${version}`} title={t.footer.releaseNotes}>
+                v{version}
+              </a>
             </p>
             <p className="footer-credit">
               {t.footer.builtBy}{" "}
-              <a className="footer-author" href={AUTHOR.url} title={AUTHOR.name}>
+              <a className="footer-author" href={AUTHOR.url} title={AUTHOR.name} target="_blank" rel="noopener">
                 {AUTHOR.name}
               </a>
             </p>
@@ -53,9 +58,6 @@ export async function SiteChrome({ children, locale }: { children: ReactNode; lo
                   <rect className="footer-mark__band" x="8" y="17" width="16" height="5" />
                 </svg>
               </Link>
-              <a className="footer-version" href={`${REPO_URL}/releases/tag/v${version}`} title={t.footer.releaseNotes}>
-                v{version}
-              </a>
             </div>
           </div>
           <div className="footer-links">

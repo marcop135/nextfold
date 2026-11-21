@@ -2,13 +2,13 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
-import { Analytics } from "@/components/Analytics";
-import { DraftModeBar } from "@/components/DraftModeBar";
-import { SiteChrome } from "@/components/SiteChrome";
+import { Analytics } from "@/components/analytics/Analytics";
+import { DraftModeBar } from "@/components/layout/DraftModeBar";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import { LOCALE_NAMES, isLocale, locales } from "@/lib/i18n";
 import { OG_IMAGE, ROBOTS, SITE_DESCRIPTIONS, SITE_NAME, SITE_URL } from "@/lib/site";
 import { isDraftMode as readDraftMode, live } from "@/sanity/lib/live";
-import "../globals.css";
+import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
@@ -33,11 +33,9 @@ export async function generateMetadata({ params }: Omit<Props, "children">): Pro
   };
 }
 
+/** Chromium tints its toolbar with this: the light header's --color-surface. Dark mode keeps the browser's own toolbar. */
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3f3f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#101112" },
-  ],
+  themeColor: [{ media: "(prefers-color-scheme: light)", color: "#ffffff" }],
 };
 
 /** Root layout of the public site, one per language: `<html lang>` follows the URL. The Studio has its own. */

@@ -1,6 +1,6 @@
 import Script from "next/script";
 import { MATOMO_CONTAINER_ID, MATOMO_ENABLED, MATOMO_ORIGIN } from "@/lib/matomo";
-import { MatomoRouteTracker } from "./MatomoRouteTracker";
+import { MatomoRouteTracker } from "@/components/analytics/MatomoRouteTracker";
 
 /** Matomo Tag Manager container; its Pageview tag tracks the first load. */
 export function Analytics() {

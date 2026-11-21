@@ -1,5 +1,5 @@
 /**
- * Section style options, named after the custom properties in src/app/globals.css.
+ * Section style options, named after the custom properties in src/styles/tokens.css.
  * Studio offers exactly these values, and the CSS has one rule per value.
  */
 export const SECTION_THEMES = [

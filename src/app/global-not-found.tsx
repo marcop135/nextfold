@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import "./globals.css";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = { title: "Page not found | Next Fold", robots: { index: false, follow: true } };
 

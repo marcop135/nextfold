@@ -4,6 +4,27 @@
 - **Voice:** Use the imperative, like a commit message. Write add, fix, increase, force, not added, fixed, increased, forced.
 - **Length:** Keep each bullet on one line, max 120 characters (link URLs do not count toward the cap, only the visible text does).
 
+## [Unreleased]
+
+### Added
+
+- Pages: Add a page anatomy widget to Inside a page, with each section's fields and their length against the Studio limit.
+- Site: Fade content in on scroll, except on For agents and Privacy, and never with reduced motion.
+- Site: Match the browser theme color to the header in light mode.
+
+### Changed
+
+- Pages: Redraw the cache inspector as stat tiles, a page list, and timing bars for each page's last five requests.
+- Pages: Make whole feature cards clickable, with a hover lift, and set their links in regular weight.
+- Pages: Simplify the home hero visual and shorten the home intro to a one-line Sanity CMS demo pitch.
+- Privacy: Open with a list of site, controller, and contact; give each purpose a heading; put the date last.
+- Site: Link Documentation to the docs index on GitHub.
+
+### Fixed
+
+- Site: Stop the hero intro from replaying, and content from flickering, on every client-side page change.
+- A11y: Move focus to the first invalid field when Publish is blocked in the guardrails playground.
+
 ## [0.7.2] - 2026-11-20
 
 ### Security

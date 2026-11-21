@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { localizedPath, type Locale } from "@/lib/i18n";
 import { getMessages } from "@/lib/messages";
 
@@ -8,6 +8,8 @@ export type CacheContext = { path: string; slug: string; cachedAt: string; sourc
 
 /** Response headers worth showing, in the order a reader should scan them. */
 const HEADERS = ["x-vercel-cache", "x-nextjs-cache", "age", "cache-control", "date"];
+/** Runs kept and drawn per page. */
+const RUNS = 5;
 
 /** Pages a visitor can request from the inspector, locale-neutral. */
 const PAGES = ["/", "/inside-a-page", "/guardrails", "/caching", "/system"];
@@ -40,18 +42,22 @@ export function CacheInspector({ context, locale }: { context: CacheContext; loc
   const t = getMessages(locale).cache;
   const id = useId();
   const [now, setNow] = useState<number | null>(null);
-  const [target, setTarget] = useState(context.path);
   const [probes, setProbes] = useState<Probe[]>([]);
+  const [selected, setSelected] = useState(context.path);
   const [busy, setBusy] = useState(false);
+  const nextId = useRef(0);
 
   const probe = useCallback(async (path: string) => {
+    setSelected(path);
     setBusy(true);
     try {
       const started = performance.now();
       const response = await fetch(path, { method: "HEAD", headers: { accept: "text/html" }, cache: "no-store" });
       const ms = Math.round(performance.now() - started);
       const headers = Object.fromEntries(HEADERS.map((name) => [name, response.headers.get(name)]));
-      setProbes((list) => [{ id: Date.now(), at: new Date().toISOString(), path, status: response.status, ms, headers }, ...list].slice(0, 6));
+      const entry: Probe = { id: nextId.current++, at: new Date().toISOString(), path, status: response.status, ms, headers };
+      // Keep the last RUNS per page, so runs on one page never push out another page's.
+      setProbes((list) => [entry, ...list.filter((item) => item.path !== path), ...list.filter((item) => item.path === path).slice(0, RUNS - 1)]);
     } finally {
       setBusy(false);
     }
@@ -70,118 +76,141 @@ export function CacheInspector({ context, locale }: { context: CacheContext; loc
     };
   }, [probe, context.path]);
 
-  const latest = probes[0];
+  // The answer column is about one page at a time: its requests, newest first, drawn to scale.
+  const runs = probes.filter((item) => item.path === selected).slice(0, RUNS);
+  const latest = runs[0];
+  const slowest = Math.max(1, ...runs.map((item) => item.ms));
   const shown = HEADERS.filter((name) => latest?.headers[name]);
+  const request = () => !busy && void probe(selected);
 
   return (
     <div className="cache-inspector">
-      <dl className="cache-inspector__facts">
+      {/* Three facts about the copy you are reading, as tiles: a value to scan, one small line of detail. */}
+      <dl className="cache-inspector__stats">
         <div>
           <dt>{t.entered}</dt>
+          <dd className="cache-inspector__stat">{now ? relative(context.cachedAt, now, locale) : "…"}</dd>
           <dd>
             <time dateTime={context.cachedAt}>{formatTime(context.cachedAt, t.dateLocale)}</time>
-            {now ? <span className="cache-inspector__ago"> ({relative(context.cachedAt, now, locale)})</span> : null}
           </dd>
         </div>
         <div>
           <dt>{t.expires}</dt>
-          <dd>{t.expiresBody(`page:${context.slug}`)}</dd>
+          <dd className="cache-inspector__stat">{t.expiresValue}</dd>
+          <dd>
+            {t.tagNote} <code>page:{context.slug}</code>
+          </dd>
         </div>
         <div>
           <dt>{t.from}</dt>
-          <dd>{context.source === "sanity" ? t.fromSanity : t.fromSeed}</dd>
-        </div>
-        <div>
-          <dt>{t.tryTitle}</dt>
-          <dd>{t.tryBody}</dd>
+          <dd className="cache-inspector__stat">{context.source === "sanity" ? t.fromSanity : t.fromSeed}</dd>
+          <dd>{context.source === "sanity" ? t.fromSanityNote : t.fromSeedNote}</dd>
         </div>
       </dl>
 
       <div className="cache-inspector__probe">
-        <form
-          className="cache-inspector__probe-head"
-          onSubmit={(event) => {
-            event.preventDefault();
-            void probe(target);
-          }}
-        >
-          <label className="cache-inspector__picker" htmlFor={`${id}-page`}>
-            <span>{t.pick}</span>
-            <select id={`${id}-page`} value={target} onChange={(event) => setTarget(event.target.value)}>
-              {PAGES.map((page) => {
-                const path = localizedPath(page, locale);
-                return (
-                  <option key={path} value={path}>
-                    {path}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-          {/* aria-disabled, not disabled: a disabled button would drop keyboard focus mid-request. */}
-          <button className="cache-inspector__button" type="submit" aria-disabled={busy} onClick={(event) => busy && event.preventDefault()}>
-            {busy ? t.requesting : t.again}
-          </button>
-        </form>
-
-        {/* Announces one short line per request; the table itself stays out of the live region. */}
-        <p className="visually-hidden" role="status">
-          {latest ? t.caption(formatTime(latest.at, t.dateLocale)) : ""}
-        </p>
-        <div>
-          {latest ? (
-            shown.length ? (
-              <table className="cache-inspector__table">
-                <caption className="visually-hidden">{t.caption(formatTime(latest.at, t.dateLocale))}</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">{t.header}</th>
-                    <th scope="col">{t.value}</th>
-                    <th scope="col">{t.meaning}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {shown.map((name) => (
-                    <tr key={name}>
-                      <th scope="row">
-                        <code>{name}</code>
-                      </th>
-                      <td>
-                        <code>{latest.headers[name]}</code>
-                      </td>
-                      <td>{t.meanings[name]}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>{t.none}</p>
-            )
-          ) : (
-            <p>{t.requesting}</p>
-          )}
+        <div className="cache-inspector__probe-head" role="group" aria-labelledby={`${id}-pick`}>
+          <p className="cache-inspector__label" id={`${id}-pick`}>
+            {t.pick}
+          </p>
+          {/* One click selects a page and requests it; the answer for the selected page is on the right. */}
+          <ul className="cache-inspector__pages">
+            {PAGES.map((page) => {
+              const path = localizedPath(page, locale);
+              return (
+                <li key={path}>
+                  {/* aria-disabled, not disabled: a disabled button would drop keyboard focus mid-request. */}
+                  <button
+                    className="cache-inspector__page"
+                    type="button"
+                    aria-pressed={selected === path}
+                    aria-disabled={busy}
+                    onClick={() => !busy && void probe(path)}
+                  >
+                    <span>{path}</span>
+                    <svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path d="M6 3l5 5-5 5" />
+                    </svg>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+          <p className="cache-inspector__hint">{t.tryBody}</p>
         </div>
 
-        {probes.length ? (
-          <div className="cache-inspector__history">
-            <p className="cache-inspector__history-title">{t.history}</p>
-            <ol>
-              {probes.map((item) => {
+        <div className="cache-inspector__output" aria-busy={busy}>
+          <div className="cache-inspector__output-head">
+            <p className="cache-inspector__label">{t.requestsFor(selected)}</p>
+            <button className="cache-inspector__again" type="button" aria-disabled={busy} onClick={request}>
+              {t.again}
+            </button>
+          </div>
+
+          {/* Announces one short line per request; the bars and table stay out of the live region. */}
+          <p className="visually-hidden" role="status">
+            {latest ? `${latest.path}: ${resultOf(latest) || t.noHeader}, ${latest.ms} ms` : ""}
+          </p>
+
+          {runs.length ? (
+            <ol className="cache-inspector__runs" aria-label={t.requestsFor(selected)}>
+              {runs.map((item) => {
                 const result = resultOf(item);
                 return (
-                  <li key={item.id}>
+                  <li key={item.id} data-result={result.toLowerCase() || "none"}>
                     <span className="cache-inspector__badge" data-result={result.toLowerCase() || "none"}>
                       {result || t.noHeader}
                     </span>
-                    <code>{item.path}</code>
+                    <span className="cache-inspector__bar" style={{ "--share": item.ms / slowest } as CSSProperties} aria-hidden="true" />
                     <span className="cache-inspector__ms">{item.ms} ms</span>
-                    <time dateTime={item.at}>{formatTime(item.at, t.dateLocale, "short")}</time>
                   </li>
                 );
               })}
             </ol>
-          </div>
-        ) : null}
+          ) : (
+            // Same shape as a row, so the first answer drops into place instead of replacing a line of text.
+            <ol className="cache-inspector__runs" aria-label={t.requesting}>
+              <li data-result="pending">
+                <span className="cache-inspector__badge">…</span>
+                <span className="cache-inspector__bar" aria-hidden="true" />
+                <span className="cache-inspector__ms">… ms</span>
+              </li>
+            </ol>
+          )}
+
+          {latest ? (
+            shown.length ? (
+              <details className="cache-inspector__headers">
+                <summary>{t.headersToggle(shown.length)}</summary>
+                <table className="cache-inspector__table">
+                  <caption className="visually-hidden">{t.caption(formatTime(latest.at, t.dateLocale))}</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">{t.header}</th>
+                      <th scope="col">{t.value}</th>
+                      <th scope="col">{t.meaning}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {shown.map((name) => (
+                      <tr key={name}>
+                        <th scope="row">
+                          <code>{name}</code>
+                        </th>
+                        <td>
+                          <code>{latest.headers[name]}</code>
+                        </td>
+                        <td>{t.meanings[name]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </details>
+            ) : (
+              <p className="cache-inspector__hint">{t.none}</p>
+            )
+          ) : null}
+        </div>
       </div>
     </div>
   );
