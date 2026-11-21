@@ -1,0 +1,30 @@
+name: Idea or improvement
+description: A change to a page, a section type, the docs, or the tooling
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is missing or hard today
+      description: The problem first; a solution is optional
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What you would change, and which pages, files, or schema types it touches
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Site page or copy
+        - Section type or schema
+        - Caching or performance
+        - Accessibility
+        - Agent access (Markdown, llms.txt)
+        - Docs
+        - CI, release, or tooling
+    validations:
+      required: true

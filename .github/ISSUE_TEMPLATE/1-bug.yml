@@ -1,0 +1,50 @@
+name: Bug report
+description: Something on the site, in the Studio, or in the code does not work as described
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Security issues go through [private reporting](https://github.com/marcop135/nextfold/security/advisories/new), not here.
+  - type: input
+    id: url
+    attributes:
+      label: Page or file
+      description: The URL on nextfold.marcopontili.com, a local route, or a file path
+      placeholder: https://nextfold.marcopontili.com/caching
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open /caching
+        2. Click /system
+        3. See ...
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where
+      options:
+        - Live site
+        - Local dev server (seed content)
+        - Local dev server (Sanity dataset)
+        - Sanity Studio
+        - Markdown route or llms.txt
+        - CI or tooling
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser and OS, or Node.js version
+      placeholder: Firefox 145 on Windows 11, or Node.js 22.12

@@ -12,6 +12,8 @@
 - Site: Fade content in on scroll, except on For agents and Privacy, and never with reduced motion ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 - Site: Add a web manifest and icons for saved shortcuts, with no install prompt ([#107](https://github.com/marcop135/nextfold/pull/107)) ([#101](https://github.com/marcop135/nextfold/issues/101)).
 - Site: Match the browser theme color to the header in light mode ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Repo: Add a contributing guide, code of conduct, issue forms, a pull request template, and code owners.
+- Docs: Add a how-to for new section types, and index the docs by reader need.
 
 ### Changed
 

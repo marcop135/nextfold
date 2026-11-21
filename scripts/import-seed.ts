@@ -1,7 +1,11 @@
 /**
- * Copies the seed pages and settings in every language from src/content/seed into the Sanity dataset.
- * Run with `npm run seed:import` after `npx sanity login`. Documents that already exist are left alone,
- * so editors' changes are never overwritten.
+ * Seed import: copies the seed pages and site settings in every language into the Sanity dataset.
+ *
+ * Run:     npx sanity login, then npm run seed:import
+ * Reads:   src/content/seed; the project and dataset from the Sanity CLI config (sanity.cli.ts)
+ * Writes:  one createIfNotExists per document in a single transaction. Documents that already exist
+ *          are left alone, so editors' changes are never overwritten; to re-seed one, delete it first.
+ * Output:  the dataset name, the document ids, and how many were created.
  */
 import { getCliClient } from "sanity/cli";
 import { seedPages, seedSettings } from "../src/content/seed";
