@@ -15,5 +15,5 @@
     <rect x="8" y="17" width="16" height="5" fill="#F03E2F"/>
   </g>
   <text x="600" y="398" text-anchor="middle" font-family="Geist" font-weight="800" font-size="104" letter-spacing="-4" fill="#101112">Next <tspan fill="#F03E2F">Fold</tspan></text>
-  <text x="600" y="466" text-anchor="middle" font-family="Geist" font-weight="500" font-size="38" fill="#4F5562">Next.js + Sanity CMS, run end to end</text>
+  <text x="600" y="466" text-anchor="middle" font-family="Geist" font-weight="500" font-size="38" fill="#2E333B">Next.js + Sanity CMS, run end to end</text>
 </svg>
