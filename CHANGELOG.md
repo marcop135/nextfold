@@ -8,22 +8,22 @@
 
 ### Added
 
-- Pages: Add a page anatomy widget to Inside a page, with each section's fields and their length against the Studio limit.
-- Site: Fade content in on scroll, except on For agents and Privacy, and never with reduced motion.
-- Site: Match the browser theme color to the header in light mode.
+- Pages: Add a page anatomy widget to Inside a page: each section's fields against their Studio limits ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Site: Fade content in on scroll, except on For agents and Privacy, and never with reduced motion ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Site: Match the browser theme color to the header in light mode ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 
 ### Changed
 
-- Pages: Redraw the cache inspector as stat tiles, a page list, and timing bars for each page's last five requests.
-- Pages: Make whole feature cards clickable, with a hover lift, and set their links in regular weight.
-- Pages: Simplify the home hero visual and shorten the home intro to a one-line Sanity CMS demo pitch.
-- Privacy: Open with a list of site, controller, and contact; give each purpose a heading; put the date last.
-- Site: Link Documentation to the docs index on GitHub.
+- Pages: Redraw the cache inspector as stat tiles, a page list, and per-page timing bars ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Pages: Make whole feature cards clickable, with a hover lift, and set their links in regular weight ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Pages: Simplify the home hero visual and shorten the home intro to a one-line Sanity CMS demo pitch ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Privacy: Open with site, controller, and contact; give each purpose a heading; date it last ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- Site: Link Documentation to the docs index on GitHub ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 
 ### Fixed
 
-- Site: Stop the hero intro from replaying, and content from flickering, on every client-side page change.
-- A11y: Move focus to the first invalid field when Publish is blocked in the guardrails playground.
+- Site: Stop the hero intro from replaying, and content from flickering, on every client-side page change ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
+- A11y: Move focus to the first invalid field when Publish is blocked in the guardrails playground ([#106](https://github.com/marcop135/nextfold/pull/106)) ([#100](https://github.com/marcop135/nextfold/issues/100)).
 
 ## [0.7.2] - 2026-11-20
 
