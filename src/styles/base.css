@@ -1,0 +1,70 @@
+/* Base: element defaults, links, focus, and language-specific typography. */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    min-block-size: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--color-link);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 0.08em;
+
+    &:hover {
+      text-decoration-thickness: 0.14em;
+    }
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring);
+    outline-offset: 0.1875rem;
+  }
+
+  code,
+  pre {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+}
+
+@layer base {
+  /* German compounds run long: let the browser hyphenate them with the page language's dictionary. */
+  :lang(de) {
+    hyphens: auto;
+    hyphenate-limit-chars: 10 4 4;
+  }
+}

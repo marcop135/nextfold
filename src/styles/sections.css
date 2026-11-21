@@ -1,0 +1,534 @@
+/* Sections: one block per CMS section type (hero, feature grid, steps, code sample, call to action), shared buttons, prose, and code colors. */
+
+@layer components {
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-block-size: 2.75rem;
+    color: var(--color-text);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-size: 1.25rem;
+    text-decoration: none;
+  }
+
+  .section {
+    padding-block: var(--space-5);
+
+    & + & {
+      border-block-start: 1px solid var(--color-border);
+    }
+
+    & h2 {
+      font-size: clamp(1.5rem, 3vw, 2.125rem);
+    }
+  }
+
+  .hero {
+    background-image: radial-gradient(var(--color-dot) 0.09rem, transparent 0.1rem);
+    background-size: 1.5rem 1.5rem;
+
+    & :is(h1, h2) {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.04;
+      max-inline-size: 16ch;
+      margin-block: var(--space-2);
+    }
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    &::before {
+      content: "";
+      inline-size: 0.625rem;
+      block-size: 0.625rem;
+      background: var(--color-accent);
+    }
+  }
+
+  .lead {
+    color: var(--color-muted);
+    font-size: clamp(1.125rem, 2vw, 1.375rem);
+    max-inline-size: var(--measure-text);
+  }
+
+  /*
+   * Buttons set their colors through custom properties, so each context swaps tokens, not rules.
+   * White label on red: 5.1:1 at rest in light, 4.8:1 in dark, higher on hover and press.
+   */
+  .button {
+    --button-bg: light-dark(#c8321f, #d23a2a);
+    --button-bg-hover: light-dark(#ad2818, #bb2f20);
+    --button-bg-active: light-dark(#932013, #a32616);
+    --button-fg: #ffffff;
+    --button-glow: rgb(200 50 31 / 0.45);
+    --button-ring: var(--color-focus);
+    --button-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8h9m-4-4 4 4-4 4' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-block-size: 2.875rem;
+    margin-block-start: var(--space-3);
+    padding: 0.6875rem 1rem 0.6875rem 1.25rem;
+    background: var(--button-bg);
+    color: var(--button-fg);
+    border: 0;
+    border-radius: 0.5rem;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.18),
+      0 1px 2px light-dark(rgb(16 17 18 / 0.18), rgb(0 0 0 / 0.5));
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+    transition:
+      background-color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
+
+    &::after {
+      content: "";
+      flex: none;
+      inline-size: 1rem;
+      block-size: 1rem;
+      background: currentColor;
+      mask: var(--button-arrow) center / contain no-repeat;
+      transition: transform 160ms ease;
+    }
+
+    /* Links that leave the site point up and out. */
+    &[href^="http"] {
+      --button-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 11l6-6M6 5h5v5' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+
+    &:hover {
+      background: var(--button-bg-hover);
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.18),
+        0 0.5rem 1.25rem -0.5rem var(--button-glow);
+    }
+
+    &:hover::after {
+      transform: translateX(0.1875rem);
+    }
+
+    &[href^="http"]:hover::after {
+      transform: translate(0.125rem, -0.125rem);
+    }
+
+    &:active {
+      background: var(--button-bg-active);
+      box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.28);
+      transform: translateY(1px);
+    }
+
+    &:focus-visible {
+      outline: 0.125rem solid var(--button-ring);
+      outline-offset: 0.1875rem;
+    }
+
+    @media (forced-colors: active) {
+      border: 1px solid ButtonText;
+
+      &::after {
+        forced-color-adjust: none;
+        background: ButtonText;
+      }
+    }
+  }
+
+  .feature-grid {
+    display: grid;
+    gap: var(--space-2);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    list-style: none;
+    margin-block-start: var(--space-3);
+    padding: 0;
+
+    & li {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: var(--space-3);
+    }
+
+    & h3 {
+      font-size: 1.125rem;
+      margin-block-end: var(--space-1);
+    }
+
+    & li {
+      display: flex;
+      flex-direction: column;
+    }
+
+    & p {
+      color: var(--color-muted);
+    }
+  }
+
+  /* A card with a link is clickable as a whole: the link's ::after covers the card. */
+  .feature-grid li:has(.feature-grid__link) {
+    position: relative;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 180ms ease;
+
+    &:hover {
+      border-color: var(--color-text);
+      box-shadow: 0 0.5rem 1.5rem -0.75rem rgb(0 0 0 / 0.25);
+      transform: translateY(-0.125rem);
+    }
+
+    &:has(.feature-grid__link:focus-visible) {
+      outline: var(--focus-ring);
+      outline-offset: 0.125rem;
+    }
+  }
+
+  .feature-grid__link {
+    align-self: flex-start;
+    margin-block-start: auto;
+    padding-block-start: var(--space-2);
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    li:hover > & {
+      text-decoration-thickness: 0.14em;
+    }
+  }
+
+  .steps {
+    display: grid;
+    gap: var(--space-2);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    list-style: none;
+    margin-block-start: var(--space-3);
+    padding: 0;
+    counter-reset: step;
+
+    & li {
+      counter-increment: step;
+      border-block-start: 0.1875rem solid var(--color-accent);
+      padding-block-start: var(--space-2);
+    }
+
+    & li::before {
+      content: counter(step, decimal-leading-zero);
+      display: block;
+      margin-block-end: var(--space-1);
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+
+    & h3 {
+      font-size: 1.125rem;
+      margin-block-end: var(--space-1);
+    }
+
+    & p {
+      color: var(--color-muted);
+    }
+  }
+
+  .code-sample {
+    margin: var(--space-3) 0 0;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    max-inline-size: 52rem;
+
+    & figcaption {
+      padding: var(--space-1) var(--space-2);
+      border-block-end: 1px solid var(--color-border);
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+
+    & pre {
+      overflow-x: auto;
+      padding: var(--space-2);
+      font-size: 0.875rem;
+      line-height: 1.55;
+    }
+  }
+
+  .cta {
+    & + .source-note {
+      padding-block-start: var(--space-3);
+    }
+  }
+
+  /* Dark band unless an editor picked the bg or surface theme, which would leave light text on a light ground. */
+  .cta:not([data-theme="bg"], [data-theme="surface"]) {
+    background: var(--color-band);
+    color: var(--color-on-band);
+
+    & :focus-visible {
+      outline-color: var(--color-on-band);
+    }
+
+    /* Light button on the dark band, dark label (at least 9:1 in every state). */
+    & .button {
+      --button-bg: var(--color-on-band);
+      --button-bg-hover: color-mix(in oklab, var(--color-on-band) 88%, var(--color-band));
+      --button-bg-active: color-mix(in oklab, var(--color-on-band) 78%, var(--color-band));
+      --button-fg: #101112;
+      --button-glow: rgb(255 255 255 / 0.22);
+      --button-ring: var(--color-on-band);
+    }
+  }
+
+  .cta__inner {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+
+    & .button {
+      margin-block-start: var(--space-1);
+    }
+  }
+
+  /* Section style options from src/lib/design-tokens.ts: one rule per value. */
+  .section[data-theme="bg"] {
+    background-color: var(--color-bg);
+  }
+
+  .section[data-theme="surface"] {
+    background-color: var(--color-surface);
+  }
+
+  /* Dark in either page theme: the tokens layer redeclares every color token here. */
+  .section[data-theme="band"] {
+    color-scheme: dark;
+    background-color: var(--color-band);
+    color: var(--color-text);
+  }
+
+  .section[data-spacing="space-3"] {
+    padding-block: var(--space-3);
+  }
+
+  .section[data-spacing="space-4"] {
+    padding-block: var(--space-4);
+  }
+
+  .section[data-spacing="space-5"] {
+    padding-block: var(--space-5);
+  }
+
+  .source-note {
+    color: var(--color-muted);
+    font-size: 0.875rem;
+    padding-block: var(--space-3);
+  }
+
+  .page-title {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    padding-block-start: var(--space-5);
+  }
+
+  .prose {
+    max-inline-size: var(--measure-text);
+    padding-block: var(--space-5);
+
+    & > * + * {
+      margin-block-start: var(--space-2);
+    }
+
+    & h1 {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    & h2 {
+      font-size: 1.5rem;
+      margin-block-start: var(--space-4);
+    }
+
+    & h3 {
+      font-size: 1.125rem;
+      margin-block-start: var(--space-3);
+    }
+
+    & h3 + p {
+      margin-block-start: 0.5rem;
+    }
+
+    & .prose__updated {
+      margin-block-start: var(--space-4);
+      color: var(--color-muted);
+      font-size: 0.875rem;
+    }
+
+    & ul {
+      padding-inline-start: 1.25rem;
+    }
+
+    & li + li {
+      margin-block-start: var(--space-1);
+    }
+
+    & pre {
+      overflow-x: auto;
+      padding: var(--space-2);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+    }
+  }
+
+  .studio-setup {
+    max-inline-size: var(--measure-text);
+    margin: var(--space-5) auto;
+    padding-inline: var(--space-3);
+  }
+
+  /* The fixed bar must not cover the focused element: keep it clear when scrolling into view. */
+  html:has(.draft-mode-bar) {
+    scroll-padding-block-end: 6rem;
+  }
+
+  .draft-mode-bar {
+    position: fixed;
+    inset-inline: var(--space-2);
+    inset-block-end: var(--space-2);
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-1) var(--space-2);
+    background: var(--color-band);
+    color: var(--color-on-band);
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+
+    & a {
+      color: inherit;
+      font-weight: 600;
+    }
+
+    & a:focus-visible {
+      outline-color: var(--color-on-band);
+    }
+  }
+}
+
+@layer components {
+  /* Prism token colors, each at least 4.5:1 on the code surface in its theme. */
+  .token:is(.comment, .prolog) {
+    color: light-dark(#57606a, #8b949e);
+    font-style: italic;
+  }
+
+  .token:is(.punctuation, .operator) {
+    color: var(--color-muted);
+  }
+
+  .token:is(.property, .tag, .attr-name) {
+    color: var(--color-link);
+  }
+
+  .token:is(.string, .attr-value, .template-string) {
+    color: light-dark(#1a7f37, #8fd694);
+  }
+
+  .token:is(.number, .boolean, .null, .constant) {
+    color: light-dark(#0550ae, #79c0ff);
+  }
+
+  .token:is(.keyword, .builtin) {
+    color: light-dark(#8250df, #d2a8ff);
+  }
+
+  .token:is(.function, .class-name) {
+    color: light-dark(#953800, #ffa657);
+  }
+
+  .section-lead {
+    margin-block-start: var(--space-1);
+  }
+
+  /*
+   * The hero intro rises in from the first paint, in CSS only, so a slow script
+   * download never shows the finished text first and then replays it.
+   */
+  /* ScrollReveal sets data-intro-played after the first load, so client navigations skip the intro. */
+  :root[data-intro-played] .hero__intro > * {
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__intro > * {
+      animation: heading-rise 1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+
+    .hero__intro > :is(h1, h2) {
+      animation-duration: 1.4s;
+    }
+
+    .hero__intro > :nth-child(2) {
+      animation-delay: 160ms;
+    }
+
+    .hero__intro > :nth-child(3) {
+      animation-delay: 320ms;
+    }
+
+    .hero__intro > :nth-child(n + 4) {
+      animation-delay: 480ms;
+    }
+  }
+
+  .hero__layout {
+    display: grid;
+    align-items: center;
+    gap: var(--space-4);
+
+    /* The illustration gets the wider column so its Studio rows show whole headings. */
+    @media (min-width: 56rem) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    }
+  }
+
+  .hero-image {
+    margin: 0;
+
+    & img {
+      display: block;
+      inline-size: 100%;
+      block-size: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background: var(--color-surface);
+    }
+  }
+}

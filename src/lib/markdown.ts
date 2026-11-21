@@ -32,6 +32,8 @@ function block(item: Block): string {
   switch (item.type) {
     case "h2":
       return `## ${item.text}`;
+    case "h3":
+      return `### ${item.text}`;
     case "p":
       return inline(item.parts);
     case "ul":

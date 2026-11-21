@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CmsPage } from "@/components/CmsPage";
+import { CmsPage } from "@/components/pages/CmsPage";
 import { isLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/site";
 import { getPage } from "@/sanity/lib/fetch-page";

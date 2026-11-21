@@ -7,6 +7,7 @@ export function GET() {
         "Content-Signal: search=yes, ai-input=yes",
         "Allow: /",
         "Disallow: /studio",
+        "Disallow: /api/",
         "",
         `Sitemap: ${SITE_URL}/sitemap.xml`,
       ]

@@ -2,9 +2,11 @@ import { stegaClean } from "next-sanity";
 import { Image } from "next-sanity/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { CodeBlock } from "@/components/CodeBlock";
+import { CodeBlock } from "@/components/sections/CodeBlock";
 import { CacheInspector, type CacheContext } from "@/components/app-blocks/CacheInspector";
 import { GuardrailsPlayground } from "@/components/app-blocks/GuardrailsPlayground";
+import { PageAnatomy } from "@/components/app-blocks/PageAnatomy";
+import { anatomyOf } from "@/lib/anatomy";
 import { isAppBlockKind } from "@/lib/app-blocks";
 import { localizeHref, type Locale } from "@/lib/i18n";
 import type {
@@ -18,7 +20,7 @@ import type {
   StepsSection,
 } from "@/sanity/types";
 
-/** Style options become data attributes; globals.css maps each value to its token. */
+/** Style options become data attributes; src/styles/sections.css maps each value to its token. */
 function styleAttributes(section: Section) {
   return {
     "data-theme": "theme" in section ? stegaClean(section.theme) : undefined,
@@ -143,7 +145,17 @@ function CodeSample({ section }: { section: CodeSampleSection }) {
   );
 }
 
-function AppBlock({ section, context, locale }: { section: AppBlockSection; context?: CacheContext; locale: Locale }) {
+function AppBlock({
+  section,
+  sections,
+  context,
+  locale,
+}: {
+  section: AppBlockSection;
+  sections: Section[];
+  context?: CacheContext;
+  locale: Locale;
+}) {
   const kind = stegaClean(section.kind);
   if (!isAppBlockKind(kind)) return null;
   return (
@@ -158,6 +170,7 @@ function AppBlock({ section, context, locale }: { section: AppBlockSection; cont
         {section.body ? <p className="lead section-lead">{section.body}</p> : null}
         {kind === "guardrailsPlayground" ? <GuardrailsPlayground locale={locale} /> : null}
         {kind === "cacheInspector" && context ? <CacheInspector context={context} locale={locale} /> : null}
+        {kind === "pageAnatomy" ? <PageAnatomy sections={anatomyOf(sections)} locale={locale} /> : null}
       </div>
     </section>
   );
@@ -206,7 +219,7 @@ export function SectionRenderer({
       case "codeSample":
         return <CodeSample key={section._key} section={section} />;
       case "appBlock":
-        return <AppBlock key={section._key} section={section} context={context} locale={locale} />;
+        return <AppBlock key={section._key} section={section} sections={sections} context={context} locale={locale} />;
       case "callToAction":
         return <CallToAction key={section._key} section={section} locale={locale} />;
       default:

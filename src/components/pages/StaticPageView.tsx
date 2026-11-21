@@ -3,8 +3,8 @@ import type { Block, Inline, StaticPage } from "@/content/static-pages";
 import type { Locale } from "@/lib/i18n";
 import { getMessages } from "@/lib/messages";
 import { pageJsonLd } from "@/lib/site";
-import { CodeBlock } from "./CodeBlock";
-import { JsonLd } from "./JsonLd";
+import { CodeBlock } from "@/components/sections/CodeBlock";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 function InlineParts({ parts }: { parts: Inline[] }) {
   return parts.map((part, index) => {
@@ -26,9 +26,11 @@ function BlockView({ block }: { block: Block }) {
   switch (block.type) {
     case "h2":
       return <h2>{block.text}</h2>;
+    case "h3":
+      return <h3>{block.text}</h3>;
     case "p":
       return (
-        <p>
+        <p className={block.className}>
           <InlineParts parts={block.parts} />
         </p>
       );

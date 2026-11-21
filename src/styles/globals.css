@@ -1,0 +1,16 @@
+/*
+ * Global stylesheet, imported once by each root layout.
+ * Cascade layers fix the order, so a rule in a later layer wins regardless of file order:
+ * reset < tokens < base < layout < components. Each file wraps its rules in its layer.
+ */
+@layer reset, tokens, base, layout, components;
+
+@import "./reset.css";
+@import "./tokens.css";
+@import "./base.css";
+@import "./layout.css";
+@import "./sections.css";
+@import "./hero-visual.css";
+@import "./playground.css";
+@import "./cache-inspector.css";
+@import "./page-anatomy.css";

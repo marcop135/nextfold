@@ -13,17 +13,12 @@ const feature = (key: string, title: string, body: string, link?: { label: strin
 const REPO = "https://github.com/marcop135/nextfold";
 
 /** '"Inside", 6 of 40 characters', or only the count when the text would not fit on a card. */
-function filled(value: string, max: number, required: boolean): string {
-  const shown = value.length <= 60 ? `"${value}", ` : "";
-  return `${shown}${value.length} of ${max} characters. ${required ? "Required." : "Optional."}`;
-}
-
 const insideHero: HeroSection = {
   _type: "hero",
   _key: "hero",
   eyebrow: "Inside",
   heading: "One page, taken apart",
-  body: "Every section here is followed by what an editor typed into the Studio to make it. Both come from the same record, so they always match.",
+  body: "Pick any section below to see what an editor typed into the Studio to make it. Page and fields come from the same record, so they always match.",
 };
 
 const insideGrid: FeatureGridSection = {
@@ -59,7 +54,7 @@ export const pages: Page[] = [
         _key: "hero",
         eyebrow: "Next.js + Sanity",
         heading: "A CMS site is more than the CMS",
-        body: "Next Fold is a Next.js and Sanity site I run like a product: schema, Studio, caching, security, analytics, and releases. Editors can change every page, and every part of it is in a public repo.",
+        body: "Next Fold is a Sanity CMS demo on Next.js, run like a product: schema, Studio, caching, security, and releases, all in a public repo.",
         link: { _type: "link", label: "See how it's run", href: "/system" },
       },
       {
@@ -148,38 +143,14 @@ export const pages: Page[] = [
         ],
       },
       {
-        _type: "featureGrid",
-        _key: "hero-fields",
-        heading: "Behind the hero: what the editor filled in",
+        _type: "appBlock",
+        _key: "anatomy",
+        heading: "What the editor filled in",
+        body: "Pick a section to see its fields and how much of each limit they use.",
+        kind: "pageAnatomy",
         theme: "surface",
-        items: [
-          feature("eyebrow", "Eyebrow", filled(insideHero.eyebrow ?? "", 40, false)),
-          feature("heading", "Heading", filled(insideHero.heading, 80, true)),
-          feature("body", "Body", filled(insideHero.body ?? "", 240, false)),
-        ],
       },
       insideGrid,
-      {
-        _type: "featureGrid",
-        _key: "grid-fields",
-        heading: "Behind the grid: what the editor filled in",
-        theme: "surface",
-        items: [
-          feature("heading", "Heading", filled(insideGrid.heading, 80, true)),
-          feature("cards", "Cards", `${insideGrid.items?.length ?? 0} cards, each with a title and a body. Editors can drag them into a new order.`),
-        ],
-      },
-      {
-        _type: "featureGrid",
-        _key: "cta-fields",
-        heading: "Behind the next section: what the editor filled in",
-        theme: "surface",
-        items: [
-          feature("heading", "Heading", filled(insideCta.heading, 80, true)),
-          feature("body", "Body", filled(insideCta.body ?? "", 200, false)),
-          feature("link", "Link", `"${insideCta.link.label}", pointing to ${insideCta.link.href}. Required.`),
-        ],
-      },
       insideCta,
     ],
   },
@@ -255,7 +226,7 @@ export const pages: Page[] = [
         _type: "appBlock",
         _key: "inspector",
         heading: "This page, right now",
-        body: "When this copy of the page entered the cache, the tags that can expire it, and the headers of a fresh request for it.",
+        body: "When it was cached, what clears it, and a live request.",
         kind: "cacheInspector",
         theme: "surface",
       },
@@ -437,7 +408,7 @@ export const settings: SiteSettings = {
   ],
   footerNote: "Next Fold Headless CMS demo",
   projectLinks: [
-    { _key: "docs", _type: "link", label: "Documentation", href: "https://github.com/marcop135/nextfold/tree/main/docs" },
+    { _key: "docs", _type: "link", label: "Documentation", href: "https://github.com/marcop135/nextfold/blob/main/docs/README.md" },
     { _key: "license", _type: "link", label: "MIT license", href: "https://github.com/marcop135/nextfold/blob/main/LICENSE" },
   ],
   siteInfoLinks: [

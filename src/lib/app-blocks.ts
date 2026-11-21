@@ -8,6 +8,11 @@ export const APP_BLOCKS = {
     fallback:
       "An interactive form with the hero's fields and the rules the Studio checks: required heading, length limits, and link format. It runs in the browser on the HTML page.",
   },
+  pageAnatomy: {
+    title: "Page anatomy",
+    fallback:
+      "On the HTML page: this page's sections as a sketch. Pick one to see each field an editor filled in, with its length against the Studio's limit.",
+  },
   cacheInspector: {
     title: "Cache inspector",
     fallback:

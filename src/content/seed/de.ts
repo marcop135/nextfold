@@ -13,17 +13,12 @@ const feature = (key: string, title: string, body: string, link?: { label: strin
 const REPO = "https://github.com/marcop135/nextfold";
 
 /** '„Innen“, 5 von 40 Zeichen', or only the count when the text would not fit on a card. */
-function filled(value: string, max: number, required: boolean): string {
-  const shown = value.length <= 60 ? `„${value}“, ` : "";
-  return `${shown}${value.length} von ${max} Zeichen. ${required ? "Pflichtfeld." : "Optional."}`;
-}
-
 const insideHero: HeroSection = {
   _type: "hero",
   _key: "hero",
   eyebrow: "Von innen",
   heading: "Eine Seite, in ihre Teile zerlegt",
-  body: "Auf jeden Abschnitt folgt, was die Redaktion dafür im Studio eingetragen hat. Beides stammt aus demselben Datensatz und stimmt deshalb immer überein.",
+  body: "Wählen Sie unten einen Abschnitt, um zu sehen, was die Redaktion dafür im Studio eingetragen hat. Seite und Felder stammen aus demselben Datensatz und stimmen deshalb immer überein.",
 };
 
 const insideGrid: FeatureGridSection = {
@@ -59,7 +54,7 @@ export const pages: Page[] = [
         _key: "hero",
         eyebrow: "Next.js + Sanity",
         heading: "Eine CMS-Website ist mehr als das CMS",
-        body: "Next Fold ist eine Next.js- und Sanity-Website, die ich wie ein Produkt betreibe: Schema, Studio, Caching, Sicherheit, Analytics und Releases. Die Redaktion kann jede Seite ändern, und jeder Teil liegt in einem öffentlichen Repository.",
+        body: "Next Fold ist eine Sanity-CMS-Demo auf Next.js, betrieben wie ein Produkt: Schema, Studio, Caching, Sicherheit und Releases, alles in einem öffentlichen Repo.",
         link: { _type: "link", label: "So läuft der Betrieb", href: "/system" },
       },
       {
@@ -168,42 +163,14 @@ export const pages: Page[] = [
         ],
       },
       {
-        _type: "featureGrid",
-        _key: "hero-fields",
-        heading: "Hinter dem Hero: was die Redaktion eingetragen hat",
+        _type: "appBlock",
+        _key: "anatomy",
+        heading: "Was die Redaktion ausgefüllt hat",
+        body: "Wählen Sie einen Abschnitt: Sie sehen seine Felder und wie viel vom Limit jedes nutzt.",
+        kind: "pageAnatomy",
         theme: "surface",
-        items: [
-          feature("eyebrow", "Dachzeile", filled(insideHero.eyebrow ?? "", 40, false)),
-          feature("heading", "Überschrift", filled(insideHero.heading, 80, true)),
-          feature("body", "Text", filled(insideHero.body ?? "", 240, false)),
-        ],
       },
       insideGrid,
-      {
-        _type: "featureGrid",
-        _key: "grid-fields",
-        heading: "Hinter dem Raster: was die Redaktion eingetragen hat",
-        theme: "surface",
-        items: [
-          feature("heading", "Überschrift", filled(insideGrid.heading, 80, true)),
-          feature(
-            "cards",
-            "Kacheln",
-            `${insideGrid.items?.length ?? 0} Kacheln mit je einem Titel und einem Text. Die Redaktion kann sie per Drag-and-drop neu ordnen.`,
-          ),
-        ],
-      },
-      {
-        _type: "featureGrid",
-        _key: "cta-fields",
-        heading: "Hinter dem nächsten Abschnitt: was die Redaktion eingetragen hat",
-        theme: "surface",
-        items: [
-          feature("heading", "Überschrift", filled(insideCta.heading, 80, true)),
-          feature("body", "Text", filled(insideCta.body ?? "", 200, false)),
-          feature("link", "Link", `„${insideCta.link.label}“ verweist auf ${insideCta.link.href}. Pflichtfeld.`),
-        ],
-      },
       insideCta,
     ],
   },
@@ -306,7 +273,7 @@ export const pages: Page[] = [
         _type: "appBlock",
         _key: "inspector",
         heading: "Diese Seite, genau jetzt",
-        body: "Wann diese Kopie der Seite in den Cache kam, welche Tags sie ablaufen lassen können und mit welchen Headern eine neue Anfrage beantwortet wird.",
+        body: "Seit wann sie im Cache liegt, was sie leert, und eine Live-Anfrage.",
         kind: "cacheInspector",
         theme: "surface",
       },
@@ -488,7 +455,7 @@ export const settings: SiteSettings = {
   ],
   footerNote: "Next Fold Headless-CMS-Demo",
   projectLinks: [
-    { _key: "docs", _type: "link", label: "Dokumentation (EN)", href: "https://github.com/marcop135/nextfold/tree/main/docs" },
+    { _key: "docs", _type: "link", label: "Dokumentation (EN)", href: "https://github.com/marcop135/nextfold/blob/main/docs/README.md" },
     { _key: "license", _type: "link", label: "MIT-Lizenz", href: "https://github.com/marcop135/nextfold/blob/main/LICENSE" },
   ],
   siteInfoLinks: [

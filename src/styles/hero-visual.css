@@ -1,0 +1,454 @@
+/* Home hero illustration: Studio rows beside the page they build, the intro sequence, and the reorder controls. */
+
+@layer components {
+  /*
+   * Home hero illustration: the page's sections as Studio rows on the left and page blocks on the right.
+   * Each row and its block appear together, then the status turns to Published. Plays once while on screen.
+   */
+  .hero-visual {
+    margin: 0;
+    min-inline-size: 0;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    box-shadow: 0 1.5rem 3rem -2rem light-dark(rgb(16 17 18 / 0.35), rgb(0 0 0 / 0.8));
+    overflow: hidden;
+
+    & figcaption {
+      padding: var(--space-2) var(--space-3);
+      border-block-start: 1px solid var(--color-border);
+      color: var(--color-muted);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+  }
+
+  .hero-visual__panes {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+
+    @media (max-width: 30rem) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .hero-visual__studio {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-3);
+    border-inline-end: 1px solid var(--color-border);
+    background: color-mix(in oklab, var(--color-bg) 60%, var(--color-surface));
+
+    @media (max-width: 30rem) {
+      border-inline-end: 0;
+      border-block-end: 1px solid var(--color-border);
+    }
+  }
+
+  .hero-visual__label {
+    margin-block-end: var(--space-2);
+    color: var(--color-muted);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+
+  .hero-visual__rows {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0 0 var(--space-3);
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-visual__row {
+    display: grid;
+    min-inline-size: 0;
+    min-block-size: 2.75rem;
+    padding: 0.375rem 0.5rem 0.375rem 0.875rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-inline-start: 0.1875rem solid var(--color-accent);
+    border-radius: 0.375rem;
+    line-height: 1.3;
+  }
+
+
+  /* A heading wraps to a second line before it is cut, so narrow layouts still read it whole. */
+  .hero-visual__heading {
+    display: -webkit-box;
+    min-inline-size: 0;
+    overflow: hidden;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-wrap: balance;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .hero-visual__status {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 0.375rem;
+    margin-block-start: auto;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .hero-visual__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block-start: auto;
+
+    & .hero-visual__status {
+      margin-block-start: 0;
+    }
+  }
+
+  .hero-visual__demo {
+    margin-inline-start: 0.375rem;
+    padding: 0.0625rem 0.375rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-muted);
+    font-size: 0.625rem;
+    letter-spacing: 0.06em;
+  }
+
+  .hero-visual__publish {
+    min-block-size: 1.875rem;
+    padding: 0.25rem 0.75rem;
+    background: light-dark(#c8321f, #d23a2a);
+    color: #ffffff;
+    border: 0;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      background: light-dark(#ad2818, #bb2f20);
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: 0.125rem;
+    }
+  }
+
+  .hero-visual__footer .hero-visual__reset {
+    font-size: 0.75rem;
+  }
+
+  .hero-visual__status[data-state="draft"] {
+    border-color: light-dark(#d4a72c, #9e6a03);
+    background: light-dark(#fff8c5, #2b2111);
+
+    & .hero-visual__status-dot {
+      background: light-dark(#bf8700, #d29922);
+    }
+  }
+
+  .hero-visual__status-dot {
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-radius: 50%;
+    background: var(--color-success);
+
+    @media (forced-colors: active) {
+      background: CanvasText;
+    }
+  }
+
+  .hero-visual__page {
+    padding: var(--space-3);
+    background-image: radial-gradient(var(--color-dot) 0.06rem, transparent 0.07rem);
+    background-size: 0.75rem 0.75rem;
+  }
+
+
+  .hero-visual__blocks {
+    display: grid;
+    gap: 0.625rem;
+  }
+
+  .hero-visual__block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 0.75rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+  }
+
+  .hero-visual__block--hero {
+    padding-block: 0.875rem;
+  }
+
+  .hero-visual__block--callToAction {
+    background: var(--color-band);
+    border-color: var(--color-band);
+
+    & .wf-line {
+      background: color-mix(in oklab, var(--color-on-band) 55%, transparent);
+    }
+  }
+
+  .wf-line {
+    display: block;
+    inline-size: 70%;
+    block-size: 0.375rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--color-text) 20%, transparent);
+  }
+
+  .wf-line--title {
+    inline-size: 85%;
+    block-size: 0.625rem;
+    background: color-mix(in oklab, var(--color-text) 75%, transparent);
+  }
+
+  .wf-line--short {
+    inline-size: 45%;
+  }
+
+  .wf-pill {
+    display: block;
+    inline-size: 3.25rem;
+    block-size: 0.75rem;
+    margin-block-start: 0.125rem;
+    border-radius: 0.25rem;
+    background: #c8321f;
+  }
+
+  .wf-pill--light {
+    background: var(--color-on-band);
+  }
+
+  .wf-row {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    gap: 0.375rem;
+  }
+
+  .wf-card {
+    block-size: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    background: var(--color-bg);
+  }
+
+  .wf-step {
+    block-size: 1.125rem;
+    border-block-start: 0.125rem solid var(--color-accent);
+    background: color-mix(in oklab, var(--color-text) 6%, transparent);
+  }
+
+  .hero-visual:is([data-motion="running"], [data-motion="paused"]) {
+    & .hero-visual__row {
+      animation: hero-visual-row 0.7s calc(var(--i) * var(--step) + 0.2s) both;
+    }
+
+    & .hero-visual__block {
+      animation: hero-visual-block 0.6s calc(var(--i) * var(--step) + 0.4s) both;
+    }
+
+    & .hero-visual__status {
+      animation: hero-visual-publish 0.5s calc(var(--count) * var(--step) + 0.4s) both;
+    }
+  }
+
+  .hero-visual[data-motion="paused"] :is(.hero-visual__row, .hero-visual__block, .hero-visual__status) {
+    animation-play-state: paused;
+  }
+
+  /* Until hydration decides whether the sequence runs, hold the empty first frame. */
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    .hero-visual[data-motion="pending"] :is(.hero-visual__row, .hero-visual__block, .hero-visual__status) {
+      opacity: 0;
+    }
+  }
+
+  @keyframes hero-visual-row {
+    from {
+      opacity: 0;
+      transform: translateX(-0.5rem);
+      box-shadow: 0 0 0 0.1875rem color-mix(in oklab, var(--color-accent) 35%, transparent);
+    }
+
+    50% {
+      opacity: 1;
+      transform: translateX(0);
+      box-shadow: 0 0 0 0.1875rem color-mix(in oklab, var(--color-accent) 35%, transparent);
+    }
+
+    to {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+
+  @keyframes hero-visual-block {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem) scale(0.98);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes hero-visual-publish {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes heading-rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer components {
+  /* Reorder controls on the home hero visual, shown once the intro has played. */
+  .hero-visual__row {
+    position: relative;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.5rem;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease;
+
+    &[data-active] {
+      border-color: var(--color-accent);
+      background: color-mix(in oklab, var(--color-accent) 7%, var(--color-surface));
+    }
+  }
+
+
+  .hero-visual__move {
+    display: flex;
+    gap: 0.25rem;
+    transition: opacity 160ms ease;
+
+    /* With a pointer, the arrows float over the row's end on hover or focus, so the heading keeps the full width. */
+    @media (hover: hover) {
+      position: absolute;
+      inset-block: 0;
+      inset-inline-end: 0;
+      align-items: center;
+      padding-inline: 1.5rem 0.375rem;
+      border-radius: 0 0.375rem 0.375rem 0;
+      background: linear-gradient(to right, transparent, var(--color-surface) 1.25rem);
+      opacity: 0;
+
+      .hero-visual__row:is(:hover, :focus-within, [data-active]) > & {
+        opacity: 1;
+      }
+
+      .hero-visual__row[data-active] > & {
+        background: linear-gradient(to right, transparent, color-mix(in oklab, var(--color-accent) 7%, var(--color-surface)) 1.25rem);
+      }
+    }
+
+    & button {
+      display: grid;
+      place-items: center;
+      inline-size: 1.75rem;
+      block-size: 1.75rem;
+      padding: 0;
+      background: var(--color-bg);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: 0.3125rem;
+      cursor: pointer;
+    }
+
+    & button:hover:not(:disabled) {
+      border-color: var(--color-text);
+    }
+
+    & button:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: 0.0625rem;
+    }
+
+    & button:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    & svg {
+      inline-size: 0.875rem;
+      block-size: 0.875rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  }
+
+  .hero-visual__block {
+    transition:
+      outline-color 160ms ease,
+      box-shadow 160ms ease;
+    outline: 0.125rem solid transparent;
+    outline-offset: 0.125rem;
+
+    &[data-active] {
+      outline-color: var(--color-accent);
+    }
+  }
+
+  .hero-visual__reset {
+    padding: 0;
+    background: none;
+    color: var(--color-link);
+    border: 0;
+    font: inherit;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: 0.125rem;
+    }
+  }
+
+  ::view-transition-group(*) {
+    animation-duration: 280ms;
+  }
+}

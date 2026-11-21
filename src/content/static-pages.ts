@@ -5,7 +5,8 @@ import { SITE_URL } from "@/lib/site";
 export type Inline = string | { text: string; href: string } | { code: string };
 export type Block =
   | { type: "h2"; text: string }
-  | { type: "p"; parts: Inline[] }
+  | { type: "h3"; text: string }
+  | { type: "p"; parts: Inline[]; className?: string }
   | { type: "ul"; items: Inline[][] }
   | { type: "pre"; label: string; text: string; language?: string };
 
@@ -65,34 +66,44 @@ const privacyEn: StaticPage = {
   description:
     "Next Fold uses cookieless self-hosted Matomo and Vercel hosting. Public pages set no cookies, so no consent banner is shown.",
   blocks: [
-    {
-      type: "p",
-      parts: [
-        `This notice covers ${host}. Last updated: 2026-11-20. Controller: `,
-        { text: "Marco Pontili", href: "https://marcopontili.com" },
-        ", contact through ",
-        { text: "marcopontili.com/contact", href: "https://marcopontili.com/contact" },
-        ". Public pages set no cookies, so no consent banner is shown.",
-      ],
-    },
-    { type: "h2", text: "What is processed" },
+    { type: "p", parts: ["Public pages set no cookies, so no consent banner is shown."] },
     {
       type: "ul",
       items: [
-        [
-          "Analytics: a self-hosted, cookieless Matomo on the controller's server at Netsons S.r.l., Italy (EU). It records an anonymised IP address, pages visited, referrer, browser and device type, and time on page, also when your browser sends Do Not Track or Global Privacy Control. The site does not sell or share data for advertising.",
-        ],
-        [
-          "AI assistants: when one fetches a page for a user, for example ChatGPT-User or Claude-User, the server records the URL and user agent.",
-        ],
-        [
-          "Hosting: Vercel Inc. (United States) delivers and secures the site as processor, handling IP address, user agent, and timestamps. Transfers rely on Vercel's Data Processing Addendum with the EU Standard Contractual Clauses.",
-        ],
-        [
-          "Content: page content comes from Sanity (Sanity AS, Norway). While a page is open, your browser connects to Sanity's API to receive content updates, which shares your IP address with Sanity. Signing in to the Studio at ",
-          { code: "/studio" },
-          " stores a Sanity session in the browser. Fonts are served by this site.",
-        ],
+        [`Site: ${host}`],
+        ["Controller: ", { text: "Marco Pontili", href: "https://marcopontili.com" }],
+        ["Contact: ", { text: "marcopontili.com/contact", href: "https://marcopontili.com/contact" }],
+      ],
+    },
+    { type: "h2", text: "What is processed" },
+    { type: "h3", text: "Analytics" },
+    {
+      type: "p",
+      parts: [
+        "A self-hosted, cookieless Matomo on the controller's server at Netsons S.r.l., Italy (EU). It records an anonymised IP address, pages visited, referrer, browser and device type, and time on page, also when your browser sends Do Not Track or Global Privacy Control. The site does not sell or share data for advertising.",
+      ],
+    },
+    { type: "h3", text: "AI assistants" },
+    {
+      type: "p",
+      parts: [
+        "When an assistant fetches a page for a user, for example ChatGPT-User or Claude-User, the server records the URL and user agent.",
+      ],
+    },
+    { type: "h3", text: "Hosting" },
+    {
+      type: "p",
+      parts: [
+        "Vercel Inc. (United States) delivers and secures the site as processor, handling IP address, user agent, and timestamps. Transfers rely on Vercel's Data Processing Addendum with the EU Standard Contractual Clauses.",
+      ],
+    },
+    { type: "h3", text: "Content" },
+    {
+      type: "p",
+      parts: [
+        "Page content comes from Sanity (Sanity AS, Norway). While a page is open, your browser connects to Sanity's API to receive content updates, which shares your IP address with Sanity. Signing in to the Studio at ",
+        { code: "/studio" },
+        " stores a Sanity session in the browser. Fonts are served by this site.",
       ],
     },
     { type: "h2", text: "Why, and for how long" },
@@ -109,6 +120,7 @@ const privacyEn: StaticPage = {
         "You may have the right of access, rectification, erasure, restriction, objection, and portability; use the contact page above. You may also complain to the data protection authority where you live or work.",
       ],
     },
+    { type: "p", parts: ["Last updated: 2026-11-20"], className: "prose__updated" },
   ],
 };
 
@@ -163,34 +175,44 @@ const privacyDe: StaticPage = {
   description:
     "Next Fold nutzt ein selbst gehostetes Matomo ohne Cookies und Hosting bei Vercel. Öffentliche Seiten setzen keine Cookies, daher gibt es kein Cookie-Banner.",
   blocks: [
-    {
-      type: "p",
-      parts: [
-        `Dieser Hinweis gilt für ${host}. Stand: 20.11.2026. Verantwortlicher: `,
-        { text: "Marco Pontili", href: "https://marcopontili.com" },
-        ", Kontakt über ",
-        { text: "marcopontili.com/contact", href: "https://marcopontili.com/contact" },
-        ". Öffentliche Seiten setzen keine Cookies, daher gibt es kein Cookie-Banner.",
-      ],
-    },
-    { type: "h2", text: "Was verarbeitet wird" },
+    { type: "p", parts: ["Öffentliche Seiten setzen keine Cookies, daher gibt es kein Cookie-Banner."] },
     {
       type: "ul",
       items: [
-        [
-          "Analytics: ein selbst gehostetes Matomo ohne Cookies auf dem Server des Verantwortlichen bei Netsons S.r.l., Italien (EU). Es erfasst die anonymisierte IP-Adresse, besuchte Seiten, Referrer, Browser- und Gerätetyp sowie die Verweildauer, auch wenn Ihr Browser Do Not Track oder Global Privacy Control sendet. Die Website verkauft keine Daten und gibt keine für Werbung weiter.",
-        ],
-        [
-          "KI-Assistenten: Ruft einer eine Seite für eine Person ab, zum Beispiel ChatGPT-User oder Claude-User, erfasst der Server URL und User-Agent.",
-        ],
-        [
-          "Hosting: Vercel Inc. (USA) liefert die Website als Auftragsverarbeiter aus, sichert sie ab und verarbeitet dabei IP-Adresse, User-Agent und Zeitstempel. Übermittlungen in die USA stützen sich auf das Data Processing Addendum von Vercel mit den EU-Standardvertragsklauseln.",
-        ],
-        [
-          "Inhalte: Die Seiteninhalte kommen von Sanity (Sanity AS, Norwegen). Solange eine Seite offen ist, verbindet sich Ihr Browser mit der API von Sanity, um Aktualisierungen zu erhalten, dabei erfährt Sanity Ihre IP-Adresse. Bei der Anmeldung im Studio unter ",
-          { code: "/studio" },
-          " wird eine Sanity-Sitzung im Browser gespeichert. Schriften liefert diese Website selbst aus.",
-        ],
+        [`Website: ${host}`],
+        ["Verantwortlicher: ", { text: "Marco Pontili", href: "https://marcopontili.com" }],
+        ["Kontakt: ", { text: "marcopontili.com/contact", href: "https://marcopontili.com/contact" }],
+      ],
+    },
+    { type: "h2", text: "Was verarbeitet wird" },
+    { type: "h3", text: "Analytics" },
+    {
+      type: "p",
+      parts: [
+        "Ein selbst gehostetes Matomo ohne Cookies auf dem Server des Verantwortlichen bei Netsons S.r.l., Italien (EU). Es erfasst die anonymisierte IP-Adresse, besuchte Seiten, Referrer, Browser- und Gerätetyp sowie die Verweildauer, auch wenn Ihr Browser Do Not Track oder Global Privacy Control sendet. Die Website verkauft keine Daten und gibt keine für Werbung weiter.",
+      ],
+    },
+    { type: "h3", text: "KI-Assistenten" },
+    {
+      type: "p",
+      parts: [
+        "Ruft einer eine Seite für eine Person ab, zum Beispiel ChatGPT-User oder Claude-User, erfasst der Server URL und User-Agent.",
+      ],
+    },
+    { type: "h3", text: "Hosting" },
+    {
+      type: "p",
+      parts: [
+        "Vercel Inc. (USA) liefert die Website als Auftragsverarbeiter aus, sichert sie ab und verarbeitet dabei IP-Adresse, User-Agent und Zeitstempel. Übermittlungen in die USA stützen sich auf das Data Processing Addendum von Vercel mit den EU-Standardvertragsklauseln.",
+      ],
+    },
+    { type: "h3", text: "Inhalte" },
+    {
+      type: "p",
+      parts: [
+        "Die Seiteninhalte kommen von Sanity (Sanity AS, Norwegen). Solange eine Seite offen ist, verbindet sich Ihr Browser mit der API von Sanity, um Aktualisierungen zu erhalten, dabei erfährt Sanity Ihre IP-Adresse. Bei der Anmeldung im Studio unter ",
+        { code: "/studio" },
+        " wird eine Sanity-Sitzung im Browser gespeichert. Schriften liefert diese Website selbst aus.",
       ],
     },
     { type: "h2", text: "Zweck und Speicherdauer" },
@@ -207,6 +229,7 @@ const privacyDe: StaticPage = {
         "Sie haben gegebenenfalls das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Widerspruch und Datenübertragbarkeit; nutzen Sie dafür die oben genannte Kontaktseite. Sie können sich außerdem bei der Datenschutzaufsichtsbehörde an Ihrem Wohn- oder Arbeitsort beschweren.",
       ],
     },
+    { type: "p", parts: ["Stand: 20.11.2026"], className: "prose__updated" },
   ],
 };
 
