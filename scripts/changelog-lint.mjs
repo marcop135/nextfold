@@ -1,6 +1,13 @@
-// Checks CHANGELOG.md against its own format block: Keep a Changelog sections in order, no duplicates,
-// one-line bullets of at most 120 visible characters (link URLs excluded). Ported from Next Story.
-// Run with `npm run changelog:lint`.
+/**
+ * Changelog lint: checks CHANGELOG.md against the format block at its top.
+ *
+ * Run:    npm run changelog:lint (CI runs it on every pull request)
+ * Reads:  CHANGELOG.md
+ * Checks: the format block is present; version headings are "## [Unreleased]" or "## [x.y.z] - YYYY-MM-DD";
+ *         ### sections are Added, Changed, Removed, Fixed, Security, in that order, each at most once;
+ *         every bullet sits in a section, fits 120 visible characters (link URLs excluded), and has no em dash.
+ * Exit:   0 when clean; 1 with one line per problem on stderr.
+ */
 import { readFileSync } from "node:fs";
 
 const md = readFileSync(new URL("../CHANGELOG.md", import.meta.url), "utf8");
@@ -8,7 +15,9 @@ const lines = md.split(/\r?\n/);
 const errors = [];
 
 const SECTIONS = ["Added", "Changed", "Removed", "Fixed", "Security"];
+/** Lines the format block must keep, so the rules this script enforces stay written down in the file itself. */
 const PREAMBLE = ["- **Format:**", "- **Voice:**", "- **Length:**"];
+const EM_DASH = "\u2014";
 
 for (const needle of PREAMBLE) {
   if (!md.includes(needle)) errors.push(`Missing format line starting "${needle}"`);
@@ -17,6 +26,7 @@ for (const needle of PREAMBLE) {
 /** Visible length: a Markdown link counts as its text only. */
 const visibleLength = (text) => text.replace(/\[([^\]]*)\]\([^)]*\)/g, "$1").length;
 
+// One pass over the file: `version` is the current ## heading, `seen` the ### sections met under it so far.
 let version = null;
 let seen = [];
 lines.forEach((line, index) => {
@@ -43,12 +53,13 @@ lines.forEach((line, index) => {
     return;
   }
 
+  // Bullets before the first ## heading belong to the format block and are not checked.
   const bullet = line.match(/^- (.+)$/);
   if (!bullet || !version) return;
   if (!seen.length) errors.push(`${at}: bullet outside a ### section under ${version}`);
   const length = visibleLength(bullet[1]);
   if (length > 120) errors.push(`${at}: ${length} visible characters, max 120`);
-  if (line.includes("—")) errors.push(`${at}: em dash`);
+  if (line.includes(EM_DASH)) errors.push(`${at}: em dash`);
 });
 
 if (errors.length) {

@@ -1,8 +1,16 @@
-// Round the README header and content-flow diagram corners, as Next Story does.
-// Run from the repository root after rendering the brand SVGs or the diagram: node scripts/round-readme-images.mjs
+/**
+ * Round README images: gives the README header and the content-flow diagram rounded corners.
+ *
+ * Run:     node scripts/round-readme-images.mjs, after `node .github/brand/art.mjs` renders the brand SVGs
+ *          or after the diagram is re-rendered from docs/content-flow.mmd (see docs/operations.md)
+ * Reads:   .github/brand/readme-{light,dark}.svg, docs/content-flow-{light,dark}.svg
+ * Writes:  .github/brand/readme-{light,dark}-rounded.svg (new files; the square sources stay for social.png),
+ *          docs/content-flow-{light,dark}.svg (in place; safe to run again, the old background is replaced)
+ */
 import { readFileSync, writeFileSync } from "node:fs";
 
 const root = new URL("../", import.meta.url);
+/** The page background per theme (--color-bg in globals.css), so the rounded diagram blends into the site. */
 const ground = { light: "#F3F3F5", dark: "#101112" };
 
 for (const theme of ["light", "dark"]) {
