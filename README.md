@@ -2,7 +2,7 @@
   <a href="https://nextfold.marcopontili.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset=".github/brand/readme-dark-rounded.svg" />
-      <img src=".github/brand/readme-light-rounded.svg" alt="Next Fold, Next.js + Sanity: a CMS site is more than the CMS. A page list for Inside a page, Guardrails, Caching, and How it's run" width="100%" />
+      <img src=".github/brand/readme-light-rounded.svg" alt="Next Fold, Next.js + Sanity CMS Demo: a CMS site is more than the CMS. A page list for Inside a page, Guardrails, Caching, and How it's run" width="100%" />
     </picture>
   </a>
 </p>
@@ -20,6 +20,17 @@
 **A CMS site is more than the CMS.** Next Fold is a [Next.js](https://nextjs.org/) and [Sanity CMS](https://www.sanity.io/) demo that runs the rest in public: guardrails, caching, i18n, security, CI, and releases.
 
 Every page shows one part working and links to its code. **Editors** fill typed sections in [Studio](https://nextfold.marcopontili.com/studio); **developers** own the schema, queries, and components.
+
+## Features
+
+- Typed sections: editors fill fields; developers own the schema, queries, and components
+- Guardrails block publish until the page passes the rules
+- Cache expires on publish, not on a timer
+- English and German, Studio included
+- Runs on seed pages with no Sanity project
+- Every page also as Markdown, with `llms.txt` and a sitemap
+- Playwright and axe in CI for every page, both languages
+- Agent skills for coding agents
 
 ## Explore the demo
 
@@ -79,6 +90,12 @@ Open http://localhost:3100. Without `NEXT_PUBLIC_SANITY_PROJECT_ID`, the bundled
 | `npm start` | Serve the production build on port 3100 |
 | `npm run typegen` | Regenerate the Sanity schema and types after a schema or query change |
 | `npm run seed:import` | Copy the seed pages and site settings into your Sanity dataset |
+
+## Agent skills
+
+Markdown skills for Claude Code, Cursor, and Codex ship in the repo and load when you open the clone. Each one points an agent at the right how-to and the checks CI runs.
+
+[Agent skills docs](docs/agent-skills.md)
 
 ## Sanity setup
 
