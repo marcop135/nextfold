@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-22
+
 ### Added
 
 - Repo: Add agent skills for Claude Code, Cursor, and Codex that route to the how-to docs ([#115](https://github.com/marcop135/nextfold/pull/115)) ([#114](https://github.com/marcop135/nextfold/issues/114)).
