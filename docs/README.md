@@ -12,6 +12,7 @@ Start with Sanity setup to load your own content, then read Architecture to find
 | [Operations](operations.md) | Ship a change, cut a release, deploy, and regenerate the brand images |
 | [Vercel](vercel.md) | Check the project settings and region, and set up the firewall |
 | [Cloudflare](cloudflare.md) | See why DNS is not proxied, and turn on DNSSEC and CAA |
+| [Agent skills](agent-skills.md) | See the skills a coding agent loads in this repo, and add one |
 
 ## Reference
 

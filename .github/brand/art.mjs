@@ -79,7 +79,7 @@ function readmeArt(p, { width, height, label }) {
   const rows = PAGES.map(
     (page, i) => `<rect x="${px + 24}" y="${rowY(i)}" width="${pw - 48}" height="72" rx="12" fill="${p.surface}" stroke="${p.border}"/>
     <rect x="${px + 24}" y="${rowY(i)}" width="6" height="72" rx="3" fill="${p.accent}"/>
-    <text x="${px + 52}" y="${rowY(i) + 46}" font-family="Geist" font-weight="500" font-size="31" fill="${p.text}">${page.name.replaceAll("'", "&#8217;")}</text>`,
+    <text x="${px + 52}" y="${rowY(i) + 46}" font-family="Geist" font-weight="400" font-size="28" fill="${p.text}">${page.name.replaceAll("'", "&#8217;")}</text>`,
   ).join("\n    ");
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${label}">
   <title>Next Fold</title>
@@ -98,8 +98,8 @@ function readmeArt(p, { width, height, label }) {
   ${rows}
   <path d="M${px + pw} ${py + ph - fold}L${px + pw - fold} ${py + ph}L${px + pw - fold} ${py + ph - fold}z" fill="${p.accent}" filter="url(#lift)"/>
   <rect x="${x0}" y="${213}" width="20" height="20" fill="${p.accent}"/>
-  <text x="${x0 + 34}" y="${232}" font-family="Geist Mono" font-weight="500" font-size="28" letter-spacing="2" fill="${p.muted}">NEXT.JS + SANITY</text>
-  <text x="${x0 - 6}" y="${364}" font-family="Geist" font-weight="800" font-size="132" letter-spacing="-6" fill="${p.text}">Next <tspan fill="${p.accent}">Fold</tspan></text>
+  <text x="${x0 + 34}" y="${232}" font-family="Geist Mono" font-weight="500" font-size="22" letter-spacing="1.5" fill="${p.muted}">NEXT.JS + SANITY CMS DEMO</text>
+  <text x="${x0 - 6}" y="${364}" font-family="Geist" font-weight="700" font-size="132" letter-spacing="-6" fill="${p.text}">Next <tspan fill="${p.accent}">Fold</tspan></text>
   <text x="${x0}" y="${440}" font-family="Geist" font-weight="400" font-size="33" fill="${p.text}" data-fit-w="600">A CMS site is more than the CMS.</text>
 </svg>
 `;
@@ -107,7 +107,7 @@ function readmeArt(p, { width, height, label }) {
 
 writeFileSync(new URL(".github/brand/og.svg", root), art(PALETTE.light, { width: 1200, height: 630, label: `Next Fold: ${TAGLINE}` }));
 const README_LABEL =
-  "Next Fold, Next.js + Sanity: a CMS site is more than the CMS. A page list with a folded corner: Inside a page, Guardrails, Caching, How it's run";
+  "Next Fold, Next.js + Sanity CMS Demo: a CMS site is more than the CMS. A page list with a folded corner: Inside a page, Guardrails, Caching, How it's run";
 const outputs = [
   ["readme-light.svg", README.light],
   ["readme-dark.svg", README.dark],
