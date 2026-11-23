@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Tooling: Use TypeScript 7 for typechecking; retain TypeScript 5.9 for Next.js and ESLint compatibility.
+
 ## [0.9.0] - 2026-11-22
 
 ### Added
