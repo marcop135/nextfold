@@ -8,8 +8,8 @@
 
 ### Fixed
 
-- Pages: Reject malformed Accept media types and weights when choosing HTML or Markdown.
-- Pages: Preserve quoted Accept parameters when choosing HTML or Markdown.
+- Pages: Reject malformed Accept media types and weights when choosing HTML or Markdown ([#134](https://github.com/marcop135/nextfold/pull/134)) ([#132](https://github.com/marcop135/nextfold/issues/132)).
+- Pages: Preserve quoted Accept parameters when choosing HTML or Markdown ([#134](https://github.com/marcop135/nextfold/pull/134)) ([#132](https://github.com/marcop135/nextfold/issues/132)).
 
 ## [0.9.2] - 2026-11-23
 
