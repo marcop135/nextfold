@@ -2,15 +2,33 @@ export type Representation = "html" | "markdown" | "none";
 
 type Range = { type: string; subtype: string; q: number };
 
+/** HTTP quoted strings can contain delimiters and backslash-escaped characters. */
+function splitOutsideQuotes(value: string, delimiter: string): string[] {
+  const parts: string[] = [];
+  let start = 0;
+  let quoted = false;
+  for (let index = 0; index < value.length; index++) {
+    if (quoted && value[index] === "\\") {
+      index++;
+    } else if (value[index] === '"') {
+      quoted = !quoted;
+    } else if (!quoted && value[index] === delimiter) {
+      parts.push(value.slice(start, index));
+      start = index + 1;
+    }
+  }
+  return quoted ? [] : [...parts, value.slice(start)];
+}
+
 function parseAccept(header: string): Range[] {
-  return header
-    .split(",")
+  return splitOutsideQuotes(header, ",")
     .map((part) => {
-      const [media, ...params] = part.trim().split(";").map((s) => s.trim());
-      const [type = "", subtype = ""] = media.toLowerCase().split("/");
+      const [media, ...params] = splitOutsideQuotes(part.trim(), ";").map((s) => s.trim());
+      const [type = "", subtype = "", extra] = media.toLowerCase().split("/");
       const qParam = params.find((p) => p.toLowerCase().startsWith("q="));
-      const q = qParam ? Number.parseFloat(qParam.slice(2)) : 1;
-      return { type, subtype, q: Number.isFinite(q) ? Math.min(Math.max(q, 0), 1) : 0 };
+      const weight = qParam?.slice(2);
+      const q = weight === undefined ? 1 : /^(?:0(?:\.[0-9]{0,3})?|1(?:\.0{0,3})?)$/.test(weight) ? Number(weight) : 0;
+      return { type, subtype: extra === undefined ? subtype : "", q };
     })
     .filter((range) => range.type && range.subtype);
 }
