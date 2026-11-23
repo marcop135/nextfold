@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+## [0.9.3] - 2026-11-23
+
 ### Changed
 
 - Tooling: Restore TypeScript 5.9 typechecking ([#133](https://github.com/marcop135/nextfold/pull/133)) ([#131](https://github.com/marcop135/nextfold/issues/131)).
