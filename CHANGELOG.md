@@ -8,7 +8,7 @@
 
 ### Fixed
 
-- Studio: Reject cross-origin paths and malformed HTTPS URLs in link fields.
+- Studio: Reject cross-origin paths and malformed HTTPS URLs in link fields ([#124](https://github.com/marcop135/nextfold/pull/124)) ([#120](https://github.com/marcop135/nextfold/issues/120)).
 
 ## [0.9.0] - 2026-11-22
 
