@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Tooling: Use TypeScript 7 for typechecking; keep 5.9 for tooling APIs ([#122](https://github.com/marcop135/nextfold/pull/122)) ([#119](https://github.com/marcop135/nextfold/issues/119)).
+
 ## [0.9.0] - 2026-11-22
 
 ### Added

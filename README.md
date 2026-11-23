@@ -60,7 +60,7 @@ Every page also exists in German under [`/de`](https://nextfold.marcopontili.com
 
 | Layer | Tools |
 | --- | --- |
-| Framework | Next.js 16 App Router, React 19, TypeScript 5 |
+| Framework | Next.js 16 App Router, React 19, TypeScript 7 typechecking (5.9 for tooling APIs) |
 | Styling | Plain CSS with cascade layers and `light-dark()` |
 | Content | Sanity Studio 6, GROQ, Visual Editing, English and German |
 | Caching | Next.js Cache Components, expired on publish |
