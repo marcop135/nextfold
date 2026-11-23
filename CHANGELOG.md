@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Tooling: Restore TypeScript 5.9 typechecking.
+
 ## [0.9.2] - 2026-11-23
 
 ### Changed
