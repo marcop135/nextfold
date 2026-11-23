@@ -9,10 +9,10 @@
     },
     {
       "source": "og.svg",
-      "output": "../../public/og.jpg",
+      "output": "../../public/og.png",
       "width": 1200,
       "height": 630,
-      "maxBytes": 300000
+      "maxBytes": 50000
     },
     {
       "source": "readme-light.svg",
