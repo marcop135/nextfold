@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-11-23
+
 ### Changed
 
 - README: Clarify setup and contributions; move Agent skills before Quick start ([#123](https://github.com/marcop135/nextfold/pull/123)) ([#121](https://github.com/marcop135/nextfold/issues/121)).
