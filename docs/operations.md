@@ -49,11 +49,11 @@ Analytics run on a self-hosted Matomo with a Tag Manager container. The site loa
 
 ## Brand images
 
-[`art.mjs`](../.github/brand/art.mjs) writes `og.svg` and the README headers, each from its own layout; [`round-readme-images.mjs`](../scripts/round-readme-images.mjs) adds the rounded variants:
+[`art.mjs`](../.github/brand/art.mjs) writes the README headers and fits the light header proportionally into the 1200x630 `og.svg`; [`round-readme-images.mjs`](../scripts/round-readme-images.mjs) adds the rounded variants:
 
 ```bash
-node .github/brand/art.mjs
+node .github/brand/art.mjs --render-og
 node scripts/round-readme-images.mjs
 ```
 
-The PNG and JPG outputs (`public/og.jpg`, `.github/brand/social.png`, `.github/brand/readme-{light,dark}.png`) are rendered from those SVGs with a headless browser and committed.
+The command renders `public/og.png` in system Chrome as a lossless PNG under 50 KB. The other committed PNG outputs (`.github/brand/social.png`, `.github/brand/readme-{light,dark}.png`) are rendered from their SVGs with a headless browser.

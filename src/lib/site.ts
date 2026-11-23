@@ -9,7 +9,7 @@ export const SITE_DESCRIPTIONS: Record<Locale, string> = {
 };
 export const AUTHOR = { name: "Marco Pontili", url: "https://marcopontili.com" } as const;
 export const REPO_URL = "https://github.com/marcop135/nextfold";
-export const OG_IMAGE = { url: "/og.jpg", width: 1200, height: 630, alt: "Next Fold: Next.js + Sanity CMS, run end to end" };
+export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, type: "image/png", alt: "Next Fold: Next.js + Sanity CMS Demo. A CMS site is more than the CMS." };
 
 /** Preview deployments stay out of search; production and local builds are indexable. */
 export const IS_INDEXABLE = process.env.VERCEL_ENV !== "preview";
@@ -34,12 +34,6 @@ export function markdownPath(pathname: string): string {
 /** Site-wide Link header: discovery files for crawlers and agents. */
 export const DISCOVERY_LINK = '</sitemap.xml>; rel="sitemap", </llms.txt>; rel="describedby"; type="text/plain"';
 
-/** Generated Open Graph card for a locale-neutral path, served by src/app/og: /og/home, /og/de/guardrails. */
-export function ogImagePath(path: string, locale: Locale = defaultLocale): string {
-  const slug = path === "/" ? "home" : path.slice(1);
-  return locale === defaultLocale ? `/og/${slug}` : `/og/${locale}/${slug}`;
-}
-
 /** `path` is locale-neutral (/guardrails); the URLs in the result carry the locale. */
 export function pageMetadata({
   path,
@@ -53,7 +47,7 @@ export function pageMetadata({
   locale?: Locale;
 }): Metadata {
   const url = localizedPath(path, locale);
-  const image = { url: ogImagePath(path, locale), width: OG_IMAGE.width, height: OG_IMAGE.height, alt: title };
+  const image = OG_IMAGE;
   return {
     title: { absolute: title },
     description,
@@ -124,7 +118,7 @@ export function pageJsonLd({
       author: { "@id": `${SITE_URL}/#author` },
       primaryImageOfPage: {
         "@type": "ImageObject",
-        url: `${SITE_URL}${ogImagePath(path, locale)}`,
+        url: `${SITE_URL}${OG_IMAGE.url}`,
         width: OG_IMAGE.width,
         height: OG_IMAGE.height,
       },
