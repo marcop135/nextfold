@@ -6,6 +6,11 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Pages: Reject malformed Accept media types and weights when choosing HTML or Markdown.
+- Pages: Preserve quoted Accept parameters when choosing HTML or Markdown.
+
 ## [0.9.2] - 2026-11-23
 
 ### Changed
