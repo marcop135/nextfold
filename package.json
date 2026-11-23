@@ -14,7 +14,8 @@
     "smoke": "node scripts/smoke.mjs",
     "content:check": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/content-check.mjs",
     "seed:import": "sanity exec scripts/import-seed.ts --with-user-token",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:unit": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/*.test.mjs"
   },
   "dependencies": {
     "@sanity/vision": "^6.23.0",

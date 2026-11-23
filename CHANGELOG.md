@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Studio: Reject cross-origin paths and malformed HTTPS URLs in link fields.
+
 ## [0.9.0] - 2026-11-22
 
 ### Added

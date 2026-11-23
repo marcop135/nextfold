@@ -78,7 +78,14 @@ export function checkCount(items: unknown[] | null | undefined, rule: CountRule)
 /** A link target is a path on this site or an https:// address. */
 export function checkHref(value: string | null | undefined, messages: Messages = MESSAGES): string | null {
   if (!value) return null;
-  return value.startsWith("/") || value.startsWith("https://") ? null : messages.href;
+  if (/[\\\r\n\t]/.test(value)) return messages.href;
+  if (value.startsWith("/") && !value.startsWith("//")) return null;
+  if (!value.startsWith("https://") || value[8] === "/") return messages.href;
+  try {
+    return new URL(value).hostname ? null : messages.href;
+  } catch {
+    return messages.href;
+  }
 }
 
 /** The link target as the Studio checks it: required, then the format. */
