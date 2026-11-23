@@ -58,16 +58,28 @@ Every page also exists in German under [`/de`](https://nextfold.marcopontili.com
 
 ## Tech stack
 
-| Layer | Tools |
+| Area | Technology |
 | --- | --- |
-| Framework | Next.js 16 App Router, React 19, TypeScript 5 |
-| Styling | Plain CSS with cascade layers and `light-dark()` |
-| Content | Sanity Studio 6, GROQ, Visual Editing, English and German |
-| Caching | Next.js Cache Components, expired on publish |
-| Quality | ESLint, Sanity TypeGen, GitHub Actions CI, Dependabot |
+| Language | TypeScript 7 typechecking; 5.9 for tooling APIs |
+| Framework | Next.js 16, App Router |
+| UI library | React 19 |
+| Styling | Plain CSS with cascade layers |
+| CMS | Sanity Studio 6, GROQ queries, Visual Editing |
+| Localization | English and German content and Studio UI |
+| Caching | Next.js Cache Components, invalidated on publish |
+| Testing | Playwright, axe accessibility checks |
+| Code quality | ESLint, Sanity TypeGen, Dependabot |
+| CI | GitHub Actions |
 | Security | Security headers, CodeQL, OpenSSF Scorecard |
 | Analytics | Self-hosted Matomo, cookieless |
-| Hosting | Vercel, Cloudflare DNS |
+| Hosting | Vercel |
+| DNS | Cloudflare, DNS only |
+
+## Agent skills
+
+Markdown skills for Claude Code, Cursor, and Codex ship in the repo and load when you open the clone. Each one points an agent at the right how-to and the checks CI runs.
+
+[Agent skills docs](docs/agent-skills.md)
 
 ## Quick start
 
@@ -91,12 +103,6 @@ Open http://localhost:3100. Without `NEXT_PUBLIC_SANITY_PROJECT_ID`, the bundled
 | `npm run typegen` | Regenerate the Sanity schema and types after a schema or query change |
 | `npm run seed:import` | Copy the seed pages and site settings into your Sanity dataset |
 
-## Agent skills
-
-Markdown skills for Claude Code, Cursor, and Codex ship in the repo and load when you open the clone. Each one points an agent at the right how-to and the checks CI runs.
-
-[Agent skills docs](docs/agent-skills.md)
-
 ## Sanity setup
 
 Create a project and dataset, add the CORS origin, and publish a first page with [Sanity setup](docs/sanity-setup.md).
@@ -114,7 +120,9 @@ All variables are optional in local mode. Set them in `.env` to load content fro
 
 ## Contributing
 
-Found a bug or have an idea? [Open an issue](https://github.com/marcop135/nextfold/issues/new/choose), or read the [contributing guide](.github/CONTRIBUTING.md) before a pull request. To report a vulnerability, use [private reporting](.github/SECURITY.md) instead of a public issue.
+Report bugs or propose features through [Issues](https://github.com/marcop135/nextfold/issues/new/choose). For code or documentation changes, follow the [contributing guide](.github/CONTRIBUTING.md) for local setup, checks, and pull requests.
+
+Report vulnerabilities privately using the [security policy](.github/SECURITY.md), not a public issue.
 
 ## Author
 
