@@ -60,7 +60,7 @@ Every page also exists in German under [`/de`](https://nextfold.marcopontili.com
 
 | Area | Technology |
 | --- | --- |
-| Language | TypeScript 5 |
+| Language | TypeScript 7 typechecking; 5.9 for tooling APIs |
 | Framework | Next.js 16, App Router |
 | UI library | React 19 |
 | Styling | Plain CSS with cascade layers |
