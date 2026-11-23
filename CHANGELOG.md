@@ -11,6 +11,10 @@
 - README: Clarify setup and contributions; move Agent skills before Quick start ([#123](https://github.com/marcop135/nextfold/pull/123)) ([#121](https://github.com/marcop135/nextfold/issues/121)).
 - Tooling: Use TypeScript 7 for typechecking; keep 5.9 for tooling APIs ([#122](https://github.com/marcop135/nextfold/pull/122)) ([#119](https://github.com/marcop135/nextfold/issues/119)).
 
+### Fixed
+
+- Studio: Reject cross-origin paths and malformed HTTPS URLs in link fields ([#124](https://github.com/marcop135/nextfold/pull/124)) ([#120](https://github.com/marcop135/nextfold/issues/120)).
+
 ## [0.9.0] - 2026-11-22
 
 ### Added
