@@ -6,16 +6,19 @@
 
 ## [Unreleased]
 
+### Changed
+
+- README: Clarify the tech stack and contribution guidance; place Agent skills before Quick start.
+
 ## [0.9.0] - 2026-11-22
 
 ### Added
 
 - Repo: Add agent skills for Claude Code, Cursor, and Codex that route to the how-to docs ([#115](https://github.com/marcop135/nextfold/pull/115)) ([#114](https://github.com/marcop135/nextfold/issues/114)).
-- Docs: Add a Features list to the README ([#115](https://github.com/marcop135/nextfold/pull/115)) ([#114](https://github.com/marcop135/nextfold/issues/114)).
 
 ### Changed
 
-- Brand: Set the README header stack line to Next.js + Sanity CMS Demo, and lighten the wordmark ([#115](https://github.com/marcop135/nextfold/pull/115)) ([#114](https://github.com/marcop135/nextfold/issues/114)).
+- README: Add Features, set the header to Next.js + Sanity CMS Demo, and lighten the wordmark ([#115](https://github.com/marcop135/nextfold/pull/115)) ([#114](https://github.com/marcop135/nextfold/issues/114)).
 
 ## [0.8.0] - 2026-11-21
 
