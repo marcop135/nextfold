@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Brand: Use the README light image as a 1200x630, 25 KB PNG for social previews ([#127](https://github.com/marcop135/nextfold/issues/127)).
+- Brand: Use the README light image as a 1200x630, 25 KB PNG for social previews ([#128](https://github.com/marcop135/nextfold/pull/128)) ([#127](https://github.com/marcop135/nextfold/issues/127)).
 
 ## [0.9.1] - 2026-11-23
 
