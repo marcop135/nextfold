@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Tooling: Restore TypeScript 5.9 typechecking ([#133](https://github.com/marcop135/nextfold/pull/133)) ([#131](https://github.com/marcop135/nextfold/issues/131)).
+
 ### Fixed
 
 - Pages: Reject malformed Accept media types and weights when choosing HTML or Markdown ([#134](https://github.com/marcop135/nextfold/pull/134)) ([#132](https://github.com/marcop135/nextfold/issues/132)).
@@ -15,7 +19,7 @@
 
 ### Changed
 
-- Brand: Use the README light image as a 1200x630, 25 KB PNG for social previews ([#128](https://github.com/marcop135/nextfold/pull/128)) ([#127](https://github.com/marcop135/nextfold/issues/127)).
+- Brand: Reuse the README light image for social previews ([#128](https://github.com/marcop135/nextfold/pull/128)) ([#127](https://github.com/marcop135/nextfold/issues/127)).
 
 ## [0.9.1] - 2026-11-23
 
