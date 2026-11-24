@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Analytics: Send AI-assistant requests by POST and report delivery failures without affecting page responses.
+
 ## [0.9.3] - 2026-11-23
 
 ### Changed
