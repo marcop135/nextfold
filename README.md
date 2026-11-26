@@ -118,6 +118,10 @@ All variables are optional in local mode. Set them in `.env` to load content fro
 | `NEXT_PUBLIC_SITE_URL` | Canonical URLs, sitemap, JSON-LD | `https://nextfold.marcopontili.com` |
 | `NEXT_PUBLIC_MATOMO_SITE_ID`, `NEXT_PUBLIC_MATOMO_CONTAINER_ID` | Cookieless analytics | Empty: no tracking |
 
+## Next Story
+
+Next Story is the Storyblok counterpart of this Sanity demo: same Next.js App Router approach with a different headless CMS. See [Next Story](https://github.com/marcop135/nextstory).
+
 ## Contributing
 
 Report bugs or propose features through [Issues](https://github.com/marcop135/nextfold/issues/new/choose). For code or documentation changes, follow the [contributing guide](.github/CONTRIBUTING.md) for local setup, checks, and pull requests.
