@@ -8,7 +8,7 @@
 
 ### Added
 
-- Site: Link the Next Story companion project in the footer and README ([#142](https://github.com/marcop135/nextfold/issues/142)).
+- Site: Link the Next Story companion project in the footer and README ([#146](https://github.com/marcop135/nextfold/pull/146)) ([#142](https://github.com/marcop135/nextfold/issues/142)).
 
 ### Changed
 
