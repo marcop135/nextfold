@@ -4,7 +4,7 @@ import { ScrollReveal } from "@/components/layout/ScrollReveal";
 import { SiteHeader, type NavItem } from "@/components/layout/SiteHeader";
 import { localizeHref, localizedPath, type Locale } from "@/lib/i18n";
 import { getMessages } from "@/lib/messages";
-import { AUTHOR, REPO_URL } from "@/lib/site";
+import { AUTHOR, NEXTSTORY_URL, REPO_URL } from "@/lib/site";
 import { getSiteSettings } from "@/sanity/lib/fetch-page";
 import { getFetchOptions } from "@/sanity/lib/live";
 import type { SiteSettings } from "@/sanity/types";
@@ -85,6 +85,9 @@ export async function SiteChrome({ children, locale }: { children: ReactNode; lo
               {settings.projectLinks?.map((link) => (
                 <SiteLink key={link._key} link={link} locale={locale} />
               ))}
+              <a className="footer-sibling" href={NEXTSTORY_URL} title="Next Story on GitHub: the Storyblok demo" target="_blank" rel="noopener noreferrer">
+                <span className="footer-arrow" aria-hidden="true">↗</span> Next Story, Storyblok demo
+              </a>
             </nav>
             <nav className="footer-nav" aria-labelledby="footer-site-info">
               <h2 className="footer-nav__heading" id="footer-site-info">

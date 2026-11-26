@@ -20,9 +20,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   if (!isLocale(locale) || slug === "home") return {};
   const loaded = await getPage(slug, locale);
-  return loaded
-    ? pageMetadata({ path: `/${slug}`, title: loaded.page.title, description: loaded.page.description, locale })
-    : {};
+  if (!loaded) return {};
+  const { page } = loaded;
+  return pageMetadata({
+    path: `/${slug}`,
+    title: page.seo?.title || page.title,
+    description: page.description,
+    locale,
+    noIndex: page.seo?.noIndex,
+  });
 }
 
 /** Params are awaited outside Suspense, so slugs missing from generateStaticParams still render and cache on first visit. */

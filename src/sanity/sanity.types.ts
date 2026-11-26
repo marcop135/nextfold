@@ -15,6 +15,12 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: src/sanity/schema.json
+export type Seo = {
+  _type: "seo";
+  title?: string;
+  noIndex?: boolean;
+};
+
 export type Link = {
   _type: "link";
   label: string;
@@ -136,6 +142,7 @@ export type Page = {
   title: string;
   slug: Slug;
   description: string;
+  seo?: Seo;
   sections?: Array<
     | ({
         _key: string;
@@ -178,6 +185,44 @@ export type Slug = {
   _type: "slug";
   current: string;
   source?: string;
+};
+
+export type SanityReleaseMetadata = {
+  _type: "sanity.releaseMetadata";
+  title?: string;
+  description?: string;
+  releaseType: "asap" | "scheduled" | "undecided";
+  intendedPublishAt?: string;
+  cardinality?: "many" | "one";
+};
+
+export type SystemRelease = {
+  _id: string;
+  _type: "system.release";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  state?:
+    | "active"
+    | "archiving"
+    | "unarchiving"
+    | "archived"
+    | "published"
+    | "publishing"
+    | "scheduled"
+    | "scheduling";
+  error?: {
+    message?: string;
+  };
+  publishAt?: string;
+  publishedAt?: string;
+  metadata?: SanityReleaseMetadata;
+  finalDocumentStates?: Array<{
+    id?: string;
+    _key: string;
+  }>;
+  userId?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -278,6 +323,7 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | Seo
   | Link
   | CallToAction
   | AppBlock
@@ -291,6 +337,8 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
+  | SanityReleaseMetadata
+  | SystemRelease
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -302,81 +350,81 @@ export type AllSanitySchemaTypes =
 
 // Source: src/sanity/lib/queries.ts
 // Variable: PAGE_QUERY
-// Query: *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{    title,    "slug": slug.current,    "language": coalesce(language, "en"),    description,    sections[]{      ...,      _type == "hero" && defined(image.asset) => {        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }      }    }  }
+// Query: *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{    title,    "slug": slug.current,    "language": coalesce(language, "en"),    description,    seo{ title, noIndex },    sections[]{      _key,      _type,      _type == "hero" => {        eyebrow, heading, body, link{ label, href }, theme, spacing,        image{ alt, hotspot, crop, "asset": asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }      },      _type == "featureGrid" => {        heading, theme, spacing,        items[]{ _key, title, body, link{ label, href } }      },      _type == "steps" => {        heading, theme, spacing,        items[]{ _key, title, body }      },      _type == "codeSample" => { heading, body, filename, language, code, theme, spacing },      _type == "appBlock" => { heading, body, kind, theme, spacing },      _type == "callToAction" => { heading, body, link{ label, href }, theme, spacing }    }  }
 export type PAGE_QUERY_RESULT = {
   title: string;
   slug: string;
   language: "de" | "en";
   description: string;
+  seo: {
+    title: string | null;
+    noIndex: boolean | null;
+  } | null;
   sections: Array<
     | {
         _key: string;
         _type: "appBlock";
         heading: string;
-        body?: string;
+        body: string | null;
         kind: "cacheInspector" | "guardrailsPlayground" | "pageAnatomy";
-        theme?: "band" | "bg" | "surface";
-        spacing?: "space-3" | "space-4" | "space-5";
+        theme: "band" | "bg" | "surface" | null;
+        spacing: "space-3" | "space-4" | "space-5" | null;
       }
     | {
         _key: string;
         _type: "callToAction";
         heading: string;
-        body?: string;
-        link: Link;
-        spacing?: "space-3" | "space-4" | "space-5";
+        body: string | null;
+        link: {
+          label: string;
+          href: string;
+        };
+        theme: null;
+        spacing: "space-3" | "space-4" | "space-5" | null;
       }
     | {
         _key: string;
         _type: "codeSample";
         heading: string;
-        body?: string;
+        body: string | null;
         filename: string;
         language: "bash" | "groq" | "json" | "ts";
         code: string;
-        theme?: "band" | "bg" | "surface";
-        spacing?: "space-3" | "space-4" | "space-5";
+        theme: "band" | "bg" | "surface" | null;
+        spacing: "space-3" | "space-4" | "space-5" | null;
       }
     | {
         _key: string;
         _type: "featureGrid";
         heading: string;
-        items?: Array<{
-          title: string;
-          body?: string;
-          link?: Link;
-          _type: "feature";
+        theme: "band" | "bg" | "surface" | null;
+        spacing: "space-3" | "space-4" | "space-5" | null;
+        items: Array<{
           _key: string;
-        }>;
-        theme?: "band" | "bg" | "surface";
-        spacing?: "space-3" | "space-4" | "space-5";
+          title: string;
+          body: string | null;
+          link: {
+            label: string;
+            href: string;
+          } | null;
+        }> | null;
       }
     | {
         _key: string;
         _type: "hero";
-        eyebrow?: string;
+        eyebrow: string | null;
         heading: string;
-        body?: string;
-        link?: Link;
-        image?: {
-          asset?: SanityImageAssetReference;
-          media?: unknown;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          _type: "image";
-        };
-        theme?: "band" | "bg" | "surface";
-        spacing?: "space-3" | "space-4" | "space-5";
-      }
-    | {
-        _key: string;
-        _type: "hero";
-        eyebrow?: string;
-        heading: string;
-        body?: string;
-        link?: Link;
+        body: string | null;
+        link: {
+          label: string;
+          href: string;
+        } | null;
+        theme: "band" | "bg" | "surface" | null;
+        spacing: "space-3" | "space-4" | "space-5" | null;
         image: {
+          alt: string | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
           asset: {
             _id: string;
             url: string;
@@ -388,27 +436,19 @@ export type PAGE_QUERY_RESULT = {
               } | null;
             } | null;
           } | null;
-          media?: unknown;
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          alt?: string;
-          _type: "image";
         } | null;
-        theme?: "band" | "bg" | "surface";
-        spacing?: "space-3" | "space-4" | "space-5";
       }
     | {
         _key: string;
         _type: "steps";
         heading: string;
-        items?: Array<{
-          title: string;
-          body?: string;
-          _type: "step";
+        theme: "band" | "bg" | "surface" | null;
+        spacing: "space-3" | "space-4" | "space-5" | null;
+        items: Array<{
           _key: string;
-        }>;
-        theme?: "band" | "bg" | "surface";
-        spacing?: "space-3" | "space-4" | "space-5";
+          title: string;
+          body: string | null;
+        }> | null;
       }
   > | null;
 } | null;
@@ -446,7 +486,7 @@ export type SETTINGS_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{\n    title,\n    "slug": slug.current,\n    "language": coalesce(language, "en"),\n    description,\n    sections[]{\n      ...,\n      _type == "hero" && defined(image.asset) => {\n        image{ ..., asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }\n      }\n    }\n  }\n': PAGE_QUERY_RESULT;
+    '\n  *[_type == "page" && slug.current == $slug && coalesce(language, "en") == $language][0]{\n    title,\n    "slug": slug.current,\n    "language": coalesce(language, "en"),\n    description,\n    seo{ title, noIndex },\n    sections[]{\n      _key,\n      _type,\n      _type == "hero" => {\n        eyebrow, heading, body, link{ label, href }, theme, spacing,\n        image{ alt, hotspot, crop, "asset": asset->{ _id, url, metadata{ lqip, dimensions{ width, height } } } }\n      },\n      _type == "featureGrid" => {\n        heading, theme, spacing,\n        items[]{ _key, title, body, link{ label, href } }\n      },\n      _type == "steps" => {\n        heading, theme, spacing,\n        items[]{ _key, title, body }\n      },\n      _type == "codeSample" => { heading, body, filename, language, code, theme, spacing },\n      _type == "appBlock" => { heading, body, kind, theme, spacing },\n      _type == "callToAction" => { heading, body, link{ label, href }, theme, spacing }\n    }\n  }\n': PAGE_QUERY_RESULT;
     '\n  *[_type == "page" && defined(slug.current) && coalesce(language, "en") == $language]{\n    "slug": slug.current,\n    "updatedAt": _updatedAt\n  }\n': SITEMAP_QUERY_RESULT;
     '\n  *[_type == "siteSettings" && _id == $id][0]{ nav, footerNote, projectLinks, siteInfoLinks }\n': SETTINGS_QUERY_RESULT;
   }

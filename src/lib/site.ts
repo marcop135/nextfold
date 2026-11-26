@@ -9,6 +9,7 @@ export const SITE_DESCRIPTIONS: Record<Locale, string> = {
 };
 export const AUTHOR = { name: "Marco Pontili", url: "https://marcopontili.com" } as const;
 export const REPO_URL = "https://github.com/marcop135/nextfold";
+export const NEXTSTORY_URL = "https://github.com/marcop135/nextstory";
 export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630, type: "image/png", alt: "Next Fold: Next.js + Sanity CMS Demo. A CMS site is more than the CMS." };
 
 /** Preview deployments stay out of search; production and local builds are indexable. */
@@ -40,18 +41,21 @@ export function pageMetadata({
   title,
   description,
   locale = defaultLocale,
+  noIndex = false,
 }: {
   path: string;
   title: string;
   description: string;
   locale?: Locale;
+  /** Set by the page's "Hide from search engines" switch. */
+  noIndex?: boolean | null;
 }): Metadata {
   const url = localizedPath(path, locale);
   const image = OG_IMAGE;
   return {
     title: { absolute: title },
     description,
-    robots: ROBOTS,
+    robots: noIndex ? { index: false, follow: true } : ROBOTS,
     alternates: {
       canonical: url,
       languages: hreflangAlternates(path),
