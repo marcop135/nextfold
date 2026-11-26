@@ -6,6 +6,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Deps: Update Sanity to 6.25, styled-components to 6.7, and patch axe, `@types/node`, and `@types/react` ([#145](https://github.com/marcop135/nextfold/pull/145)) ([#144](https://github.com/marcop135/nextfold/issues/144)).
+
 ## [0.9.4] - 2026-11-26
 
 ### Changed
