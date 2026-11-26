@@ -1,6 +1,6 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/lib/i18n";
-import { MATOMO_ENABLED, aiAssistantHitUrl, isAiAssistant, isTrackablePath } from "@/lib/matomo";
+import { MATOMO_ENABLED, reportAiAssistant, isAiAssistant, isTrackablePath } from "@/lib/matomo";
 import { preferredRepresentation } from "@/lib/negotiate";
 import { DISCOVERY_LINK, markdownPath } from "@/lib/site";
 
@@ -23,7 +23,7 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
   const ua = request.headers.get("user-agent");
   if (MATOMO_ENABLED && isAiAssistant(ua) && isTrackablePath(pathname)) {
-    event.waitUntil(fetch(aiAssistantHitUrl(request.url, ua ?? "")).catch(() => undefined));
+    event.waitUntil(reportAiAssistant(request.url, ua ?? ""));
   }
 
   const prefixed = DEFAULT_PREFIX.exec(pathname);

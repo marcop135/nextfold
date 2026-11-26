@@ -5,7 +5,7 @@
 /** Serves the Tag Manager container. */
 export const MATOMO_ORIGIN = "https://mt.marcopontili.com";
 /** Receives tracking requests. */
-const MATOMO_TRACKER = "https://matomo.marcopontili.com/matomo.php";
+const MATOMO_TRACKER = "https://mt.marcopontili.com/m/";
 export const MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID ?? "";
 export const MATOMO_CONTAINER_ID = process.env.NEXT_PUBLIC_MATOMO_CONTAINER_ID ?? "";
 export const MATOMO_ENABLED = Boolean(MATOMO_SITE_ID && MATOMO_CONTAINER_ID);
@@ -25,7 +25,19 @@ export function isTrackablePath(path: string): boolean {
 }
 
 /** Server-side hit for an AI-assistant fetch: no browser, no cookies. */
-export function aiAssistantHitUrl(url: string, ua: string): string {
-  const params = new URLSearchParams({ idsite: MATOMO_SITE_ID, rec: "1", recMode: "1", url, ua, source: "vercel-proxy" });
-  return `${MATOMO_TRACKER}?${params}`;
+export function aiAssistantHitBody(url: string, ua: string): URLSearchParams {
+  return new URLSearchParams({ idsite: MATOMO_SITE_ID, rec: "1", recMode: "1", url, ua, source: "vercel-proxy" });
+}
+
+export async function reportAiAssistant(url: string, ua: string): Promise<void> {
+  try {
+    const response = await fetch(MATOMO_TRACKER, {
+      method: "POST",
+      body: aiAssistantHitBody(url, ua),
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!response.ok) console.warn("Matomo AI tracking failed", response.status);
+  } catch {
+    console.warn("Matomo AI tracking failed: network or timeout");
+  }
 }
