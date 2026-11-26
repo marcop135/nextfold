@@ -8,10 +8,13 @@
 
 ### Added
 
+- Studio: Add a "Search and sharing" group with a meta title override and a hide-from-search switch ([#147](https://github.com/marcop135/nextfold/pull/147)) ([#143](https://github.com/marcop135/nextfold/issues/143)).
 - Site: Link the Next Story companion project in the footer and README ([#146](https://github.com/marcop135/nextfold/pull/146)) ([#142](https://github.com/marcop135/nextfold/issues/142)).
 
 ### Changed
 
+- Content: Name each section's fields in the page query, so new schema fields show only once queried ([#147](https://github.com/marcop135/nextfold/pull/147)) ([#143](https://github.com/marcop135/nextfold/issues/143)).
+- Studio: Run typegen from the Sanity CLI config ([#147](https://github.com/marcop135/nextfold/pull/147)) ([#143](https://github.com/marcop135/nextfold/issues/143)).
 - Deps: Update Sanity to 6.25, styled-components to 6.7, and patch axe, `@types/node`, and `@types/react` ([#145](https://github.com/marcop135/nextfold/pull/145)) ([#144](https://github.com/marcop135/nextfold/issues/144)).
 
 ## [0.9.4] - 2026-11-26

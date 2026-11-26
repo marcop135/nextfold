@@ -5,7 +5,7 @@ import { apiVersion } from "../env";
 /**
  * Document-level translations: one document per language, linked by slug. The language is set by the
  * template the editor picks (Page, English or Deutsch) and cannot change afterwards. Documents saved
- * before this field existed count as English until the set-page-language migration writes it.
+ * before this field existed count as English: the queries read `coalesce(language, "en")`.
  */
 export const languageField = defineField({
   name: "language",

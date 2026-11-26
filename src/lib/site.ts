@@ -41,18 +41,21 @@ export function pageMetadata({
   title,
   description,
   locale = defaultLocale,
+  noIndex = false,
 }: {
   path: string;
   title: string;
   description: string;
   locale?: Locale;
+  /** Set by the page's "Hide from search engines" switch. */
+  noIndex?: boolean | null;
 }): Metadata {
   const url = localizedPath(path, locale);
   const image = OG_IMAGE;
   return {
     title: { absolute: title },
     description,
-    robots: ROBOTS,
+    robots: noIndex ? { index: false, follow: true } : ROBOTS,
     alternates: {
       canonical: url,
       languages: hreflangAlternates(path),

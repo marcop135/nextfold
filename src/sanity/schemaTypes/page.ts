@@ -25,6 +25,7 @@ export const page = defineType({
       rows: 2,
       validation: (rule) => textRules(rule, PAGE_RULES.description),
     }),
+    defineField({ name: "seo", type: "seo" }),
     defineField({
       name: "sections",
       type: "array",
