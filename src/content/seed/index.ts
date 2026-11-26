@@ -4,5 +4,5 @@ import * as de from "./de";
 import * as en from "./en";
 
 /** Bundled copy per language, shown until the Sanity dataset publishes its own version. */
-export const seedPages: Record<Locale, Page[]> = { en: en.pages, de: de.pages };
+export const seedPages: Record<Locale, Page[]> = { en: en.pages as Page[], de: de.pages as Page[] };
 export const seedSettings: Record<Locale, SiteSettings> = { en: en.settings, de: de.settings };

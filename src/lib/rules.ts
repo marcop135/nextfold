@@ -13,6 +13,10 @@ export const PAGE_RULES = {
   description: text("Meta description", 160, true, 70),
 };
 
+export const SEO_RULES = {
+  title: text("Meta title", 60),
+};
+
 export const HERO_RULES = {
   eyebrow: text("Eyebrow", 40),
   heading: text("Heading", 80, true),

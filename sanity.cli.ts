@@ -6,6 +6,7 @@ export default defineCliConfig({
     dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   },
   typegen: {
+    enabled: true,
     path: "./src/**/*.{ts,tsx}",
     schema: "./src/sanity/schema.json",
     generates: "./src/sanity/sanity.types.ts",

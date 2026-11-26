@@ -11,7 +11,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const loaded = await getPage("home", locale);
-  return loaded ? pageMetadata({ path: "/", title: loaded.page.title, description: loaded.page.description, locale }) : {};
+  if (!loaded) return {};
+  const { page } = loaded;
+  return pageMetadata({
+    path: "/",
+    title: page.seo?.title || page.title,
+    description: page.description,
+    locale,
+    noIndex: page.seo?.noIndex,
+  });
 }
 
 export default async function HomePage({ params }: Props) {

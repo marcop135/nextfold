@@ -15,7 +15,6 @@ import type {
   CodeSampleSection,
   FeatureGridSection,
   HeroSection,
-  Link as LinkValue,
   Section,
   StepsSection,
 } from "@/sanity/types";
@@ -27,6 +26,8 @@ function styleAttributes(section: Section) {
     "data-spacing": stegaClean(section.spacing),
   };
 }
+
+type LinkValue = { label: string; href: string };
 
 function SectionLink({ link, className, locale }: { link: LinkValue; className: string; locale: Locale }) {
   const href = localizeHref(stegaClean(link.href), locale);

@@ -1,6 +1,6 @@
-import type { CallToActionSection, FeatureGridSection, HeroSection, Page, SiteSettings } from "@/sanity/types";
+import type { SeedCallToActionSection, SeedFeatureGridSection, SeedHeroSection, SeedPage, SiteSettings } from "@/sanity/types";
 
-type Feature = NonNullable<FeatureGridSection["items"]>[number];
+type Feature = NonNullable<SeedFeatureGridSection["items"]>[number];
 
 const feature = (key: string, title: string, body: string, link?: { label: string; href: string }): Feature => ({
   _key: key,
@@ -13,7 +13,7 @@ const feature = (key: string, title: string, body: string, link?: { label: strin
 const REPO = "https://github.com/marcop135/nextfold";
 
 /** '"Inside", 6 of 40 characters', or only the count when the text would not fit on a card. */
-const insideHero: HeroSection = {
+const insideHero: SeedHeroSection = {
   _type: "hero",
   _key: "hero",
   eyebrow: "Inside",
@@ -21,7 +21,7 @@ const insideHero: HeroSection = {
   body: "Pick any section below to see what an editor typed into the Studio to make it. Page and fields come from the same record, so they always match.",
 };
 
-const insideGrid: FeatureGridSection = {
+const insideGrid: SeedFeatureGridSection = {
   _type: "featureGrid",
   _key: "limits",
   heading: "What a feature grid holds",
@@ -32,7 +32,7 @@ const insideGrid: FeatureGridSection = {
   ],
 };
 
-const insideCta: CallToActionSection = {
+const insideCta: SeedCallToActionSection = {
   _type: "callToAction",
   _key: "next",
   heading: "Where these limits come from",
@@ -41,7 +41,7 @@ const insideCta: CallToActionSection = {
 };
 
 /** English seed pages, shown until the Sanity dataset publishes a page with the same slug and language. */
-export const pages: Page[] = [
+export const pages: SeedPage[] = [
   {
     title: "Next Fold: a Next.js and Sanity site, run end to end",
     slug: "home",
