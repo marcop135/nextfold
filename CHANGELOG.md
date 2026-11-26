@@ -6,6 +6,8 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-26
+
 ### Added
 
 - Studio: Add a "Search and sharing" group with a meta title override and a hide-from-search switch ([#147](https://github.com/marcop135/nextfold/pull/147)) ([#143](https://github.com/marcop135/nextfold/issues/143)).
