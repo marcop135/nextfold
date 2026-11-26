@@ -6,9 +6,11 @@
 
 ## [Unreleased]
 
+## [0.9.4] - 2026-11-26
+
 ### Changed
 
-- Analytics: Send AI-assistant requests by POST and report delivery failures without affecting page responses.
+- Analytics: Send AI-assistant requests by POST and report delivery failures without failing the page ([#139](https://github.com/marcop135/nextfold/pull/139)) ([#138](https://github.com/marcop135/nextfold/issues/138)).
 
 ## [0.9.3] - 2026-11-23
 
